@@ -7,8 +7,8 @@ Do we want a couple of readme's:
 • task assignments, updates, misc issues & questions
 • ideas for consideration or later development
 
-Still trying to figure out how to stage files (and where)
+Upoaded old files to repository - not sure we want them there, but wanted to pass them on to Travis. The place to start is notes. While there may be some code we can grab, I'm thinking it may be better to start fresh so we're completely on the same page.
 
-Looks like github requires windows7 to allow me to use the windows desktop interface. I'm on xp 5.1 service pack 3
+Looks like the github windows gui requires windows7. I'm on xp 5.1 service pack 3. I am using a less powerful gui that seems to be working, and has a dos prompt.
 
 By the way, Travis - I'm using Wing as my ide and pygame to deal with gui issues like frames and such
