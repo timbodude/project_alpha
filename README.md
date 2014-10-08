@@ -11,4 +11,27 @@ Upoaded old files to repository - not sure we want them there, but wanted to pas
 
 Looks like the github windows gui requires windows7. I'm on xp 5.1 service pack 3. I am using a less powerful gui that seems to be working, and has a dos prompt.
 
-By the way, Travis - I'm using Wing as my ide and pygame to deal with gui issues like frames and such
+By the way, Travis - I'm using Wang as my ide and pygame to deal with gui issues like frames and such
+
+------NOTES FROM JONATHAN------
+
+you are a nameless person from some town 
+your sheep have been killed by vorpal rabits that appered out of nowere.
+you have to go find the monster resposible for unleashing these rabbits.
+
+We need two map types. Battle Map and Overworld.
+
+#1. creating the map
+
+#2. sprite movement
+
+#3. turns
+
+#4. unite turn priority
+
+---ART NOTES---
+
+800x600 screen size
+
+12x12pixel sprite size
+
