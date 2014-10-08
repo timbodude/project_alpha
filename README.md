@@ -15,8 +15,8 @@ By the way, Travis - I'm using Wang as my ide and pygame to deal with gui issues
 
 ------NOTES FROM JONATHAN------
 
-you are a nameless person from some town 
-your sheep have been killed by vorpal rabits that appered out of nowere.
+Nameless person from some town 
+your sheep have been killed by killer rabits that appered out of nowere.
 you have to go find the monster resposible for unleashing these rabbits.
 
 We need two map types. Battle Map and Overworld.
@@ -35,3 +35,12 @@ We need two map types. Battle Map and Overworld.
 
 12x12pixel sprite size
 
+
+---Travis is working on---
+different screens i.e. title screen/new game screens
+
+---Dad is working on---
+combat windows
+
+---Jonathan is working on---
+Gameplay ideas
