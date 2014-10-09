@@ -33,7 +33,7 @@ def run_game():
     screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
 
     grid_board = grid_map.Grid_map(screen) #                                    * REQUIRED CALL TO CREATE GRIDMAP
-    grid_board.create_gml #                                                     * REQUIRED CALL TO CREATE GRIDMAP    
+    #grid_board.create_gml #                                                     * REQUIRED CALL TO CREATE GRIDMAP    
 
     image_lib = Image_lib() # setup all images from image library               * This must be added for images to appear
     
@@ -59,9 +59,9 @@ def run_game():
     #################################################### TEST lines for grid_map """ these should be taked care of within class """
     
     # TESTING THESE 
-    gml_unit = grid_map.Gml_units(screen)
-    gml_alt = grid_map.Gml_altitude(screen)
-    gml_alt.print_alt_map() # TEST OUTPUT
+    #gml_unit = grid_map.Gml_units(screen)
+    #gml_alt = grid_map.Gml_altitude(screen)
+    #gml_alt.print_alt_map() # TEST OUTPUT
     #gml_color = grid_map.Gml_color(screen)
     
     
@@ -69,63 +69,63 @@ def run_game():
         #for col in range(0, grid_board.ncols):
             #gml_color.grid[row][col] = gml_color.adj_color(grid_board.grid[row][col], gml_alt.grid[row][col])
             ##print("adjusted color:", gml_color.grid[row][col])  
-    gml_event = grid_map.Gml_event(screen)     
+    #gml_event = grid_map.Gml_event(screen)     
     
    
     ######################################################## Test unit functions
     
-    #units
-    micro_units = units.Unit_group(screen)
-    max_units = 0
-    for unit_num in range(0, max_units):
-        micro_units.add_unit(screen, "unit")
-    for unit in micro_units.group_list:
-        unit.base_image = image_lib.hat_pawn_img
-    units.HERO_LIST.append(micro_units)
+    ##units
+    #micro_units = units.Unit_group(screen)
+    #max_units = 0
+    #for unit_num in range(0, max_units):
+        #micro_units.add_unit(screen, "unit")
+    #for unit in micro_units.group_list:
+        #unit.base_image = image_lib.hat_pawn_img
+    #units.HERO_LIST.append(micro_units)
     
-    #creeps    
-    micro_creep = units.Creep_group(screen)
-    max_creep = 1
-    for unit_num in range(0, max_creep): 
-        micro_creep.add_unit(screen, "creep")
-    for unit in micro_creep.group_list:
-        unit.base_image = image_lib.red_dot_img
-        #unit.image = image_lib.red_dot_img
-        #print("Name: ", unit.names.get("name"))
-    units.ENEMY_LIST.append(micro_creep)
+    ##creeps    
+    #micro_creep = units.Creep_group(screen)
+    #max_creep = 1
+    #for unit_num in range(0, max_creep): 
+        #micro_creep.add_unit(screen, "creep")
+    #for unit in micro_creep.group_list:
+        #unit.base_image = image_lib.red_dot_img
+        ##unit.image = image_lib.red_dot_img
+        ##print("Name: ", unit.names.get("name"))
+    #units.ENEMY_LIST.append(micro_creep)
     
-    #pawns
-    micro_pawns = units.Pawn_group(screen)
-    max_pawns = 1
-    for unit_num in range(0, max_pawns):
-        micro_pawns.add_unit(screen, "unit")
-    for unit in micro_pawns.group_list:
-        unit.base_image = image_lib.blue_pawn_img 
-    units.HERO_LIST.append(micro_pawns)
+    ##pawns
+    #micro_pawns = units.Pawn_group(screen)
+    #max_pawns = 1
+    #for unit_num in range(0, max_pawns):
+        #micro_pawns.add_unit(screen, "unit")
+    #for unit in micro_pawns.group_list:
+        #unit.base_image = image_lib.blue_pawn_img 
+    #units.HERO_LIST.append(micro_pawns)
     
     
-    #big_pawns
-    micro_big_pawns = units.Big_pawn_group(screen)
-    max_pawns = 0
-    for unit_num in range(0, max_pawns):
-        micro_big_pawns.add_unit(screen, "big_pawn")
-    for unit in micro_big_pawns.group_list:
-        unit.base_image = image_lib.pawn_big_img 
-    units.HERO_LIST.append(micro_big_pawns)
+    ##big_pawns
+    #micro_big_pawns = units.Big_pawn_group(screen)
+    #max_pawns = 0
+    #for unit_num in range(0, max_pawns):
+        #micro_big_pawns.add_unit(screen, "big_pawn")
+    #for unit in micro_big_pawns.group_list:
+        #unit.base_image = image_lib.pawn_big_img 
+    #units.HERO_LIST.append(micro_big_pawns)
     
-    ##obstacles
-    micro_walls = Wall_group(screen)
-    max_walls = 0
-    for obstacle_num in range(0, max_walls):
-        micro_walls.add_obstacle(screen, "wall")
-    for obstacle in micro_walls.group_list:
-        obstacle.base_image = image_lib.wall_img
+    ###obstacles
+    #micro_walls = Wall_group(screen)
+    #max_walls = 0
+    #for obstacle_num in range(0, max_walls):
+        #micro_walls.add_obstacle(screen, "wall")
+    #for obstacle in micro_walls.group_list:
+        #obstacle.base_image = image_lib.wall_img
             
 
-    #for group in units.ALL_OBSTACLES_GROUPS:
-        #print("Hey, there's an obsticle group")
-        #for obstacle in group.group_list:
-            #print("Found an obstacle.")
+    ##for group in units.ALL_OBSTACLES_GROUPS:
+        ##print("Hey, there's an obsticle group")
+        ##for obstacle in group.group_list:
+            ##print("Found an obstacle.")
 
 ################################################################################        
 
@@ -160,7 +160,7 @@ def run_game():
                     print("clicked in grid_map area!")
                     pos = pygame.mouse.get_pos()
                     print("mouse clicked:", pos)
-                    grid_board.click_on_grid(pos)
+                    grid_board.grid_clicked(pos)
                 else:
                     print("click not in clickable area")
                 
@@ -203,15 +203,15 @@ def run_game():
             ################################################ Update units
 
             #update units
-            for group in units.ALL_UNIT_GROUPS:
-                for unit in group.group_list:
-                    unit.update(time_passed)
-                    unit.draw() 
+            #for group in units.ALL_UNIT_GROUPS:
+                #for unit in group.group_list:
+                    #unit.update(time_passed)
+                    #unit.draw() 
                     
-            for group in units.ALL_OBSTACLES_GROUPS:
-                for obstacle in group.group_list:
-                    obstacle.update(time_passed)
-                    obstacle.draw()         
+            #for group in units.ALL_OBSTACLES_GROUPS:
+                #for obstacle in group.group_list:
+                    #obstacle.update(time_passed)
+                    #obstacle.draw()         
             
             #check for collisions with units
             #for hero_group in units.HERO_LIST:
@@ -238,7 +238,7 @@ def run_game():
 
 def exit_game():
     print()
-    units.print_all_stats()
+    #units.print_all_stats()
     print("-- Done --") 
     print()    
     pygame.quit()
