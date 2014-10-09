@@ -16,6 +16,13 @@ MDW_GREEN = (   0, 128,   0) # meadow
 MDW_BROWN = ( 212, 181, 116) # woods
 MDW_BLUE  = ( 124, 147, 252) # water
 
+GRASS     = (   0, 128,   0) # grass color & terrain type
+
+"""
+NOTE: for grid purposes, use terrain type name as the corresponding color name
+
+"""
+
 ################################################################################
 
 

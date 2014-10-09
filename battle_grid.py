@@ -1,5 +1,5 @@
 ################################################################################
-## battle_grid revision 140725.0320
+## battle_grid revision 14017 (PT - post travis)
 ################################################################################
 
 import pygame
@@ -7,7 +7,6 @@ from pygame import Rect, Color
 from pygame.sprite import Sprite
 import my_clock
 import os, sys
-#from simpleanimation import SimpleAnimation
 from random import randint, choice
 from vec2d import vec2d
 import messages
@@ -22,7 +21,6 @@ import grid_map
 from params import TURN_COUNT
 
 
-
 ################################################################################
 
 def run_game():
@@ -30,15 +28,10 @@ def run_game():
     pygame.init()
     import params # Game parameters
     import combat # combat modules
+    from images_lib import GREEN
 
     screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
-    #paused = False
-    #won = False
-    
-    #grid_board = grid_map.Grid_map(screen) # pre_create all in grid_map class
-    #new_alt = grid_map.Gml_altitude(screen, 5 , 5) # pre_create all in grid_map class
-    
-    
+
     grid_board = grid_map.Grid_map(screen) #                                    * REQUIRED CALL TO CREATE GRIDMAP
     grid_board.create_gml #                                                     * REQUIRED CALL TO CREATE GRIDMAP    
 
@@ -69,11 +62,13 @@ def run_game():
     gml_unit = grid_map.Gml_units(screen)
     gml_alt = grid_map.Gml_altitude(screen)
     gml_alt.print_alt_map() # TEST OUTPUT
-    gml_color = grid_map.Gml_color(screen)
-    for row in range(0, grid_board.nrows):
-        for col in range(0, grid_board.ncols):
-            gml_color.grid[row][col] = gml_color.adj_color(grid_board.grid[row][col], gml_alt.grid[row][col])
-            #print("adjusted color:", gml_color.grid[row][col])  
+    #gml_color = grid_map.Gml_color(screen)
+    
+    
+    #for row in range(0, grid_board.nrows):
+        #for col in range(0, grid_board.ncols):
+            #gml_color.grid[row][col] = gml_color.adj_color(grid_board.grid[row][col], gml_alt.grid[row][col])
+            ##print("adjusted color:", gml_color.grid[row][col])  
     gml_event = grid_map.Gml_event(screen)     
     
    
