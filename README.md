@@ -1,5 +1,6 @@
 project_alpha
 =============
+If somebody wants to format this readme nicely (somebody = Jon), check out [Markdown](https://help.github.com/articles/markdown-basics/)
 
 Do we want a couple of readme's:
 
