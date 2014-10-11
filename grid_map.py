@@ -11,62 +11,17 @@
     of as child class elements. less complicated and can make calls out to def 
     statements for updating different elements from a single for row for col pass. 
     Remove grid creation from main parent and create within each sub element.
-    
-
-
-NOTE: REDO whole thing with multidimensional array using:
-
-2-D array:
-matrix = [[0 for i in range(5)] for i in range(5)]
-matrix[0][0] = 1
-matrix[4][0] = 5
-print(matrix)
-print(matrix[0][0]) # prints 1
-print(matrix[4][0]) # prints 5
-
-3-D array:
-matrix = [[[0 for i in range(5)] for i in range(5)] for i in range(5)]
-matrix[0][0][0]= 1
-matrix[4][0][4]= 5
-print(matrix)
-print(matrix[0][0][0]) # prints 1
-print(matrix[4][0][4]) # prints 5
-
-Each grid contains:
-0 = terrain type - or just do a color and the color name itself is the label for the type
-1 = object list (container)
-2 = unit list (container)
-3 = passable (true/false) ???
-4 = altitude ???
-
-    """
-
+"""
 ################################################################################
 import images_lib
 import sys
 import pygame
-from collections import defaultdict
-from math import sqrt
-from random import choice, randint
-from images_lib import (  Image_lib, 
-                          BLACK, WHITE, GREEN, RED, LT_GRAY, MDW_GREEN, 
-                          MDW_BROWN, MDW_BLUE, GRASS )
+#from collections import defaultdict
+#from math import sqrt
+#from random import choice, randint
+from images_lib import (  GREEN, GRASS, BLACK )
 import params
-import main_board
-
-################################################################################
-## Note this stuff is brainstorming from BT (Before Travis) not using it, but don't want to discard it yet
-terrain_des = { 0: ("impassable", "images_lib.terrain_plains_img", RED),
-                1: ("road", "images_lib.terrain_plains_img", LT_GRAY),
-                2: ("plains", "images_lib.terrain_plains_img", MDW_GREEN),
-                4: ("woods", "images_lib.terrain_woods_img", MDW_BROWN),
-                6: ("water", "images_lib.terrain_water_img", MDW_BLUE)  }
-    # number: label, image file, color (movement cost = number, 0 = impassable)
-
-terrain_list = [  2,2,2,2,2,2,
-                  4,4,4,
-                  6 ] 
-    # possibility chart for filling in the random map
+#import main_board
 
 ################################################################################
 
@@ -208,7 +163,6 @@ class Grid_map(object):
             self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GREEN
             print("last click was on:", self.last_clicked)
     
-    
 ################################################################################
 ## TEST
 ################################################################################
@@ -216,27 +170,13 @@ if __name__ == "__main__":
     #pygame.init()
 
     screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
-    #pygame.display.set_caption("Array Backed Grid")
-    #image_lib = Image_lib()
-    #battle_grid_img = images_lib.battle_grid_img    
+    pygame.display.set_caption("3-D Tile Array")
+  
     done = False
     clock = pygame.time.Clock()
-    
-    # TEST INIT - works
-    #gridmap = Gml_terrain(screen, 5 , 5)
-    #new_unit_grid = Gml_units(screen, 5, 5)
-    #new_alt_grid = Gml_altitude(screen, 5, 5)
-    
+   
     gridmap = Grid_map(screen) #                                                * REQUIRED CALL TO CREATE GRIDMAP
     
-    ##TEST PRINTME - works
-    gridmap.print_grid()
-    
-    #TEST move_cost
-    cost = gridmap.matrix[1][1][6]
-    print("movement cost =", cost)
-    print()
-      
     print("-- It all works pre-screen--")
     
     while done == False:
@@ -248,25 +188,18 @@ if __name__ == "__main__":
                 pos = pygame.mouse.get_pos()
                 gridmap.grid_clicked(pos)
                 
-                # Check to see if click was in grid field
+                # Check to see if click was in grid field for testing 
                 if gridmap.in_field(pos):
                     print("you hit the grid")
                 elif not gridmap.in_field(pos):
                     print("you missed the grid")
 
-        # Set the screen background
-        #main_board.draw_background(screen, image_lib.battle_grid_img, params.FIELD_RECT) # Redraw the background
-        screen.fill(BLACK)
-     
-        # Draw the grid
-        gridmap.update_grid()
+        screen.fill(BLACK) # Set the screen background
+        gridmap.update_grid() # Re-Image the grid
+        clock.tick(20) # Limit to 20 frames per second
+        pygame.display.flip() # Go ahead and update the screen with what we've drawn.
          
-        # Limit to 20 frames per second
-        clock.tick(20)
-     
-        # Go ahead and update the screen with what we've drawn.
-        pygame.display.flip()
-         
+    print("final state of gridmap:")
     gridmap.print_grid()
    
     print()

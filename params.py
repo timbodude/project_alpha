@@ -1,7 +1,13 @@
 ################################################################################
 ## params
 ################################################################################
-""" sets params and globals """
+""" set global params for tests before parent window (Battle_grid) was built
+
+    NOTE:
+    This information will be moved to the battle_grid.py class and should be 
+    drawn from there if needed.
+
+"""
 
 ################################################################################
 from pygame import Rect
@@ -17,7 +23,7 @@ MESSAGE_RECT = Rect(600, 0, 800, 600)
 MESSAGE_SIZE = (int(MESSAGE_RECT[2])-MESSAGE_RECT[0], int(MESSAGE_RECT[3]))
 end_check = False
 paused = False
-won = False # flag for battel is over
+won = False # flag for battle is over
 TURN_COUNT = 0
 
 ################################################################################

@@ -2,6 +2,13 @@
 ## battle_grid revision 14017 (PT - post travis)
 ################################################################################
 
+"""
+    NOTE: 
+    This is pulled from previous code as a temporary framework to run the main 
+    battle window loop. This code should be redone once we know what components
+    it needs to run.
+"""
+
 import pygame
 from pygame import Rect, Color
 from pygame.sprite import Sprite
