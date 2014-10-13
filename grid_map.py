@@ -19,9 +19,11 @@ import pygame
 #from collections import defaultdict
 #from math import sqrt
 #from random import choice, randint
-from images_lib import (  GREEN, GRASS, BLACK )
+from images_lib import (  GREEN, GRASS, BLACK, LT_GRAY )
 import params
 #import main_board
+
+import unit_simp
 
 ################################################################################
 
@@ -50,19 +52,23 @@ class Grid_map(object):
         self.fill_grid() # fills the grid's matrix with content
         self.last_clicked =(-1,-1)# coord for last tile clicked 
         
+        
+        self.pawn_group = unit_simp.Simp_unit_group() # adds group of units from unit_simp
+        
+        
     def fill_grid(self): # this is called by the init method
         """ fills initial matrix - it's already filled with a 0 """
         for row in range(0, self.nrows):
             for col in range(0, self.ncols):
                 self.matrix[row][col][0] = self.fill_terrain()
                 self.matrix[row][col][1] = self.fill_object()
-                self.matrix[row][col][2] = self.fill_unit()
+                self.matrix[row][col][2] = self.fill_unit() # color - or sprite image of unit
                 self.matrix[row][col][3] = self.fill_event()
                 self.matrix[row][col][4] = self.fill_passable()               
                 self.matrix[row][col][5] = self.fill_altitude()
                 self.matrix[row][col][6] = self.fill_movecost()
                 self.matrix[row][col][7] = self.fill_info()
-    
+        
     # BELOW are sub-methods called to by the fill_grid() method
     def fill_terrain(self):
         # fill with meadow terrain                                              - TODO: add variety 
@@ -79,7 +85,7 @@ class Grid_map(object):
     def fill_unit(self):
         """ initially filled with a placeholder of 0 """ #                      - TODO: add list of units to their corresponding grid
         fill = () #                                                             _ TODO: replace with unit list / default: empty
-        print("unit added")
+        print("units added")
         #return(fill)
     
     def fill_event(self):
@@ -113,18 +119,33 @@ class Grid_map(object):
         print("info added")
         return(fill)  
     
-    ## Grid Helper Methods ########################
+    ## Grid Helper Methods #####################################################
 
     def update_grid(self): #                                                    - TODO - adapt to grid spaces with contents
+        self.grid_unit_color_updater() # update unit positions
         for row in range(self.nrows):
             for col in range(self.ncols):
+                if self.matrix[row][col][2] == 0: # print tile color if tile is empty
+                    curser_color = self.matrix[row][col][0]
+                else: # print unit color if tile has a unit in it
+                    curser_color = self.matrix[row][col][2]
                 pygame.draw.rect(  self.screen,
-                                   self.matrix[row][col][0],
+                                   curser_color,
                                    [(params.FIELD_RECT[0] + row * (params.TILE_SIZE + params.MARGIN)),
                                     (params.FIELD_RECT[1] + col * (params.TILE_SIZE + params.MARGIN)),
                                     params.TILE_SIZE,
-                                    params.TILE_SIZE] )
-        
+                                    params.TILE_SIZE] )              
+                        
+    def grid_unit_color_updater(self):
+        for row in range(self.nrows): # erase old data
+            for col in range(self.ncols):
+                self.matrix[row][col][2] = 0        
+        for unit in self.pawn_group.group_list: # replace current unit locations
+            print("oh, here's a unit.")    
+            print("---------------------------- unit loc:", unit.loc)
+            self.matrix[unit.loc[0]][unit.loc[1]][2] = unit.color
+            print("unit color:", unit.color)
+
     def coord_to_grid(self, pos):
         """ prints grid location based on pos(x,y) for test purposes of clicked location """
         self.selected = (  int((pos[0] - params.FIELD_RECT[0]) / (params.TILE_SIZE + params.MARGIN)),
@@ -162,7 +183,7 @@ class Grid_map(object):
             self.last_clicked = self.coord_to_grid(pos) # toggle target tile to new color
             self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GREEN
             print("last click was on:", self.last_clicked)
-    
+          
 ################################################################################
 ## TEST
 ################################################################################
@@ -176,10 +197,16 @@ if __name__ == "__main__":
     clock = pygame.time.Clock()
    
     gridmap = Grid_map(screen) #                                                * REQUIRED CALL TO CREATE GRIDMAP
-    
+ 
+    #for unit in gridmap.pawn_group.group_list:
+        #print("oh, here's a unit.")    
+        #print("---------------------------- unit loc:", unit.loc)
+        
+    #gridmap.grid_unit_color_updater()
+ 
     print("-- It all works pre-screen--")
     
-    while done == False:
+    while done == False: #                                                       NOTE: This will be part of the regular game while loop
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 done = True # Flag that we are done so we exit this loop
