@@ -26,6 +26,7 @@ def main():
     while 1:
         for event in pygame.event.get():
             if event.type == QUIT:
+                pygame.quit()
                 return
 
         screen.blit(background, (0, 0))
