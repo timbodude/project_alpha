@@ -73,50 +73,50 @@ class Grid_map(object):
     def fill_terrain(self):
         # fill with meadow terrain                                              - TODO: add variety 
         fill = GRASS #                                                          - TODO: replace with fill logic / default: GRASS
-        print("terrain added")
+        #print("terrain added")
         return(fill)
     
     def fill_object(self):
         """ initially filled with a placeholder of 0 """ #                      - TODO: add list of objects to their corresponding grid
         fill = () #                                                             _ TODO: replace with object list / default: empty
-        print("object added")
+        #print("object added")
         #return(fill)
 
     def fill_unit(self):
         """ initially filled with a placeholder of 0 """ #                      - TODO: add list of units to their corresponding grid
         fill = () #                                                             _ TODO: replace with unit list / default: empty
-        print("units added")
+        #print("units added")
         #return(fill)
     
     def fill_event(self):
         # fill with meadow terrain                                              - TODO: add variety 
         fill = () #                                                             - TODO: replace with fill logic / default: empty
-        print("event added")
+        #print("event added")
         return(fill)
     
     def fill_passable(self):
         # show if tile is passable (bool) / default: True (passable)
         fill = True
-        print("passable added")
+        #print("passable added")
         return(fill)    
     
     def fill_altitude(self):
         """ fill with altitude and adjust color """ #                           - TODO: add alt formula for geo shape of hills/valleys
         """ altitude = range from 0=6, with 3 being sea level """
         alt = 3 #                                                               - TODO: replace with altutude logic / default: 3
-        print("altitude added")
+        #print("altitude added")
         return(alt)
     
     def fill_movecost(self):
         # show cost to enter tile / default: 1
         fill = 1 #                                                              - TODO: change cost based upon altitude and terrain type
-        print("movement cost added")
+        #print("movement cost added")
         return(fill) 
     
     def fill_info(self):
         # any special info regarding tile / default: none
         fill = "" #                                                             - TODO: develop section
-        print("info added")
+        #print("info added")
         return(fill)  
     
     ## Grid Helper Methods #####################################################
@@ -141,28 +141,28 @@ class Grid_map(object):
             for col in range(self.ncols):
                 self.matrix[row][col][2] = 0        
         for unit in self.pawn_group.group_list: # replace current unit locations
-            print("oh, here's a unit.")    
-            print("---------------------------- unit loc:", unit.loc)
+            #print("oh, here's a unit.")    
+            #print("---------------------------- unit loc:", unit.loc)
             self.matrix[unit.loc[0]][unit.loc[1]][2] = unit.color
-            print("unit color:", unit.color)
+            #print("unit color:", unit.color)
 
     def coord_to_grid(self, pos):
         """ prints grid location based on pos(x,y) for test purposes of clicked location """
         self.selected = (  int((pos[0] - params.FIELD_RECT[0]) / (params.TILE_SIZE + params.MARGIN)),
                            int((pos[1] - params.FIELD_RECT[1]) / (params.TILE_SIZE + params.MARGIN)))
-        print(  "click pos:", pos, " grid pos:", self.selected)        
+        #print(  "click pos:", pos, " grid pos:", self.selected)        
         return(self.selected)
     
     def print_grid(self):
         """ outputs text version of grid for testing """
         junk = False
-        print("I'm printing the screen now")
+        #print("I'm printing the screen now")
         
     def in_field(self, pos):
         """ verify if clicked pos is in grid area  - returns True/False """
         loc = self.coord_to_grid(pos)
         if loc[0] < 0 or loc[0] >= params.GRID_SIZE[0] or loc[1] < 0 or loc[1] >= params.GRID_SIZE[1]:
-            print("you missed the grid")
+            #print("you missed the grid")
             return(False)
         else:
             return(True)
@@ -170,19 +170,19 @@ class Grid_map(object):
     def grid_clicked(self, pos):
         """ tells what grid was clicked on and reports for testing purposes 
             pos: the passed mouse coordinates variable passed through """
-        print("I'm checking to see what grid was clicked on.")
-        print(  "pos, matrix coord, fieldrect0, tilesize, margin:  ", 
-                pos, 
-                self.coord_to_grid(pos),
-                params.FIELD_RECT[0], 
-                params.TILE_SIZE, 
-                params.MARGIN )        
+        #print("I'm checking to see what grid was clicked on.")
+        #print(  "pos, matrix coord, fieldrect0, tilesize, margin:  ", 
+                #pos, 
+                #self.coord_to_grid(pos),
+                #params.FIELD_RECT[0], 
+                #params.TILE_SIZE, 
+                #params.MARGIN )        
         if self.in_field(pos):
             if self.last_clicked != (-1,-1) and self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] == GREEN: #reset previous tile clicked
                 self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GRASS 
             self.last_clicked = self.coord_to_grid(pos) # toggle target tile to new color
             self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GREEN
-            print("last click was on:", self.last_clicked)
+            #print("last click was on:", self.last_clicked)
           
 ################################################################################
 ## TEST
@@ -210,13 +210,10 @@ if __name__ == "__main__":
         for event in pygame.event.get(): # User did something
             if event.type == pygame.QUIT: # If user clicked close
                 done = True # Flag that we are done so we exit this loop
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                # User clicks the mouse. Get the position
+            elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
                 pos = pygame.mouse.get_pos()
                 gridmap.grid_clicked(pos)
-                
-                # Check to see if click was in grid field for testing 
-                if gridmap.in_field(pos):
+                if gridmap.in_field(pos): # Check to see if click was in grid field for testing 
                     print("you hit the grid")
                 elif not gridmap.in_field(pos):
                     print("you missed the grid")

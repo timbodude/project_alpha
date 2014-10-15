@@ -30,7 +30,7 @@ class Simp_unit(Sprite):
         self.loc = () # location in grid
         self.color = LT_GRAY # can be replaced with image
         self.state = True # (bool) True: alive False: dead
-        print("I made me a man, and his name is Jim")
+        #print("I made me a man, and his name is Jim")
         self.place_unit()
 
     def place_unit(self):
@@ -39,7 +39,7 @@ class Simp_unit(Sprite):
             """
         dummy = False
         self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
-        print("location in grid:", self.loc)
+        #print("location in grid:", self.loc)
         
 class Simp_unit_group(object):
     """ player unit group """
@@ -56,7 +56,7 @@ class Simp_unit_group(object):
         for i in range(0, unit_start_qty):
             new = Simp_unit()
             self.group_list.append(new)
-        print("group:", self.group_list)         
+        #print("group:", self.group_list)         
 
 
 ################################################################################
