@@ -15,9 +15,16 @@ By the way, Travis - I'm using Wang as my ide and pygame to deal with gui issues
 
 #------NOTES FROM JONATHAN------
 
+We should probably have a game time to play some different games and see what we all like.
+
+
+#---Story Ideas (feel free to add)---
 Nameless person from some town 
 your sheep have been killed by killer rabits that appered out of nowere.
 you have to go find the monster resposible for unleashing these rabbits.
+Make sure not to forget proper colen care while on your quest.
+
+##---Working Priorities---
 
 We need two map types. Battle Map and Overworld.
 
@@ -36,6 +43,37 @@ We need two map types. Battle Map and Overworld.
 12x12pixel sprite size
 
 
+#---STAT INFO/IDEAS---
+
+(Str) Pertains to physical ability, melee and to some degree ranged damage, moving objects,
+could also effect Intimidation. Also effects how much/heavy of armor you can wear.
+
+(Dex) Pertains to reflexes, movement, ability to dodge, melee/ranged damage, could also effect Kinesthetic Sense.
+Also effects the ammount of armor you have due to your ability to utilize it more effectively (i.e. blocking incoming dmg with thicker parts of armor).
+(Con) Pertains to
+(Int) Pertains to
+(Wis) Pertains to
+(Chs) Pertains to
+(Lck) Pertains to
+
+#---Skill INFO/IDEAS---
+
+These are mostly all for latter use but I wanted to get the ball rolling.
+
+For skills I am thinking along the lines of stealing a bit from Dwarf Fortress and D&D since
+they pretty much got everything right already and follow a more realistic design.
+
+Speach
+Language
+Perseption
+Common Sense
+Kinesthetic Sense
+Intuition
+Intimidate
+Willpower
+Focus
+Analytical Ability
+
 #---Travis is working on---
 different screens i.e. title screen/new game screens
 
@@ -44,3 +82,4 @@ combat windows
 
 #---Jonathan is working on---
 Gameplay ideas
+
