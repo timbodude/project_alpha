@@ -77,6 +77,9 @@ Analytical Ability
 ###---Travis is working on---
 different screens i.e. title screen/new game screens
 
+main.py (in the master branch) should look like grid_map.py (in the NoteWTravis branch)
+* This means it should include unit\_simp.py, images\_lib, and params.py
+
 ###---Dad is working on---
 combat windows
 
