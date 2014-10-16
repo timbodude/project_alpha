@@ -17,6 +17,13 @@ By the way, Travis - I'm using Wang as my ide and pygame to deal with gui issues
 
 We should probably have a game time to play some different games and see what we all like.
 
+**TRAVIS EDIT: How about we make a top 5 list of games and the reasons we like them?**
+
+Tim | Jon | Travis
+--- | --- | ---
+see | if | this 
+renders | nicely | whoo
+
 
 ###---Story Ideas (feel free to add)---
 Nameless person from some town 
