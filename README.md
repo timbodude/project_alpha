@@ -21,11 +21,11 @@ We should probably have a game time to play some different games and see what we
 
 Tim | Jon | Travis
 --- | --- | ---
-**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder |   
-**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder |
-**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder |   
-**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder |
-**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder | 
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder <br> and some extra text |   
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder <br> and some extra text |
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder <br> and some extra text |   
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder <br> and some extra text |
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder <br> and some extra text | 
 
 
 ###---Story Ideas (feel free to add)---
