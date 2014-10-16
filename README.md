@@ -17,15 +17,15 @@ By the way, Travis - I'm using Wang as my ide and pygame to deal with gui issues
 
 We should probably have a game time to play some different games and see what we all like.
 
-**TRAVIS EDIT: How about we make a top 5 list of games and the reasons we like them? We can see if there are **
+**TRAVIS EDIT: How about we make a top 5 list of games and the reasons we like them? We can see if there are common threads in our lists**
 
 Tim | Jon | Travis
 --- | --- | ---
- | | Trav's Fave |   
- | | Trav's Fave |
- | | Trav's Fave |   
- | | Trav's Fave |
- | | Trav's Fave | 
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder |   
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder |
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder |   
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder |
+**Tim's Fave** | **Jon's Fave** | **Trav's Fave:** Reason Placeholder | 
 
 
 ###---Story Ideas (feel free to add)---
