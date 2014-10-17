@@ -143,8 +143,11 @@ class Grid_map(object):
         for unit in self.pawn_group.group_list: # replace current unit locations
             #print("oh, here's a unit.")    
             #print("---------------------------- unit loc:", unit.loc)
-            self.matrix[unit.loc[0]][unit.loc[1]][2] = unit.color
-            #print("unit color:", unit.color)
+            if unit.active == False:
+                self.matrix[unit.loc[0]][unit.loc[1]][2] = unit.color
+                #print("unit color:", unit.color)
+            else:
+                self.matrix[unit.loc[0]][unit.loc[1]][2] = BLACK
 
     def coord_to_grid(self, pos):
         """ prints grid location based on pos(x,y) for test purposes of clicked location """
@@ -169,65 +172,15 @@ class Grid_map(object):
         
     def grid_clicked(self, pos):
         """ tells what grid was clicked on and reports for testing purposes 
-            pos: the passed mouse coordinates variable passed through """
-        #print("I'm checking to see what grid was clicked on.")
-        #print(  "pos, matrix coord, fieldrect0, tilesize, margin:  ", 
-                #pos, 
-                #self.coord_to_grid(pos),
-                #params.FIELD_RECT[0], 
-                #params.TILE_SIZE, 
-                #params.MARGIN )        
+            pos: the passed mouse coordinates variable passed through 
+        """
         if self.in_field(pos):
-            if self.last_clicked != (-1,-1) and self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] == GREEN: #reset previous tile clicked
+            if self.pawn_group.su_grp_click_check(self.coord_to_grid(pos)):
+                #print("someone in this group was clicked on")
+                dummy = False #                                                  - ADD other things when a unit gets clicked on
+            elif self.last_clicked != (-1,-1) and self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] == GREEN : #reset previous tile clicked
                 self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GRASS 
             self.last_clicked = self.coord_to_grid(pos) # toggle target tile to new color
             self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GREEN
             #print("last click was on:", self.last_clicked)
-          
-################################################################################
-## TEST
-################################################################################
-if __name__ == "__main__":  
-    #pygame.init()
-
-    screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
-    pygame.display.set_caption("3-D Tile Array")
-  
-    done = False
-    clock = pygame.time.Clock()
-   
-    gridmap = Grid_map(screen) #                                                * REQUIRED CALL TO CREATE GRIDMAP
- 
-    #for unit in gridmap.pawn_group.group_list:
-        #print("oh, here's a unit.")    
-        #print("---------------------------- unit loc:", unit.loc)
         
-    #gridmap.grid_unit_color_updater()
- 
-    print("-- It all works pre-screen--")
-    
-    while done == False: #                                                       NOTE: This will be part of the regular game while loop
-        for event in pygame.event.get(): # User did something
-            if event.type == pygame.QUIT: # If user clicked close
-                done = True # Flag that we are done so we exit this loop
-            elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
-                pos = pygame.mouse.get_pos()
-                gridmap.grid_clicked(pos)
-                if gridmap.in_field(pos): # Check to see if click was in grid field for testing 
-                    print("you hit the grid")
-                elif not gridmap.in_field(pos):
-                    print("you missed the grid")
-
-        screen.fill(BLACK) # Set the screen background
-        gridmap.update_grid() # Re-Image the grid
-        clock.tick(20) # Limit to 20 frames per second
-        pygame.display.flip() # Go ahead and update the screen with what we've drawn.
-         
-    print("final state of gridmap:")
-    gridmap.print_grid()
-   
-    print()
-    print("-- TEST DONE --")
-    print()
-    pygame.quit()
-    sys.exit()   

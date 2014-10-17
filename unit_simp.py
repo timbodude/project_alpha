@@ -32,6 +32,7 @@ class Simp_unit(Sprite):
         self.state = True # (bool) True: alive False: dead
         #print("I made me a man, and his name is Jim")
         self.place_unit()
+        self.active = False # True: unit has been clicked on by user
 
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 
@@ -40,6 +41,18 @@ class Simp_unit(Sprite):
         dummy = False
         self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
         #print("location in grid:", self.loc)
+        
+    def unit_click_check(self, coord):
+        """ see if unit has been checked on 
+            coord: grid tile position
+        """
+        #print("I'm checking to see if unit was clicked on")
+        if coord == self.loc:
+            #print("bingo, in tile #:", coord)
+            self.active = True
+            return True
+        else:
+            print("not this one at:", coord)
         
 class Simp_unit_group(object):
     """ player unit group """
@@ -56,7 +69,16 @@ class Simp_unit_group(object):
         for i in range(0, unit_start_qty):
             new = Simp_unit()
             self.group_list.append(new)
-        #print("group:", self.group_list)         
+        #print("group:", self.group_list)
+        
+    def su_grp_click_check(self, coord):
+        """ check to see if any unit in group was clicked to make active 
+            coord: mouse click coordinates
+        """
+        for unit in self.group_list:
+            if unit.unit_click_check(coord): 
+                #print("hey, you got one!")
+                return(True)
 
 
 ################################################################################

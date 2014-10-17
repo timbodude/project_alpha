@@ -6,19 +6,32 @@ from images_lib import (  BLACK  )
 
 ################################################################################
 
+screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32) # create screen area for tiles
+grid_map = Grid_map(screen) # Access Grid Class to create a grid
+
+################################################################################
+def usr_events(pos):
+    """ determine action based upon mouse & kbd input 
+        pos: mouse position coordinates
+    """
+    if grid_map.in_field(pos): # Check to see if click was in grid field for testing 
+        #print("you hit the battle grid area")
+        print("you're clicked on:", pos)
+        grid_map.grid_clicked(pos) # do whatever happens when something gets clicked on
+################################################################################
+
 def main():
     # Initialise screen
     pygame.init()
     clock = pygame.time.Clock()
     #screen = pygame.display.set_mode((800, 600))
-    screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
+    #screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
     
     pygame.display.set_caption('Project Alpha')
     #icon = pygame.image.load("test_icon.jpg").convert_alpha()        
-    #pygame.display.set_icon(icon)   
+    #pygame.display.set_icon(icon)  
     
-    # Access Grid Class to create a grid:
-    grid_map = Grid_map(screen)
+    #grid_map = Grid_map(screen) # Access Grid Class to create a grid
 
     # Fill background
     background = pygame.Surface(screen.get_size())
@@ -40,12 +53,7 @@ def main():
                 pygame.quit()
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
-                pos = pygame.mouse.get_pos()
-                grid_map.grid_clicked(pos)
-                #if grid_map.in_field(pos): # Check to see if click was in grid field for testing 
-                    #print("you hit the grid")
-                #elif not grid_map.in_field(pos):
-                    #print("you missed the grid")       
+                usr_events(pygame.mouse.get_pos())
                     
         screen.fill(BLACK) # Set the screen background
         grid_map.update_grid() # Update the grid
