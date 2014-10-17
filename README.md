@@ -13,18 +13,28 @@ Looks like the github windows gui requires windows7. I'm on xp 5.1 service pack 
 
 By the way, Travis - I'm using Wang as my ide and pygame to deal with gui issues like frames and such
 
-#------NOTES FROM JONATHAN------
+###----NOTES FROM JONATHAN----
 
 We should probably have a game time to play some different games and see what we all like.
 
+**TRAVIS EDIT: How about we make a top 5 list of games and the reasons we like them? We can see if there are common threads in our lists**
 
-#---Story Ideas (feel free to add)---
+Tim | Jon | Travis
+--- | --- | ---
+**Tim's Fave:** Reason Placeholder <br> and some extra text  | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |   
+**Tim's Fave:** Reason Placeholder <br> and some extra text | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |
+**Tim's Fave:** Reason Placeholder <br> and some extra text | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |   
+**Tim's Fave:** Reason Placeholder <br> and some extra text | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |
+**Tim's Fave:** Reason Placeholder <br> and some extra text | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text | 
+
+
+###---Story Ideas (feel free to add)---
 Nameless person from some town 
 your sheep have been killed by killer rabits that appered out of nowere.
 you have to go find the monster resposible for unleashing these rabbits.
 Make sure not to forget proper colen care while on your quest.
 
-##---Working Priorities---
+###---Working Priorities---
 
 We need two map types. Battle Map and Overworld.
 
@@ -36,14 +46,14 @@ We need two map types. Battle Map and Overworld.
 
 4. unite turn priority
 
-#---ART NOTES---
+###---ART NOTES---
 
 800x600 screen size
 
 12x12pixel sprite size
 
 
-#---STAT INFO/IDEAS---
+###---STAT INFO/IDEAS---
 
 (Str) Pertains to physical ability, melee and to some degree ranged damage, moving objects,
 could also effect Intimidation. Also effects how much/heavy of armor you can wear.
@@ -56,7 +66,7 @@ Also effects the ammount of armor you have due to your ability to utilize it mor
 (Chs) Pertains to
 (Lck) Pertains to
 
-#---Skill INFO/IDEAS---
+###---Skill INFO/IDEAS---
 
 These are mostly all for latter use but I wanted to get the ball rolling.
 
@@ -74,12 +84,13 @@ Willpower
 Focus
 Analytical Ability
 
-#---Travis is working on---
-different screens i.e. title screen/new game screens
+###---Travis is working on---
+main.py (in the master branch) should look like grid_map.py (in the NoteWTravis branch)
+* **This means it should include unit\_simp.py, images\_lib, and params.py**
 
-#---Dad is working on---
+###---Dad is working on---
 combat windows
 
-#---Jonathan is working on---
+###---Jonathan is working on---
 Gameplay ideas
 
