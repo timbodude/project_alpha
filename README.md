@@ -1,6 +1,9 @@
 project_alpha
 =============
 
+
+**Make sure to conform all code to the [Official Style Guide for Python](http://legacy.python.org/dev/peps/pep-0008/)**
+
 Do we want a couple of readme's:
 
 • urgent issues (use issues method for this, I'm assuming)
