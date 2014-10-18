@@ -24,11 +24,11 @@ We should probably have a game time to play some different games and see what we
 
 Tim | Jon | Travis
 --- | --- | ---
-**Tim's Fave:** Reason Placeholder <br> and some extra text  | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |   
-**Tim's Fave:** Reason Placeholder <br> and some extra text | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |
-**Tim's Fave:** Reason Placeholder <br> and some extra text | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |   
-**Tim's Fave:** Reason Placeholder <br> and some extra text | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |
-**Tim's Fave:** Reason Placeholder <br> and some extra text | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text | 
+**Tim's Fave:** Civilization <br> world conquest & match civ development w player style  | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |   
+**Tim's Fave:** WOW Burning Crusade<br> beyond anything out there at the time | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |
+**Tim's Fave:** Zelda - legend of link <br> early days! fun to explore, but beatable  |  **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |
+**Tim's Fave:** oregon trail <br> really early days, but customizable and personalized | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text |
+**Tim's Fave:** Delta Force <br> my fav multiplayer shooter | **Jon's Fave:** Reason Placeholder <br> and some extra text | **Trav's Fave:** Reason Placeholder <br> and some extra text | 
 
 
 ###---Story Ideas (feel free to add)---
