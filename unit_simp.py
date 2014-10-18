@@ -3,12 +3,9 @@
 ## simple player units for initial battle sequence testing
 ################################################################################
 
-import pygame
-from pygame.sprite import Sprite
-import sys
-import params #                                                                  NOTE: this will come from the parent loop instead of params
 from random import randint
 from images_lib import LT_GRAY
+import grid_map 
 
 ################################################################################
 """ Things to consider and set: 
@@ -21,12 +18,9 @@ unit_start_qty = 5 # number of starting army units under player control
 
 ################################################################################
 
-class Simp_unit(Sprite):
+class Simp_unit():
     """ generic class for basic player unit types """ 
     def __init__(self):
-        """ Notes:
-        """
-        Sprite.__init__(self)
         self.loc = () # location in grid
         self.color = LT_GRAY # can be replaced with image
         self.state = True # (bool) True: alive False: dead
@@ -38,7 +32,7 @@ class Simp_unit(Sprite):
             Right now, I'm just picking a random tile with the hope of no duplication
             """
         dummy = False
-        self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
+        self.loc = (randint(0, grid_map.GRID_SIZE[0]), randint(0, grid_map.GRID_SIZE[1])) # location in grid
         print("location in grid:", self.loc)
         
 class Simp_unit_group(object):
@@ -57,22 +51,3 @@ class Simp_unit_group(object):
             new = Simp_unit()
             self.group_list.append(new)
         print("group:", self.group_list)         
-
-
-################################################################################
-## TEST
-################################################################################
-
-if __name__ == "__main__":  
-    
-    #pawn = Simp_unit()
-    pawn_group = Simp_unit_group()
-    
-    for unit in pawn_group.group_list:
-        print("unit loc:", unit.loc)
-    
-    print()
-    print("-- TEST DONE --")
-    print()
-    pygame.quit()
-    sys.exit()
