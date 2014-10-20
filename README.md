@@ -10,17 +10,9 @@ Do we want a couple of readme's:
 • task assignments, updates, misc issues & questions
 • ideas for consideration or later development
 
-Upoaded old files to repository - not sure we want them there, but wanted to pass them on to Travis. The place to start is notes. While there may be some code we can grab, I'm thinking it may be better to start fresh so we're completely on the same page.
-
-Looks like the github windows gui requires windows7. I'm on xp 5.1 service pack 3. I am using a less powerful gui that seems to be working, and has a dos prompt.
-
-By the way, Travis - I'm using Wang as my ide and pygame to deal with gui issues like frames and such
-
 ###----NOTES FROM JONATHAN----
 
 We should probably have a game time to play some different games and see what we all like.
-
-**How about we make list of games that are inspiring and the reasons we like them? We can see if there are common threads in our lists and familiarize ourselves with everyone's perspectives**
 
 Tim | Jon | Travis
 --- | --- | ---
