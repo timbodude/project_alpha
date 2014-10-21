@@ -78,13 +78,7 @@ Willpower
 Focus
 Analytical Ability
 
-###Things which anybody should do:
-Turn Tile into an object instead of storing an array of size 8
-
-###---Travis is working on---
-~~main.py (in the master branch) should look like grid_map.py (in the NoteWTravis branch)~~    
-~~* **This means it should include unit\_simp.py, images\_lib, and params.py**~~    
-
+**(probably should move these to github->Issues)**
 ###---Dad is working on---
 combat windows
 
