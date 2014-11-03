@@ -14,6 +14,8 @@ Do we want a couple of readme's:
 
 We should probably have a game time to play some different games and see what we all like.
 
+How about other types of games?
+
 Tim | Jon | Travis
 --- | --- | ---
 **Civilization:** world conquest & match civ development w player style  | **World of Warcraft Vanilla to Cata:** Vanilla - Wrath had epic world feel, Cata had awesome gameplay | **Zelda: Ocarina of Time:** Something fun happens every ~15 mins, character progression, dungeon layout |   
