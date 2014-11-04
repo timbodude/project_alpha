@@ -82,7 +82,35 @@ Analytical Ability
 
 **(probably should move these to github->Issues)**
 ###---Dad is working on---
-combat windows
+combat windows:
+Possible Pre-Combat Order:
+• Create battle map
+• Position enemy units - if in LOS, reveal
+• Select unit types (if more than one type)
+• Position Units
+• Give units initial command series (like cards in a card game)
+• Begin Turn order
+
+Possible Turn Order:
+• Verify unit is alive
+• Verify unit is not stunned/stuck/disabled/hidden or timed command
+• Verify unit is not in melee (if in melee and moves away, penalty or opponent attack applies)
+• Move towards target area (question - how far move each turn?)
+  - determine next square
+  - if legal, move into square
+  - verify if unit becomes engaged in melee
+  - if remaining movement, move again until no more remaining movements
+• Determine combat
+• Get user command
+  - change unit's target or list of targets (location or unit)
+  - change attack type or whatever other options are offered
+
+Initial Unit types:
+• warrior type class (start with this one for all units including player)
+• ranged type class
+• support type class
+• player unit (it's own class, or one of the others?)
+• stealth unit
 
 ###---Jonathan is working on---
 Gameplay ideas
