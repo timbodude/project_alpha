@@ -16,7 +16,7 @@ def usr_events(pos):
     """
     if grid_map.in_field(pos): # Check to see if click was in grid field for testing 
         #print("you hit the battle grid area")
-        print("you're clicked on:", pos)
+        #print("you're clicked on:", pos)
         grid_map.grid_clicked(pos) # do whatever happens when something gets clicked on
 ################################################################################
 

@@ -1,5 +1,6 @@
 ################################################################################
 ## gridmap
+""" NOTE: This is being recreated as a tile class """
 ################################################################################
 """ draws battle area, including grid for units """
 
@@ -127,8 +128,12 @@ class Grid_map(object):
             for col in range(self.ncols):
                 if self.matrix[row][col][2] == 0: # print tile color if tile is empty
                     curser_color = self.matrix[row][col][0]
+                # at this point only non-empty tiles are left
                 else: # print unit color if tile has a unit in it
                     curser_color = self.matrix[row][col][2]
+                    
+                    
+                    
                 pygame.draw.rect(  self.screen,
                                    curser_color,
                                    [(params.FIELD_RECT[0] + row * (params.TILE_SIZE + params.MARGIN)),
@@ -144,10 +149,10 @@ class Grid_map(object):
             #print("oh, here's a unit.")    
             #print("---------------------------- unit loc:", unit.loc)
             if unit.active == False:
-                self.matrix[unit.loc[0]][unit.loc[1]][2] = unit.color
+                self.matrix[unit.loc[0]][unit.loc[1]][2] = unit.color # set grid color to unit color
                 #print("unit color:", unit.color)
             else:
-                self.matrix[unit.loc[0]][unit.loc[1]][2] = BLACK
+                self.matrix[unit.loc[0]][unit.loc[1]][2] = BLACK # fill with "selected" unit color
 
     def coord_to_grid(self, pos):
         """ prints grid location based on pos(x,y) for test purposes of clicked location """
@@ -162,7 +167,7 @@ class Grid_map(object):
         #print("I'm printing the screen now")
         
     def in_field(self, pos):
-        """ verify if clicked pos is in grid area  - returns True/False """
+        """ verify if clicked pos is in playable grid area  - returns True/False """
         loc = self.coord_to_grid(pos)
         if loc[0] < 0 or loc[0] >= params.GRID_SIZE[0] or loc[1] < 0 or loc[1] >= params.GRID_SIZE[1]:
             #print("you missed the grid")
@@ -179,7 +184,7 @@ class Grid_map(object):
                 #print("someone in this group was clicked on")
                 dummy = False #                                                  - ADD other things when a unit gets clicked on
             elif self.last_clicked != (-1,-1) and self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] == GREEN : #reset previous tile clicked
-                self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GRASS 
+                self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GRASS           
             self.last_clicked = self.coord_to_grid(pos) # toggle target tile to new color
             self.matrix[self.last_clicked[0]][self.last_clicked[1]][0] = GREEN
             #print("last click was on:", self.last_clicked)

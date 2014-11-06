@@ -9,6 +9,7 @@ import sys
 import params #                                                                  NOTE: this will come from the parent loop instead of params
 from random import randint
 from images_lib import LT_GRAY
+from helper_apps import calc_move
 
 ################################################################################
 """ Things to consider and set: 
@@ -27,12 +28,13 @@ class Simp_unit(Sprite):
         """ Notes:
         """
         Sprite.__init__(self)
-        self.loc = () # location in grid
+        self.loc = () # location in grid (in coordinates)
         self.color = LT_GRAY # can be replaced with image
         self.state = True # (bool) True: alive False: dead
         #print("I made me a man, and his name is Jim")
         self.place_unit()
         self.active = False # True: unit has been clicked on by user
+        self.targ_tile = () # tile unit is moving into (in coordinates)
 
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 
@@ -52,8 +54,19 @@ class Simp_unit(Sprite):
             self.active = True
             return True
         else:
-            print("not this one at:", coord)
+            #print("not this one at:", coord)
+            dummy = False #                                                      - do whatever happense when you don't click on a unit
         
+    def move_unit(self): #                                                       - should be called from gridmap updating area to see if melee occurs
+        """ move unit into next square if empty """
+        print("moving unit")
+        if self.active == True and self.loc != self.targ_tile:
+            print("i should move", self.loc, self.targ_tile)
+            calc_move(self.loc, self.targ_tile)
+            print("i didn't really move, I just though about where to go")
+        else:
+            print("I'm at my target location")
+                          
 class Simp_unit_group(object):
     """ player unit group """
     def __init__(self, total = unit_start_qty):
@@ -92,6 +105,18 @@ if __name__ == "__main__":
     
     for unit in pawn_group.group_list:
         print("unit loc:", unit.loc)
+        
+        
+    #test loop to give coords to units
+    for unit in pawn_group.group_list:  
+        unit.targ_tile = (25,25)
+        unit.active = True
+        
+    #test loop to move units    
+        unit.move_unit()
+        
+    for unit in pawn_group.group_list: # check locations again to see if moved
+        print("unit loc:", unit.loc)        
     
     print()
     print("-- TEST DONE --")
