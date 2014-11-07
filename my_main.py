@@ -1,13 +1,15 @@
 import pygame
 from pygame.locals import *
-from grid_map import Grid_map
+#from grid_map import Grid_map
+from grid import Tile_grid
 import params
 from images_lib import (  BLACK  )
 
 ################################################################################
 
 screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32) # create screen area for tiles
-grid_map = Grid_map(screen) # Access Grid Class to create a grid
+#grid_map = Grid_map(screen) # Access Grid Class to create a grid
+grid_map = Tile_grid(screen) # Create a grid of tiles
 
 ################################################################################
 def usr_events(pos):
@@ -50,15 +52,17 @@ def main():
     while 1:
         for event in pygame.event.get():
             if event.type == QUIT:
+                grid_map.print_test_grid()  # print test grid to shell              
                 pygame.quit()
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
+                #print("you clicked")
                 usr_events(pygame.mouse.get_pos())
                     
         screen.fill(BLACK) # Set the screen background
         grid_map.update_grid() # Update the grid
         clock.tick(20) # Limit to 20 frames per second
-        pygame.display.flip() # Go ahead and update the screen with what we've drawn     
+        pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn     
 
         #screen.blit(background, (0, 0))
         #pygame.display.flip()

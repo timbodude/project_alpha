@@ -1,5 +1,6 @@
 import pygame
-from grid_map import Grid_map
+#from grid_map import Grid_map
+from grid import Tile_grid
 
 ################################################################################
 ## usr_events
@@ -18,7 +19,7 @@ class Usr_events(object):
         """
         dummy = False
         #print("usr_events is connected.") # - works
-        if grid_map.in_field(pos): # Check to see if click was in grid field for testing 
-            print("you hit the grid") 
-            grid_map.grid_clicked(pos)
-        
+        #if grid_map.in_field(pos): # Check to see if click was in grid field for testing 
+            #grid_map.grid_clicked(pos)
+        if grid.in_field(pos): # Check to see if click was in grid field for testing 
+            grid.grid_clicked(pos)            

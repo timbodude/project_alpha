@@ -1,6 +1,6 @@
 ################################################################################
 ## gridmap
-""" NOTE: This is being recreated as a tile class """
+""" NOTE: This has been replaced by grid.py """
 ################################################################################
 """ draws battle area, including grid for units """
 
