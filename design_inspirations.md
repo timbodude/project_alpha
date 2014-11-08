@@ -3,6 +3,10 @@
 Tim | Jon | Travis  
 --- | --- | ---  
 **Placeholder:**  | **Placeholder:** | **Placeholder:**  
+**Placeholder:**  | **Placeholder:** | **Placeholder:** 
+**Placeholder:**  | **Placeholder:** | **Placeholder:** 
+**Placeholder:**  | **Placeholder:** | **Placeholder:** 
+**Placeholder:**  | **Placeholder:** | **Placeholder:** 
 
 ***Video Games*** 
 
