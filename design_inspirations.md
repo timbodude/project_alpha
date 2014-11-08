@@ -1,4 +1,4 @@
-If ya'll have a bit of time to spend, I think it would be useful to focus the descriptions on specific features which are important to us.
+If ya'll have a bit of time to spend, I think it would be useful to focus the descriptions a bit more on specific features which are important to us.
 
 ***Board/Tabletop Games***
 
