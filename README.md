@@ -10,7 +10,8 @@ Do we want a couple of readme's:
 • task assignments, updates, misc issues & questions
 • ideas for consideration or later development
 
-<Travis: this was getting huge so I moved it to design_inspirations.md>
+
+**[Travis: game-grid was getting huge so I moved it to design_inspirations.md]**
 
 ###---Story Ideas (feel free to add)---
 Nameless person from some town 
