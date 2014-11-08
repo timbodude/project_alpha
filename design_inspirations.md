@@ -1,8 +1,11 @@
-**Board Games**  
+***Board Games***
+
 Tim | Jon | Travis  
 --- | --- | ---  
+**Placeholder:**  | **Placeholder:** | **Placeholder:**  
 
-**Video Games** 
+***Video Games*** 
+
 Tim | Jon | Travis  
 --- | --- | ---  
 **Civilization:** world conquest & match civ development w player style  | **World of Warcraft Vanilla to Cata:** Vanilla - Wrath had epic world feel, Cata had awesome gameplay | **Zelda: Ocarina of Time:** Something fun happens every ~15 mins, character progression, dungeon layout |   
