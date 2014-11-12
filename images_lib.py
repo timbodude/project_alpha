@@ -67,3 +67,5 @@ class Image_lib(object):
         
         self.TERRAIN_WOODS_IMG = "images/terrain_water.png"
         self.terrain_woods_img = pygame.image.load(self.TERRAIN_WOODS_IMG).convert_alpha()   
+        
+
