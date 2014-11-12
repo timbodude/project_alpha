@@ -1,30 +1,25 @@
 project_alpha
 =============
 
+**Make sure to conform all code to the [Official Style Guide for Python](http://legacy.python.org/dev/peps/pep-0008/)**
+
+=======
 Do we want a couple of readme's:
 
 • urgent issues (use issues method for this, I'm assuming)
 • task assignments, updates, misc issues & questions
 • ideas for consideration or later development
 
-Upoaded old files to repository - not sure we want them there, but wanted to pass them on to Travis. The place to start is notes. While there may be some code we can grab, I'm thinking it may be better to start fresh so we're completely on the same page.
 
-Looks like the github windows gui requires windows7. I'm on xp 5.1 service pack 3. I am using a less powerful gui that seems to be working, and has a dos prompt.
+**[Travis: game-grid was getting huge so I moved it to design_inspirations.md]**
 
-By the way, Travis - I'm using Wang as my ide and pygame to deal with gui issues like frames and such
-
-#------NOTES FROM JONATHAN------
-
-We should probably have a game time to play some different games and see what we all like.
-
-
-#---Story Ideas (feel free to add)---
+###---Story Ideas (feel free to add)---
 Nameless person from some town 
 your sheep have been killed by killer rabits that appered out of nowere.
 you have to go find the monster resposible for unleashing these rabbits.
 Make sure not to forget proper colen care while on your quest.
 
-##---Working Priorities---
+###---Working Priorities---
 
 We need two map types. Battle Map and Overworld.
 
@@ -36,14 +31,14 @@ We need two map types. Battle Map and Overworld.
 
 4. unite turn priority
 
-#---ART NOTES---
+###---ART NOTES---
 
 800x600 screen size
 
 12x12pixel sprite size
 
 
-#---STAT INFO/IDEAS---
+###---STAT INFO/IDEAS---
 
 (Str) Pertains to physical ability, melee and to some degree ranged damage, moving objects,
 could also effect Intimidation. Also effects how much/heavy of armor you can wear.
@@ -56,7 +51,7 @@ Also effects the ammount of armor you have due to your ability to utilize it mor
 (Chs) Pertains to
 (Lck) Pertains to
 
-#---Skill INFO/IDEAS---
+###---Skill INFO/IDEAS---
 
 These are mostly all for latter use but I wanted to get the ball rolling.
 
@@ -74,12 +69,38 @@ Willpower
 Focus
 Analytical Ability
 
-#---Travis is working on---
-different screens i.e. title screen/new game screens
+**(probably should move these to github->Issues)**
+###---Dad is working on---
+combat windows:
+Possible Pre-Combat Order:
+• Create battle map
+• Position enemy units - if in LOS, reveal
+• Select unit types (if more than one type)
+• Position Units
+• Give units initial command series (like cards in a card game)
+• Begin Turn order
 
-#---Dad is working on---
-combat windows
+Possible Turn Order:
+• Verify unit is alive
+• Verify unit is not stunned/stuck/disabled/hidden or timed command
+• Verify unit is not in melee (if in melee and moves away, penalty or opponent attack applies)
+• Move towards target area (question - how far move each turn?)
+  - determine next square
+  - if legal, move into square
+  - verify if unit becomes engaged in melee
+  - if remaining movement, move again until no more remaining movements
+• Determine combat
+• Get user command
+  - change unit's target or list of targets (location or unit)
+  - change attack type or whatever other options are offered
 
-#---Jonathan is working on---
+Initial Unit types:
+• warrior type class (start with this one for all units including player)
+• ranged type class
+• support type class
+• player unit (it's own class, or one of the others?)
+• stealth unit
+
+###---Jonathan is working on---
 Gameplay ideas
 
