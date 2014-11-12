@@ -69,17 +69,3 @@ class Image_lib(object):
         self.terrain_woods_img = pygame.image.load(self.TERRAIN_WOODS_IMG).convert_alpha()   
         
 
-        
-################################################################################
-## Test
-################################################################################
-
-if __name__ == "__main__": 
-    
-    pygame.init()
-    import params
-    screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
-    
-    image_lib = Image_lib()
-    
-    print("Done")
