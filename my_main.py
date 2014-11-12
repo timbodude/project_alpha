@@ -1,15 +1,17 @@
 import pygame
 from pygame.locals import *
-#from grid_map import Grid_map
 from grid import Tile_grid
 import params
 from images_lib import (  BLACK  )
+from unit_simp import P_u_group
 
 ################################################################################
 
 screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32) # create screen area for tiles
-#grid_map = Grid_map(screen) # Access Grid Class to create a grid
 grid_map = Tile_grid(screen) # Create a grid of tiles
+players = P_u_group(screen)
+
+
 
 ################################################################################
 def usr_events(pos):
@@ -28,6 +30,9 @@ def main():
     clock = pygame.time.Clock()
     #screen = pygame.display.set_mode((800, 600))
     #screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
+    ttl_round = 0 # total rounds played
+    turn = 0 # who's turn it is
+    
     
     pygame.display.set_caption('Project Alpha')
     #icon = pygame.image.load("test_icon.jpg").convert_alpha()        
@@ -40,7 +45,7 @@ def main():
     background = background.convert()
     background.fill((0, 0, 0))
 
-    # Display some text
+    #Display some text
     #spriteSheet = pygame.image.load("terminal12x12_gs_ro.png")
     #background.blit(spriteSheet, spriteSheet.get_rect())
 
@@ -60,7 +65,9 @@ def main():
                 usr_events(pygame.mouse.get_pos())
                     
         screen.fill(BLACK) # Set the screen background
-        grid_map.update_grid() # Update the grid
+        grid_map.update_grid() # Update the grid to screen
+        players.update_players() # Update player groups & units to screen
+        
         clock.tick(20) # Limit to 20 frames per second
         pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn     
 

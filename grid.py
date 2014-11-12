@@ -1,5 +1,5 @@
 ################################################################################
-## grid
+## grid 
 ################################################################################
 
 import pygame
@@ -46,7 +46,7 @@ class Tile_grid(object):
         
         self.fill_grid() # fill matrix with individual tiles
         
-        self.pawn_group = unit_simp.Simp_unit_group() # adds group of units from unit_simp
+        self.pawn_group = unit_simp.Simp_unit_group(screen) # adds group of units from unit_simp
             
         #print("I made a tile grid")
         
@@ -60,7 +60,6 @@ class Tile_grid(object):
         self.update_unit_pos()
         for row in range(self.nrows):
             for col in range(self.ncols):    
-                dummy = False
                 if self.matrix[row][col].selected == False: #check to see if tile is active or not to determine color and assign to curser_color
                     curser_color = self.matrix[row][col].color
                 else: 
@@ -109,7 +108,7 @@ class Tile_grid(object):
                 dummy = False #                                                  - ADD things when a unit gets clicked on
             elif self.matrix[loc[0]][loc[1]].selected == False: #toggles selected to True
                 self.matrix[loc[0]][loc[1]].selected = True
-                print("toggled unit from false to true")
+                print("toggled unit from false to true at this loc", loc)
             else: #toggles selected to True
                 self.matrix[loc[0]][loc[1]].selected = False
                 print("toggled unit from true to false")
@@ -118,7 +117,7 @@ class Tile_grid(object):
     
                 
     def print_grid(self):
-        """ outputs visual version of grid to shell """
+        """ prints text version of grid to shell """
         #print("printing the grid")
         
         self.matrix[1][1].selected = True
