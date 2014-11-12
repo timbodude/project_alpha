@@ -1,4 +1,5 @@
 project_alpha
+<<<<<<< HEAD
 =============
 
 **Make sure to conform all code to the [Official Style Guide for Python](http://legacy.python.org/dev/peps/pep-0008/)**
@@ -104,3 +105,13 @@ Initial Unit types:
 ###---Jonathan is working on---
 Gameplay ideas
 
+=======
+
+ideas:
+As we differentiate units, consider a Scout-type attack unit which can move or hide concealed with instructions to take action upon contact, to follow, to attack, to report a concealed enemy or troop movement.... It's movement rate can be adjusted by it's skill level, and other units could have a skill that gives them the possibility of detecting concealed opponents.
+
+
+=============
+
+repository
+>>>>>>> 78447bdc515fdd5550723b05a841298ecedb208a
