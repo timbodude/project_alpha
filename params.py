@@ -4,7 +4,7 @@
 """ set global params for tests before parent window (Battle_grid) was built
 
     NOTE:
-    This information will be moved to the battle_grid.py class and should be 
+    This information will be moved to the my_main.py page and should be 
     drawn from there if needed.
 
 """

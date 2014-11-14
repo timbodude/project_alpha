@@ -4,6 +4,7 @@ from grid import Tile_grid
 import params
 from images_lib import (  BLACK  )
 from unit_simp import P_u_group
+import player_command
 
 ################################################################################
 
@@ -67,6 +68,8 @@ def main():
         screen.fill(BLACK) # Set the screen background
         grid_map.update_grid() # Update the grid to screen
         players.update_players() # Update player groups & units to screen
+        
+        player_command.draw_messageboard(screen, params.MESSAGE_RECT) # update player_command area - can add 3 message variables if desired
         
         clock.tick(20) # Limit to 20 frames per second
         pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn     
