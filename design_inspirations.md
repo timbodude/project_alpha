@@ -4,9 +4,9 @@ Travis: I think it would be useful to focus the descriptions a bit more on speci
 
 Tim | Jon | Travis  
 --- | --- | ---  
-**Fraggle:** fast paced dice game that invites interaction - uses lots of luck and understanding odds enough to know when to risk luck  | **Placeholder:** | **Placeholder:**  
-**Who What When Where Why:** I like how different people's random bits create a story that sometimes makes great sense and sometimes if funny | **Placeholder:** | **Placeholder:** 
-**Empire Builder:** railway strategy and logistics game - I like because I get the strategy really well (nearly always win regardless who plays) and logistics make sense to me (takes hours depending upon number of players) | **Placeholder:** | **Placeholder:** 
+**Fraggle:** fast paced dice game that invites interaction - uses lots of luck and understanding odds enough to know when to risk luck  | **Placeholder:** | **Arkham Horror:** easy to create stories, requires and creates a lot of teamwork, setting is really cool
+**Who What When Where Why:** I like how different people's random bits create a story that sometimes makes great sense and sometimes if funny | **Placeholder:** | **D&D 3.5:** dwarves :3
+**Empire Builder:** railway strategy and logistics game - I like because I get the strategy really well (nearly always win regardless who plays) and logistics make sense to me (takes hours depending upon number of players) | **Placeholder:** | **Twilight Struggle:** Asymmetric, powers are fun, tug-o-war 
 **The Amazing Labyrinth:** pathfinding game with shifting tiles | **Placeholder:** | **Placeholder:** 
 **Careers:** fun to discover what paths you get to take to achieve your formula fastest | **Placeholder:** | **Placeholder:** 
 **Masterpiece:** auction game - fun to discover what your paintings are worth and try to outsmart other players | **Placeholder:** | **Placeholder:** 
