@@ -1,4 +1,5 @@
 import pygame
+import os
 from pygame.locals import *
 from grid import Tile_grid
 import params

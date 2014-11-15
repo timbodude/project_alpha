@@ -4,8 +4,9 @@
 ################################################################################
 
 import pygame
+from pygame import Color
 from pygame.sprite import Sprite
-import sys
+import sys, os
 import params #                                                                  NOTE: this will come from the parent loop instead of params
 from random import randint
 from images_lib import (  LT_GRAY , WHITE)
@@ -20,6 +21,12 @@ from helper_apps import calc_move
 """
 unit_start_qty = 5 # number of starting army units under player control
 players_start_qty = 2 # number of starting players 
+
+################################################################################
+# Images
+
+_image_library = {}
+PAWN_IMG = "images/bluepawn.png"
 
 ################################################################################
 
@@ -39,7 +46,13 @@ class Simp_unit(Sprite):
         self.targ_tile = () # tile unit is moving into (in coordinates)
         self.selected = False # indicates a unit is clicked on by player
         self.screen = screen
-
+        self.health = 3
+        self.max_health = 3
+        self.image = PAWN_IMG
+        self.image_h = 18
+        self.image_w = 18
+    
+    
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 
             Right now, I'm just picking a random tile with the hope of no duplication
@@ -79,12 +92,79 @@ class Simp_unit(Sprite):
         else: 
             curser_color = self.alt_color
         #print("selected, curser color:", self.matrix[row][col].selected, curser_color)
-        pygame.draw.rect(  self.screen,
-                           curser_color,
-                           [(params.FIELD_RECT[0] + self.loc[0] * (params.TILE_SIZE + params.MARGIN)),
-                            (params.FIELD_RECT[1] + self.loc[1] * (params.TILE_SIZE + params.MARGIN)),
-                            params.TILE_SIZE,
-                            params.TILE_SIZE] )        
+        
+        ## THIS WORKS TO PRINT A BLOCK - currently replaced with printing a stick figure
+        #pygame.draw.rect(  self.screen,
+                           #curser_color,
+                           #[(params.FIELD_RECT[0] + self.loc[0] * (params.TILE_SIZE + params.MARGIN)),
+                            #(params.FIELD_RECT[1] + self.loc[1] * (params.TILE_SIZE + params.MARGIN)),
+                            #params.TILE_SIZE,
+                            #params.TILE_SIZE] )
+        self.draw()
+    
+
+        
+    def draw(self):
+        """ Blit the unit onto the designated screen 
+        
+            Example:
+            screen.blit(img,(0,0))
+        
+        """
+        if self.state == True:
+            # The creep image is placed at self.pos. 
+            # To allow for smooth movement even when ratating and changing direction
+            # its placement is always centered.
+            #self.draw_rect = self.image.get_rect().move(
+                #self.loc[0] - self.image_w / 2, 
+                #self.loc[1] - self.image_h / 2)
+            #self.screen.blit(self.image, self.draw_rect)
+            print("loc: ", self.loc)
+            self.screen.blit(get_image(self.image), (self.loc[0]*24, self.loc[1]*24))
+            
+            # The health bar is 15x4 px.
+            #
+            health_bar_x = self.loc[0]*24 - 7
+            health_bar_y = self.loc[1]*24 - self.image_h / 2 - 6
+            self.screen.fill(   Color('red'), 
+                                (health_bar_x, health_bar_y, 15, 4))
+            self.screen.fill(   Color('green'), 
+                                (   health_bar_x, health_bar_y, 
+                                    self.health_bar_len(self.health), 4))   
+        
+    def health_bar_len(self, current_health):
+        max_bar_len = 15 # maximum length of health bar regardless of health points
+        current_health_bar = int(self.health/self.max_health * max_bar_len)
+        if current_health_bar < 0:
+            current_health_bar = 0
+        return(current_health_bar)
+        
+        
+def get_image(path):
+    global _image_library
+    image = _image_library.get(path)
+    if image == None:
+            canonicalized_path = path.replace('/', os.sep).replace('\\', os.sep)
+            image = pygame.image.load(canonicalized_path)
+            _image_library[path] = image
+    return image
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
         
 ################################################################################                          
