@@ -8,7 +8,8 @@ from pygame import Color
 from pygame.sprite import Sprite
 import sys, os
 import params #                                                                  NOTE: this will come from the parent loop instead of params
-from random import randint
+import random
+from random import randint, choice
 from images_lib import (  LT_GRAY , WHITE)
 from helper_apps import calc_move
 
@@ -21,12 +22,22 @@ from helper_apps import calc_move
 """
 unit_start_qty = 5 # number of starting army units under player control
 players_start_qty = 2 # number of starting players 
+player_colors = ("red", "green", "blue", "gray", "yellow", "brown", "purple", "white") # player colors
+used_player_colors = []
 
 ################################################################################
 # Images
 
 _image_library = {}
 PAWN_IMG = "images/bluepawn.png"
+player_unit = {  "red" : "images/red_tank.png", 
+                 "green" : "images/green_tank.png", 
+                 "blue" : "images/blue_tank.png",
+                 "gray" : "images/gray_tank.png",
+                 "yellow" : "images/yellow_tank.png",
+                 "brown" : "images/brown_tank.png",
+                 "purple" : "images/purple_tank.png",
+                 "white": "images/white_tank.png"  }
 
 ################################################################################
 
@@ -53,11 +64,23 @@ class Simp_unit(Sprite):
         self.image_w = 18
     
     
+    
+    
+    
+    def assign_unit_color_units(self, player_color):
+        """ assign basic unit based upon player color """
+        self.image = player_unit[player_color]
+        
+        
+        
+        
+        
+    
+    
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 
             Right now, I'm just picking a random tile with the hope of no duplication
             """
-        dummy = False
         self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
         #print("location in grid:", self.loc)
         
@@ -102,8 +125,6 @@ class Simp_unit(Sprite):
                             #params.TILE_SIZE] )
         self.draw()
     
-
-        
     def draw(self):
         """ Blit the unit onto the designated screen 
         
@@ -139,7 +160,6 @@ class Simp_unit(Sprite):
             current_health_bar = 0
         return(current_health_bar)
         
-        
 def get_image(path):
     global _image_library
     image = _image_library.get(path)
@@ -148,23 +168,6 @@ def get_image(path):
             image = pygame.image.load(canonicalized_path)
             _image_library[path] = image
     return image
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
 ################################################################################                          
@@ -184,6 +187,20 @@ class Simp_unit_group(object):
             new = Simp_unit(screen)
             self.group_list.append(new)
         #print("group:", self.group_list)
+        
+        
+        
+        
+        
+        
+    def assign_group_color_units(self, player_color):
+        for unit in self.group_list:
+            unit.assign_unit_color_units(player_color)
+            
+            
+            
+            
+            
         
     def su_grp_click_check(self, coord):
         """ check to see if any unit in group was clicked to make active 
@@ -205,6 +222,35 @@ class Player(object):
         self.name = "Player Name"
         self.units = []
         self.create_player_units(screen)
+        self.color = random.choice(player_colors)
+        while self.color_been_picked():
+            self.color = random.choice(player_colors)
+        self.assign_player_color_units()
+
+
+
+
+    def assign_player_color_units(self):
+        """ set unit icons to player color """
+        for group in self.units:
+            group.assign_group_color_units(self.color)
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    def color_been_picked(self):
+        """ see if color is already used, if so, return True else return False """
+        already_used = False
+        for used_color in used_player_colors:
+            if self.color == used_color:
+                return(True)
+        used_player_colors.append(self.color)
+        return(False)
         
     def create_player_units(self, screen):
         new = Simp_unit_group(screen) # create a group of units
