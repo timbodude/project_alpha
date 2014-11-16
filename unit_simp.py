@@ -63,20 +63,10 @@ class Simp_unit(Sprite):
         self.image_h = 18
         self.image_w = 18
     
-    
-    
-    
-    
     def assign_unit_color_units(self, player_color):
         """ assign basic unit based upon player color """
         self.image = player_unit[player_color]
         
-        
-        
-        
-        
-    
-    
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 
             Right now, I'm just picking a random tile with the hope of no duplication
@@ -169,7 +159,6 @@ def get_image(path):
             _image_library[path] = image
     return image
         
-        
 ################################################################################                          
 class Simp_unit_group(object):
     """ player unit group """
@@ -188,20 +177,10 @@ class Simp_unit_group(object):
             self.group_list.append(new)
         #print("group:", self.group_list)
         
-        
-        
-        
-        
-        
     def assign_group_color_units(self, player_color):
         for unit in self.group_list:
             unit.assign_unit_color_units(player_color)
             
-            
-            
-            
-            
-        
     def su_grp_click_check(self, coord):
         """ check to see if any unit in group was clicked to make active 
             coord: mouse click coordinates
@@ -227,22 +206,11 @@ class Player(object):
             self.color = random.choice(player_colors)
         self.assign_player_color_units()
 
-
-
-
     def assign_player_color_units(self):
         """ set unit icons to player color """
         for group in self.units:
             group.assign_group_color_units(self.color)
         
-        
-        
-        
-        
-        
-        
-    
-    
     def color_been_picked(self):
         """ see if color is already used, if so, return True else return False """
         already_used = False
@@ -270,7 +238,6 @@ class Player(object):
             for unit in group.group_list:
                 unit.update_unit()
         
- 
 class P_u_group(object):
     """ Container class to hold unit groups for each player """
     def __init__(self, screen, ttl_players = players_start_qty):
