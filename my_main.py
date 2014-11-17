@@ -9,13 +9,14 @@ import player_command
 
 ################################################################################
 
+# Get things started
 screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32) # create screen area for tiles
 grid_map = Tile_grid(screen) # Create a grid of tiles
-players = P_u_group(screen)
-
-
+player_command = player_command.Player_command()
+players = P_u_group(screen) 
 
 ################################################################################
+
 def usr_events(pos):
     """ determine action based upon mouse & kbd input 
         pos: mouse position coordinates
@@ -24,6 +25,7 @@ def usr_events(pos):
         #print("you hit the battle grid area")
         #print("you're clicked on:", pos)
         grid_map.grid_clicked(pos) # do whatever happens when something gets clicked on
+        
 ################################################################################
 
 def main():
@@ -34,7 +36,6 @@ def main():
     #screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
     ttl_round = 0 # total rounds played
     turn = 0 # who's turn it is
-    
     
     pygame.display.set_caption('Project Alpha')
     #icon = pygame.image.load("test_icon.jpg").convert_alpha()        
@@ -70,7 +71,7 @@ def main():
         grid_map.update_grid() # Update the grid to screen
         players.update_players() # Update player groups & units to screen
         
-        player_command.draw_messageboard(screen, params.MESSAGE_RECT) # update player_command area - can add 3 message variables if desired
+        player_command.draw_messageboard(screen) # update player_command area
         
         clock.tick(20) # Limit to 20 frames per second
         pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn     

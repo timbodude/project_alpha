@@ -131,18 +131,21 @@ class Simp_unit(Sprite):
                 #self.loc[1] - self.image_h / 2)
             #self.screen.blit(self.image, self.draw_rect)
             print("loc: ", self.loc)
-            self.screen.blit(get_image(self.image), (self.loc[0]*24, self.loc[1]*24))
+            self.screen.blit(get_image(self.image), (self.loc[0]*24 + 4, self.loc[1]*24 + 4)) # 4 is x & y offset
             
-            # The health bar is 15x4 px.
-            #
-            health_bar_x = self.loc[0]*24 - 7
-            health_bar_y = self.loc[1]*24 - self.image_h / 2 - 6
-            self.screen.fill(   Color('red'), 
-                                (health_bar_x, health_bar_y, 15, 4))
-            self.screen.fill(   Color('green'), 
-                                (   health_bar_x, health_bar_y, 
-                                    self.health_bar_len(self.health), 4))   
+            self.health_bar()
         
+    def health_bar(self):
+        # The health bar is 15x4 px.
+        #
+        health_bar_x = self.loc[0]*24 + 0 # 0 is x-offset
+        health_bar_y = self.loc[1]*24 + self.image_h / 2 - 11 # 11 is y-offset
+        self.screen.fill(   Color('red'), 
+                            (health_bar_x, health_bar_y, 15, 2))
+        self.screen.fill(   Color('green'), 
+                            (   health_bar_x, health_bar_y, 
+                                self.health_bar_len(self.health), 2))    
+    
     def health_bar_len(self, current_health):
         max_bar_len = 15 # maximum length of health bar regardless of health points
         current_health_bar = int(self.health/self.max_health * max_bar_len)

@@ -30,9 +30,6 @@ class Tile(object):
         self.movement_cost = 2
         #self.image = ________ # whatever image we want to assing - can be unique to incorporate drops or damage or whatever rather than a standard tile
         
-        #print("i made a tile")
-        
-               
 class Tile_grid(object):
     """ class for constructing gamespace of tiles terrain in a 2d grid """
     def __init__(self, screen):
@@ -43,12 +40,8 @@ class Tile_grid(object):
         self.matrix = [[0 for i in range(self.ncols)] for i in range(self.nrows)]
         self.screen = screen
         self.last_clicked =(-1,-1)# coord for last tile clicked 
-        
         self.fill_grid() # fill matrix with individual tiles
-        
         self.pawn_group = unit_simp.Simp_unit_group(screen) # adds group of units from unit_simp
-            
-        #print("I made a tile grid")
         
     def fill_grid(self): 
         """ fill up space in grid with an individual tile """
@@ -72,10 +65,8 @@ class Tile_grid(object):
                                     params.TILE_SIZE,
                                     params.TILE_SIZE] )
         
-        
     def update_unit_pos(self): # adjust unit positions                          - possibly best to shift to update in unit class
         dummy = False
-        
         
     #### Grid Helper Utilities   
     
@@ -112,10 +103,7 @@ class Tile_grid(object):
             else: #toggles selected to True
                 self.matrix[loc[0]][loc[1]].selected = False
                 print("toggled unit from true to false")
-                
-            #print("last click was on:", self.last_clicked)
     
-                
     def print_grid(self):
         """ prints text version of grid to shell """
         #print("printing the grid")
@@ -144,8 +132,6 @@ class Tile_grid(object):
         self.print_grid() 
         print("there should be a unit at 2,2 and a selected grassland at 2,3")
         
-        
-        
     #def is_adjacent(self,new_coord): #                                         NOTE: not currently using - old parameters
         #if new_coord[0] < self.coord[0] - 1 or new_coord[0] > self.coord[0] + 1 or new_coord[1] < self.coord[1] - 1 or new_coord[1] > self.coord[1] + 1:
             #print("not adjacent")
@@ -161,7 +147,6 @@ class Tile_grid(object):
 ################################################################################
 if __name__ == "__main__":  
     pygame.init()
-    
     
     tile_grid = Tile_grid("screen")
     # tile_grid.print_grid() # TEST to print initial grid - works
