@@ -62,6 +62,8 @@ class Simp_unit(Sprite):
         self.image = PAWN_IMG
         self.image_h = 18
         self.image_w = 18
+        self.info_msg1 = "Unit: Warrior" # this string that will print out for the player containing unit type and name
+        self.info_msg2 = "   3/3   " + str(self.loc) # this string that will print out for the player containing status info
     
     def assign_unit_color_units(self, player_color):
         """ assign basic unit based upon player color """
@@ -114,6 +116,14 @@ class Simp_unit(Sprite):
                             #params.TILE_SIZE,
                             #params.TILE_SIZE] )
         self.draw()
+        self.prep_unit_text_info()
+        
+    def prep_unit_text_info(self):
+        """ creates message for unit output to player_command window """
+        if self.state == True:
+            self.info_msg2 = "   " + str(self.health) + "/" + str(self.max_health) + "   " + str(self.loc)
+        else:
+            self.info_msg2 = "    -/" + str(self.max_health) + "   " + str(self.loc)
     
     def draw(self):
         """ Blit the unit onto the designated screen 
@@ -273,14 +283,19 @@ class P_u_group(object):
 
 if __name__ == "__main__":  
     
+    screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32) # create screen area for tiles
+
     #pawn = Simp_unit() 
-    pawn_group = Simp_unit_group()
+    pawn_group = Simp_unit_group(screen)
     for unit in pawn_group.group_list:
         print("unit loc:", unit.loc)
     #test loop to give coords to units
     for unit in pawn_group.group_list:  
         unit.targ_tile = (25,25)
         unit.active = True
+        print("status:") # test of status message update
+        print(unit.info_msg1) # test of status message update
+        print(unit.info_msg2) # test of status message update
     #test loop to move units    
         unit.move_unit()
     for unit in pawn_group.group_list: # check locations again to see if moved
@@ -289,7 +304,7 @@ if __name__ == "__main__":
         
         
     # test player groups - test works #
-    all_players = P_u_group() #                                                 - These lines are the lines to call/create the players & units for a game
+    all_players = P_u_group(screen) #                                                 - These lines are the lines to call/create the players & units for a game
     
     all_players.print_all_player_units() # Test to print all player units to shell - works
     
