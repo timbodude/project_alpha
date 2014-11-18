@@ -116,7 +116,6 @@ class Simp_unit(Sprite):
                             #params.TILE_SIZE,
                             #params.TILE_SIZE] )
         self.draw()
-        self.prep_unit_text_info()
         
     def prep_unit_text_info(self):
         """ creates message for unit output to player_command window """
@@ -140,9 +139,8 @@ class Simp_unit(Sprite):
                 #self.loc[0] - self.image_w / 2, 
                 #self.loc[1] - self.image_h / 2)
             #self.screen.blit(self.image, self.draw_rect)
-            print("loc: ", self.loc)
+            #print("loc: ", self.loc)
             self.screen.blit(get_image(self.image), (self.loc[0]*24 + 4, self.loc[1]*24 + 4)) # 4 is x & y offset
-            
             self.health_bar()
         
     def health_bar(self):
@@ -206,18 +204,29 @@ class Simp_unit_group(object):
     def update_group(self): # Not using this at this point
         """ updating a group and outputing to screen """
         print("Updating a group of units")
+        
+    def player_window_group_update(self, player_command_window):
+        """ update unit group to player_command window """
+        for unit in self.group_list:
+            unit.prep_unit_text_info()
+            
+        player_command_window.draw_player_units(unit.screen, self.group_list) # send self.group_list to player_command for window output
+            
+            
+            
 
 ################################################################################
 class Player(object):
     """ Player class """
     def __init__(self, screen):
         self.name = "Player Name"
-        self.units = []
+        self.units = [] # list in which each element is a group of units
         self.create_player_units(screen)
         self.color = random.choice(player_colors)
         while self.color_been_picked():
             self.color = random.choice(player_colors)
         self.assign_player_color_units()
+        self.active = False # connects player's team with the player controlling the game computer (only 1 player is active to a computer station)
 
     def assign_player_color_units(self):
         """ set unit icons to player color """
@@ -254,29 +263,34 @@ class Player(object):
 class P_u_group(object):
     """ Container class to hold unit groups for each player """
     def __init__(self, screen, ttl_players = players_start_qty):
-        self.players = [] # create container for each player's group
+        self.players = [] # list of players
         self.create_player_group(screen, ttl_players)
         
     def create_player_group(self, screen, ttl_players):
         """ method for creating all players """
+        make_player_active = True
         for player in range(0,ttl_players):
             new = Player(screen)
             self.players.append(new)
-            
+        self.players[0].active = True # mark which group units go to output window - TEMP ONLY - works for 1 player
+
     def print_all_player_units(self):
         """ test to print to shell all units of all teams """
         for player in self.players:
             player.print_player_units()
             
-    def update_players(self):
+    def update_players(self, player_command_window):
         """ update players and print to screen """
         #print("updating all players")
         for player in self.players:
             player.update_player()
             
-            
-            
+            if player.active == True:
+                """ print unit status to player_command window """
+                for unit_group in player.units:
+                    unit_group.player_window_group_update(player_command_window)
 
+            
 ################################################################################
 ## TEST
 ################################################################################

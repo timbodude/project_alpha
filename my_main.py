@@ -69,10 +69,10 @@ def main():
                     
         screen.fill(BLACK) # Set the screen background
         grid_map.update_grid() # Update the grid to screen
-        players.update_players() # Update player groups & units to screen
         
         player_command.draw_messageboard(screen) # update player_command area
-        
+        players.update_players(player_command) # Update player groups & units to screen
+
         clock.tick(20) # Limit to 20 frames per second
         pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn     
 

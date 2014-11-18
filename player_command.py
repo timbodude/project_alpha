@@ -8,6 +8,7 @@ import pygame
 from pygame import Rect, Color
 from images_lib import Image_lib
 import messages
+import unit_simp # only if output from unit_simp outputs to this window
 
 ################################################################################
 
@@ -24,6 +25,7 @@ class Player_command(object):
         self.back_color = "black"
         self.message_rect = Rect(600, 0, 800, 600)
         self.message_size = (int(self.message_rect[2])-self.message_rect[0], int(self.message_rect[3]))
+        self.unit_group_rect = Rect(600, 150, 800, 600)
         
     def draw_messageboard(self, screen):
         self.draw_rimmed_box(screen, self.message_rect, (self.x, self.width, self.offset), 4, Color(self.back_color))
@@ -35,12 +37,28 @@ class Player_command(object):
         message4_sf = my_font.render(message4, True, Color('white'))
         message5 = "Enemies: " + str(messages.ENEMY_WINS)  
         message5_sf = my_font.render(message5, True, Color('white'))
-        
         screen.blit(message1_sf, self.message_rect.move(0, message1_sf.get_height()))
         screen.blit(message2_sf, self.message_rect.move(0, message2_sf.get_height()*2))  
         screen.blit(message3_sf, self.message_rect.move(0, message2_sf.get_height()*3))  
         screen.blit(message4_sf, self.message_rect.move(0, message4_sf.get_height()*4))  
         screen.blit(message5_sf, self.message_rect.move(0, message5_sf.get_height()*5))  
+        
+    def draw_player_units(self, screen, unit_group):
+        """ blits player unit text to output window """
+        dummy = False
+        self.draw_rimmed_box(screen, Rect(600, 150, 800, 600), (self.x, self.width, self.offset), 4, Color(self.back_color))
+        my_font = pygame.font.SysFont('arial', 12)
+        offset = 0
+        for unit in unit_group:
+            message1_sf = my_font.render(unit.info_msg1, True, Color('white'))
+            message2_sf = my_font.render(unit.info_msg2, True, Color('white'))
+            screen.blit(message1_sf, self.unit_group_rect.move(0, message1_sf.get_height()*1 + offset*24))
+            screen.blit(message2_sf, self.unit_group_rect.move(0, message2_sf.get_height()*2 + offset*24))
+            offset += 2
+            
+            
+            
+            
         
     def draw_rimmed_box(self, screen, box_rect, box_color, 
                         rim_width=0, 

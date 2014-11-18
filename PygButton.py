@@ -1,5 +1,8 @@
 ################################################################################
-""" example of button class """
+""" example of button class 
+    description: http://inventwithpython.com/blog/2012/10/30/creating-a-button-ui-module-for-pygame/
+
+"""
 ################################################################################
 
 
