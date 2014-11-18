@@ -15,8 +15,10 @@ RED       = ( 255,   0,   0)
 MDW_GREEN = (   0, 128,   0) # meadow
 MDW_BROWN = ( 212, 181, 116) # woods
 MDW_BLUE  = ( 124, 147, 252) # water
-
 GRASS     = (   0, 128,   0) # grass color & terrain type
+DARKGRAY  = ( 64,  64,  64)
+GRAY      = (128, 128, 128)
+LIGHTGRAY = (212, 208, 200)
 
 """
 NOTE: for grid purposes, use terrain type name as the corresponding color name

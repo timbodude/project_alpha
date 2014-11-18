@@ -209,12 +209,8 @@ class Simp_unit_group(object):
         """ update unit group to player_command window """
         for unit in self.group_list:
             unit.prep_unit_text_info()
-            
         player_command_window.draw_player_units(unit.screen, self.group_list) # send self.group_list to player_command for window output
             
-            
-            
-
 ################################################################################
 class Player(object):
     """ Player class """
@@ -290,7 +286,6 @@ class P_u_group(object):
                 for unit_group in player.units:
                     unit_group.player_window_group_update(player_command_window)
 
-            
 ################################################################################
 ## TEST
 ################################################################################
@@ -315,15 +310,12 @@ if __name__ == "__main__":
     for unit in pawn_group.group_list: # check locations again to see if moved
         print("unit loc:", unit.loc)     
         
-        
-        
     # test player groups - test works #
     all_players = P_u_group(screen) #                                                 - These lines are the lines to call/create the players & units for a game
     
     all_players.print_all_player_units() # Test to print all player units to shell - works
     
     all_players.update_players() # Test of update logic path
-    
     
     print()
     print("-- TEST DONE --")

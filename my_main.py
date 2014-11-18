@@ -1,11 +1,10 @@
-import pygame
-import os
+import pygame, os
 from pygame.locals import *
 from grid import Tile_grid
-import params
-from images_lib import (  BLACK  )
+import params, player_command
+from images_lib import (  BLACK, WHITE,  DARKGRAY, GRAY, LIGHTGRAY )
 from unit_simp import P_u_group
-import player_command
+import PygButton
 
 ################################################################################
 
@@ -14,6 +13,10 @@ screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0,
 grid_map = Tile_grid(screen) # Create a grid of tiles
 player_command = player_command.Player_command()
 players = P_u_group(screen) 
+
+# try a pygbutton
+#button_1 = PygButton.PygButton(rect=None, caption='', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None)
+button_1 = PygButton.PygButton(rect=(700,170,75,20), caption='btn_1', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None)
 
 ################################################################################
 
@@ -26,36 +29,32 @@ def usr_events(pos):
         #print("you're clicked on:", pos)
         grid_map.grid_clicked(pos) # do whatever happens when something gets clicked on
         
+def update_all():
+    """ update everything & put on screen """
+    screen.fill(BLACK) # Set the screen background
+    grid_map.update_grid() # Update the grid to screen
+    player_command.draw_messageboard(screen) # update player_command area
+    players.update_players(player_command) # Update player groups & units to screen    
+    button_1._update()
+    button_1.draw(screen)
+        
 ################################################################################
 
 def main():
     # Initialise screen
     pygame.init()
     clock = pygame.time.Clock()
-    #screen = pygame.display.set_mode((800, 600))
-    #screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32)
-    ttl_round = 0 # total rounds played
-    turn = 0 # who's turn it is
-    
     pygame.display.set_caption('Project Alpha')
     #icon = pygame.image.load("test_icon.jpg").convert_alpha()        
     #pygame.display.set_icon(icon)  
-    
-    #grid_map = Grid_map(screen) # Access Grid Class to create a grid
-
     # Fill background
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill((0, 0, 0))
-
-    #Display some text
-    #spriteSheet = pygame.image.load("terminal12x12_gs_ro.png")
-    #background.blit(spriteSheet, spriteSheet.get_rect())
-
-    ## Blit everything to the screen
-    #screen.blit(background, (0, 0))
-    #pygame.display.flip()
-
+    
+    ttl_round = 0 # total rounds played
+    turn = 0 # who's turn it is    
+    
     # Event loop
     while 1:
         for event in pygame.event.get():
@@ -64,20 +63,11 @@ def main():
                 pygame.quit()
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
-                #print("you clicked")
                 usr_events(pygame.mouse.get_pos())
                     
-        screen.fill(BLACK) # Set the screen background
-        grid_map.update_grid() # Update the grid to screen
-        
-        player_command.draw_messageboard(screen) # update player_command area
-        players.update_players(player_command) # Update player groups & units to screen
+        update_all()            
 
         clock.tick(20) # Limit to 20 frames per second
         pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn     
-
-        #screen.blit(background, (0, 0))
-        #pygame.display.flip()
-
 
 if __name__ == '__main__': main()
