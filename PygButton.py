@@ -1,11 +1,12 @@
 ################################################################################
-""" example of button class 
-    description: http://inventwithpython.com/blog/2012/10/30/creating-a-button-ui-module-for-pygame/
-
+## pygbutton
+################################################################################
+""" 
+  descriptions: 
+  http://inventwithpython.com/blog/2012/10/30/creating-a-button-ui-module-for-pygame/
+  https://pypi.python.org/pypi/Pygbutton/0.9.0
 """
 ################################################################################
-
-
 """
 PygButton v0.1.0
 

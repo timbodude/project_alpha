@@ -4,7 +4,7 @@ from grid import Tile_grid
 import params, player_command
 from images_lib import (  BLACK, WHITE,  DARKGRAY, GRAY, LIGHTGRAY )
 from unit_simp import P_u_group
-import PygButton
+import pygbutton
 
 ################################################################################
 
@@ -16,7 +16,7 @@ players = P_u_group(screen)
 
 # try a pygbutton
 #button_1 = PygButton.PygButton(rect=None, caption='', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None)
-button_1 = PygButton.PygButton(rect=(700,170,75,20), caption='btn_1', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None)
+button_1 = pygbutton.PygButton(rect=(700,170,75,20), caption='btn_1', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None)
 
 ################################################################################
 
@@ -28,7 +28,7 @@ def usr_events(pos):
         #print("you hit the battle grid area")
         #print("you're clicked on:", pos)
         grid_map.grid_clicked(pos) # do whatever happens when something gets clicked on
-        
+ 
 def update_all():
     """ update everything & put on screen """
     screen.fill(BLACK) # Set the screen background
@@ -64,6 +64,8 @@ def main():
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
                 usr_events(pygame.mouse.get_pos())
+            if "click" in button_1.handleEvent(event):
+                print("Hey, I was clicked")
                     
         update_all()            
 
