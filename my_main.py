@@ -14,9 +14,13 @@ grid_map = Tile_grid(screen) # Create a grid of tiles
 player_command = player_command.Player_command()
 players = P_u_group(screen) 
 
-# try a pygbutton
+#dropping in a test image
+test_img = "images/white_tank.png"
+
+# try a pygbutton - default listed below:
 #button_1 = PygButton.PygButton(rect=None, caption='', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None)
-button_1 = pygbutton.PygButton(rect=(700,170,75,20), caption='btn_1', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None)
+button_1 = pygbutton.PygButton(rect=(700,170,75,20), caption="btn_1", bgcolor=LIGHTGRAY, fgcolor=BLACK)
+button_2 = pygbutton.PygButton(rect=(700,200,24,24), normal = test_img)
 
 ################################################################################
 
@@ -37,6 +41,8 @@ def update_all():
     players.update_players(player_command) # Update player groups & units to screen    
     button_1._update()
     button_1.draw(screen)
+    button_2._update()
+    button_2.draw(screen)    
         
 ################################################################################
 
@@ -65,7 +71,9 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
                 usr_events(pygame.mouse.get_pos())
             if "click" in button_1.handleEvent(event):
-                print("Hey, I was clicked")
+                print("Hey, I was clicked.")
+            if "click" in button_2.handleEvent(event):
+                print("Nothing here but us buttons.")                
                     
         update_all()            
 
