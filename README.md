@@ -10,9 +10,6 @@ Do we want a couple of readme's:
 • task assignments, updates, misc issues & questions
 • ideas for consideration or later development
 
-
-**[Travis: game-grid was getting huge so I moved it to design_inspirations.md]**
-
 ###---Story Ideas (feel free to add)---
 Nameless person from some town 
 your sheep have been killed by killer rabits that appered out of nowere.
@@ -69,7 +66,6 @@ Willpower
 Focus
 Analytical Ability
 
-**(probably should move these to github->Issues)**
 ###---Dad is working on---
 combat windows:
 Possible Pre-Combat Order:
