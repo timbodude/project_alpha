@@ -57,7 +57,7 @@ GRAY      = (128, 128, 128)
 LIGHTGRAY = (212, 208, 200)
 
 class PygButton(object):
-    def __init__(self, rect=None, caption='', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None):
+    def __init__(self, rect=None, caption='', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None, unit=None):
         """Create a new button object. Parameters:
             rect - The size and position of the button as a pygame.Rect object
                 or 4-tuple of integers.
@@ -74,6 +74,7 @@ class PygButton(object):
                 appearance.
             highlight - A pygame.Surface object for the button's appearance
                 when the mouse is over it.
+            unit - the specific player unit (if any) attached to the button
 
             If the Surface objects are used, then the caption, bgcolor,
             fgcolor, and font parameters are ignored (and vice versa).
@@ -104,6 +105,7 @@ class PygButton(object):
         self.lastMouseDownOverButton = False # was the last mouse down event over the mouse button? (Used to track clicks.)
         self._visible = True # is the button visible
         self.customSurfaces = False # button starts as a text button instead of having custom images for each surface
+        print("I'm a new button at:", self.rect)
 
         if normal is None:
             # create the surfaces for a text button
@@ -114,6 +116,8 @@ class PygButton(object):
         else:
             # create the surfaces for a custom image button
             self.setSurfaces(normal, down, highlight)
+        
+        #print("I'm a brand new button. Rect:", self.rect, "caption:", self.caption, "bgcolor:", self.bgcolor, "fgcolor:", self.fgcolor)
 
     def handleEvent(self, eventObj):
         """All MOUSEMOTION, MOUSEBUTTONUP, MOUSEBUTTONDOWN event objects
@@ -350,3 +354,21 @@ class PygButton(object):
     fgcolor = property(_propGetFgColor, _propSetFgColor)
     bgcolor = property(_propGetBgColor, _propSetBgColor)
     font = property(_propGetFont, _propSetFont)
+    
+class Btn_grp(object):
+    """ group of all buttons """
+    def __init__(self):
+        """ group of all buttons """
+        self.btn_list = []
+    
+    def new_btn(self, rect=None, caption='', bgcolor=LIGHTGRAY, fgcolor=BLACK, font=None, normal=None, down=None, highlight=None, unit=None):
+        """ make new button and add to button list """
+        temp_btn = PygButton(rect, caption, bgcolor, fgcolor, font, normal, down, highlight, unit)
+        #print("I made me a button. Rect:", rect, "caption:", caption, "bgcolor:", bgcolor, "fgcolor:", fgcolor, "normal:", normal)
+        self.btn_list.append(temp_btn)
+        
+    def btn_grp_update(self, screen):
+        """ update button group & draw to screen """
+        for button in self.btn_list:
+            button._update()
+            button.draw(screen)

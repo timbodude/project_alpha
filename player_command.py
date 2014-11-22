@@ -12,6 +12,19 @@ import unit_simp # only if output from unit_simp outputs to this window
 
 ################################################################################
 
+player_info_area = (605, 165, 20, 20)
+
+unit_active_y = { 0: player_info_area[1] + 24*1,
+                  1: player_info_area[1] + 24*2,
+                  2: player_info_area[1] + 24*3,
+                  3: player_info_area[1] + 24*4,
+                  4: player_info_area[1] + 24*5,
+                  5: player_info_area[1] + 24*6,
+                  6: player_info_area[1] + 24*7,
+                  7: player_info_area[1] + 24*8}
+
+################################################################################
+
 class Player_command(object):
     """ Display pannel for player input/output """
     
@@ -25,7 +38,7 @@ class Player_command(object):
         self.back_color = "black"
         self.message_rect = Rect(600, 0, 800, 600)
         self.message_size = (int(self.message_rect[2])-self.message_rect[0], int(self.message_rect[3]))
-        self.unit_group_rect = Rect(600, 150, 800, 600)
+        self.unit_group_rect = Rect(630, 150, 18, 15)
         
     def draw_messageboard(self, screen):
         self.draw_rimmed_box(screen, self.message_rect, (self.x, self.width, self.offset), 4, Color(self.back_color))
@@ -44,21 +57,24 @@ class Player_command(object):
         screen.blit(message5_sf, self.message_rect.move(0, message5_sf.get_height()*5))  
         
     def draw_player_units(self, screen, unit_group):
-        """ blits player unit text to output window """
-        dummy = False
+        """ blits player unit text to output display window """
         self.draw_rimmed_box(screen, Rect(600, 150, 800, 600), (self.x, self.width, self.offset), 4, Color(self.back_color))
         my_font = pygame.font.SysFont('arial', 12)
         offset = 0
         for unit in unit_group:
             message1_sf = my_font.render(unit.info_msg1, True, Color('white'))
             message2_sf = my_font.render(unit.info_msg2, True, Color('white'))
+            self.output_active_btn(screen, unit.active_button, offset*24) # output active button            
             screen.blit(message1_sf, self.unit_group_rect.move(0, message1_sf.get_height()*1 + offset*24))
             screen.blit(message2_sf, self.unit_group_rect.move(0, message2_sf.get_height()*2 + offset*24))
             offset += 2
             
-            
-            
-            
+    def output_active_btn(self, screen, btn_name, y_adjust):
+        """ adjust rect of button for current location """
+        btn_name.rect = Rect(btn_name.rect[0], btn_name.rect[1] + y_adjust, btn_name.rect[2], btn_name.rect[3]) # update unit position to match unit text
+        btn_name._update()
+        btn_name.draw(screen)
+        btn_name.rect = Rect(player_info_area)
         
     def draw_rimmed_box(self, screen, box_rect, box_color, 
                         rim_width=0, 

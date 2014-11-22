@@ -17,7 +17,10 @@ from pygame import Rect
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 FIELD_RECT = Rect(0, 0, 600, 600)
 MARGIN = 1
-TILE_SIZE = 23
+
+TILE_SIZE = 23 # planned so far
+#TILE_SIZE = 32 # experiment = 33 tile size including margin, more dots to work with
+
 GRID_SIZE = (int(FIELD_RECT[2]/(TILE_SIZE + MARGIN)), int(FIELD_RECT[3]/(TILE_SIZE + MARGIN)))
 #MESSAGE_RECT = Rect(600, 0, 800, 600) #                                         Eliminated - moved to player_command
 #MESSAGE_SIZE = (int(MESSAGE_RECT[2])-MESSAGE_RECT[0], int(MESSAGE_RECT[3])) #   Eliminated - moved to player_command

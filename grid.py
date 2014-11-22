@@ -37,7 +37,7 @@ class Tile_grid(object):
         """
         self.nrows = int(params.FIELD_RECT[2]/params.TILE_SIZE) # number of horizontal grid spaces in grid map
         self.ncols = int(params.FIELD_RECT[3]/params.TILE_SIZE) # number of vertical grid spaces in grid map
-        self.matrix = [[0 for i in range(self.ncols)] for i in range(self.nrows)]
+        self.matrix = [[0 for i in range(self.ncols)] for i in range(self.nrows)] # 2-d array of tiles
         self.screen = screen
         self.last_clicked =(-1,-1)# coord for last tile clicked 
         self.fill_grid() # fill matrix with individual tiles
@@ -94,23 +94,19 @@ class Tile_grid(object):
             #print("click is in field")
             #print("pos clicked:", pos)
             loc = self.coord_to_grid(pos)
-            if self.pawn_group.su_grp_click_check(self.coord_to_grid(pos)):
+            if self.pawn_group.is_unit_in_grp_selected(self.coord_to_grid(pos)): # NOT WORKING - does not correctly identify tile location with mouse click
                 #print("someone in this group was clicked on")
                 dummy = False #                                                  - ADD things when a unit gets clicked on
             elif self.matrix[loc[0]][loc[1]].selected == False: #toggles selected to True
                 self.matrix[loc[0]][loc[1]].selected = True
-                print("toggled unit from false to true at this loc", loc)
+                print("toggled tile from false to true at this loc", loc)
             else: #toggles selected to True
                 self.matrix[loc[0]][loc[1]].selected = False
-                print("toggled unit from true to false")
-    
+                print("toggled tile from true to false")
+                
     def print_grid(self):
         """ prints text version of grid to shell """
-        #print("printing the grid")
-        
         self.matrix[1][1].selected = True
-        # self.matrix[row][col]
-        
         for row in range(0, self.nrows):
             col_output = ""
             for col in range(0, self.ncols):
@@ -124,7 +120,7 @@ class Tile_grid(object):
                     else:
                         col_output += " ."
             print(col_output)
-            print()    
+            print()      
     
     def print_test_grid(self):
         self.matrix[2][2].contents = "unit"

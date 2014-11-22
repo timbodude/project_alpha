@@ -12,6 +12,7 @@ import random
 from random import randint, choice
 from images_lib import (  LT_GRAY , WHITE)
 from helper_apps import calc_move
+import pygbutton
 
 ################################################################################
 """ Things to consider and set: 
@@ -24,6 +25,7 @@ unit_start_qty = 5 # number of starting army units under player control
 players_start_qty = 2 # number of starting players 
 player_colors = ("red", "green", "blue", "gray", "yellow", "brown", "purple", "white") # player colors
 used_player_colors = []
+player_unit_counter = 0
 
 ################################################################################
 # Images
@@ -43,7 +45,7 @@ player_unit = {  "red" : "images/red_tank.png",
 
 class Simp_unit(Sprite):
     """ generic class for basic player unit types """ 
-    def __init__(self, screen):
+    def __init__(self, screen, unit_no):
         """ Notes:
         """
         Sprite.__init__(self)
@@ -64,31 +66,42 @@ class Simp_unit(Sprite):
         self.image_w = 18
         self.info_msg1 = "Unit: Warrior" # this string that will print out for the player containing unit type and name
         self.info_msg2 = "   3/3   " + str(self.loc) # this string that will print out for the player containing status info
-    
+        self.unit_no = unit_no
+
     def assign_unit_color_units(self, player_color):
-        """ assign basic unit based upon player color """
+        """ assign basic unit based upon player color and create activate button """
         self.image = player_unit[player_color]
-        
+        self.active_button = pygbutton.PygButton(rect=(600,(180 + 24 * self.unit_no),18,18), normal = self.image, unit=self) # assign activate button for display        
+
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 
             Right now, I'm just picking a random tile with the hope of no duplication
             """
-        self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
-        #print("location in grid:", self.loc)
+        #self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
+        pixel_loc = (randint(0, params.FIELD_RECT[2]), randint(0, params.FIELD_RECT[2])) # location in pixels based on field size
+        self.loc = self.coord_to_grid(pixel_loc) # convert to grid coordinates
         
-    def unit_click_check(self, coord):
+    def coord_to_grid(self, pos):
+        """ returns grid location based on sprite pos(x,y) for test purposes of clicked location """
+        coord = (  int((pos[0] - params.FIELD_RECT[0]) / (params.TILE_SIZE + params.MARGIN)),
+                           int((pos[1] - params.FIELD_RECT[1]) / (params.TILE_SIZE + params.MARGIN)))
+        #print(  "click pos:", pos, " grid pos:", self.selected)        
+        return(coord)        
+    
+    def is_unit_selected(self, coord): #                                         NOT WORKING PROPERLY - unit location not lining up with grid coordinates
         """ see if unit has been checked on 
             coord: grid tile position
         """
-        #print("I'm checking to see if unit was clicked on")
+        print("I'm checking to see if unit was clicked on")
+        print("coord:", coord, "   loc:", self.loc)
         if coord == self.loc:
-            #print("bingo, in tile #:", coord)
+            print("bingo, in tile #:", coord)
             self.active = True
             return True
         else:
             #print("not this one at:", coord)
             dummy = False #                                                      - do whatever happense when you don't click on a unit
-        
+  
     def move_unit(self): #                                                       - should be called from gridmap updating area to see if melee occurs
         """ move unit into next square if empty """
         print("moving unit")
@@ -126,10 +139,8 @@ class Simp_unit(Sprite):
     
     def draw(self):
         """ Blit the unit onto the designated screen 
-        
             Example:
             screen.blit(img,(0,0))
-        
         """
         if self.state == True:
             # The creep image is placed at self.pos. 
@@ -184,7 +195,7 @@ class Simp_unit_group(object):
             total: number of units in group to be created (default is variable)
         """
         for i in range(0, unit_start_qty):
-            new = Simp_unit(screen)
+            new = Simp_unit(screen, unit_no = i)
             self.group_list.append(new)
         #print("group:", self.group_list)
         
@@ -192,12 +203,12 @@ class Simp_unit_group(object):
         for unit in self.group_list:
             unit.assign_unit_color_units(player_color)
             
-    def su_grp_click_check(self, coord):
+    def is_unit_in_grp_selected(self, coord):
         """ check to see if any unit in group was clicked to make active 
             coord: mouse click coordinates
         """
         for unit in self.group_list:
-            if unit.unit_click_check(coord): 
+            if unit.is_unit_selected(coord): 
                 #print("hey, you got one!")
                 return(True)
             
@@ -206,7 +217,7 @@ class Simp_unit_group(object):
         print("Updating a group of units")
         
     def player_window_group_update(self, player_command_window):
-        """ update unit group to player_command window """
+        """ update unit group info to player_command window for active player """
         for unit in self.group_list:
             unit.prep_unit_text_info()
         player_command_window.draw_player_units(unit.screen, self.group_list) # send self.group_list to player_command for window output
@@ -239,7 +250,7 @@ class Player(object):
         return(False)
         
     def create_player_units(self, screen):
-        new = Simp_unit_group(screen) # create a group of units
+        new = Simp_unit_group(screen, self) # create a group of units
         self.units.append(new)
         
     def print_player_units(self):
@@ -260,6 +271,8 @@ class P_u_group(object):
     """ Container class to hold unit groups for each player """
     def __init__(self, screen, ttl_players = players_start_qty):
         self.players = [] # list of players
+        self.active_list = []
+        
         self.create_player_group(screen, ttl_players)
         
     def create_player_group(self, screen, ttl_players):
@@ -268,7 +281,8 @@ class P_u_group(object):
         for player in range(0,ttl_players):
             new = Player(screen)
             self.players.append(new)
-        self.players[0].active = True # mark which group units go to output window - TEMP ONLY - works for 1 player
+        self.players[0].active = True # mark which group units go to output window - TEMP ONLY - works for 1st player only
+        self.active_list.append(self.players[0]) # add player to active player list
 
     def print_all_player_units(self):
         """ test to print to shell all units of all teams """
@@ -311,7 +325,7 @@ if __name__ == "__main__":
         print("unit loc:", unit.loc)     
         
     # test player groups - test works #
-    all_players = P_u_group(screen) #                                                 - These lines are the lines to call/create the players & units for a game
+    all_players = P_u_group(screen) #                         - These lines are the lines to call/create the players & units for a game
     
     all_players.print_all_player_units() # Test to print all player units to shell - works
     
