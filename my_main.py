@@ -4,7 +4,7 @@ from grid import Tile_grid
 import params, player_command
 from images_lib import (  BLACK, WHITE,  DARKGRAY, GRAY, LIGHTGRAY )
 from unit_simp import P_u_group
-import PygButton
+import pygbutton
 
 ################################################################################
 
@@ -22,7 +22,7 @@ test_img = "images/white_tank.png"
 #button_1 = pygbutton.PygButton(rect=(650,550,75,20), caption="btn_1", bgcolor=LIGHTGRAY, fgcolor=BLACK)
 button_1 = buttons.new_btn(rect=(650,500,75,20), caption="btn_1", bgcolor=LIGHTGRAY, fgcolor=BLACK)
 button_2 = buttons.new_btn(rect=(750,550,18,24), caption = "hi", normal = test_img)
-button4 = buttons.new_btn(rect = (650,550,18,24), normal = test_img)
+button_4 = buttons.new_btn(rect = (650,550,18,24), normal = test_img)
 
 ################################################################################
 

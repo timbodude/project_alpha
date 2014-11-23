@@ -71,7 +71,9 @@ class Simp_unit(Sprite):
     def assign_unit_color_units(self, player_color):
         """ assign basic unit based upon player color and create activate button """
         self.image = player_unit[player_color]
-        self.active_button = pygbutton.PygButton(rect=(600,(180 + 24 * self.unit_no),18,18), normal = self.image, unit=self) # assign activate button for display        
+        self.active_button = pygbutton.PygButton(rect=(605,(170 + 48 * self.unit_no),15,20), normal = self.image, unit=self) # assign activate button for display  
+        print("unit no:", self.unit_no)
+        #print("new button location:", self.active_button.rect)
 
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 
@@ -92,10 +94,10 @@ class Simp_unit(Sprite):
         """ see if unit has been checked on 
             coord: grid tile position
         """
-        print("I'm checking to see if unit was clicked on")
-        print("coord:", coord, "   loc:", self.loc)
+        #print("I'm checking to see if unit was clicked on")
+        #print("coord:", coord, "   loc:", self.loc)
         if coord == self.loc:
-            print("bingo, in tile #:", coord)
+            #print("bingo, in tile #:", coord)
             self.active = True
             return True
         else:
@@ -104,11 +106,11 @@ class Simp_unit(Sprite):
   
     def move_unit(self): #                                                       - should be called from gridmap updating area to see if melee occurs
         """ move unit into next square if empty """
-        print("moving unit")
+        #print("moving unit")
         if self.active == True and self.loc != self.targ_tile:
-            print("i should move", self.loc, self.targ_tile)
+            #print("i should move", self.loc, self.targ_tile)
             calc_move(self.loc, self.targ_tile)
-            print("i didn't really move, I just though about where to go")
+            #print("i didn't really move, I just though about where to go")
         else:
             print("I'm at my target location")
             
@@ -143,14 +145,6 @@ class Simp_unit(Sprite):
             screen.blit(img,(0,0))
         """
         if self.state == True:
-            # The creep image is placed at self.pos. 
-            # To allow for smooth movement even when ratating and changing direction
-            # its placement is always centered.
-            #self.draw_rect = self.image.get_rect().move(
-                #self.loc[0] - self.image_w / 2, 
-                #self.loc[1] - self.image_h / 2)
-            #self.screen.blit(self.image, self.draw_rect)
-            #print("loc: ", self.loc)
             self.screen.blit(get_image(self.image), (self.loc[0]*24 + 4, self.loc[1]*24 + 4)) # 4 is x & y offset
             self.health_bar()
         
@@ -202,7 +196,9 @@ class Simp_unit_group(object):
     def assign_group_color_units(self, player_color):
         for unit in self.group_list:
             unit.assign_unit_color_units(player_color)
-            
+            #print("unit: ", unit)
+        #print("group:", self.group_list)
+
     def is_unit_in_grp_selected(self, coord):
         """ check to see if any unit in group was clicked to make active 
             coord: mouse click coordinates
@@ -214,7 +210,7 @@ class Simp_unit_group(object):
             
     def update_group(self): # Not using this at this point
         """ updating a group and outputing to screen """
-        print("Updating a group of units")
+        #print("Updating a group of units")
         
     def player_window_group_update(self, player_command_window):
         """ update unit group info to player_command window for active player """
@@ -277,12 +273,16 @@ class P_u_group(object):
         
     def create_player_group(self, screen, ttl_players):
         """ method for creating all players """
-        make_player_active = True
+        make_player_active = False
         for player in range(0,ttl_players):
+            print("here's a player")
             new = Player(screen)
             self.players.append(new)
         self.players[0].active = True # mark which group units go to output window - TEMP ONLY - works for 1st player only
         self.active_list.append(self.players[0]) # add player to active player list
+        print("player active check. player 1:", self.players[0].active, "   player 2:", self.players[1].active)
+
+
 
     def print_all_player_units(self):
         """ test to print to shell all units of all teams """

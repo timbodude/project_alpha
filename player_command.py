@@ -64,17 +64,21 @@ class Player_command(object):
         for unit in unit_group:
             message1_sf = my_font.render(unit.info_msg1, True, Color('white'))
             message2_sf = my_font.render(unit.info_msg2, True, Color('white'))
-            self.output_active_btn(screen, unit.active_button, offset*24) # output active button            
             screen.blit(message1_sf, self.unit_group_rect.move(0, message1_sf.get_height()*1 + offset*24))
             screen.blit(message2_sf, self.unit_group_rect.move(0, message2_sf.get_height()*2 + offset*24))
+            
+            #self.output_active_btn(screen, unit.active_button, offset*24) # output active button
+            self.output_active_btn(screen, btn_name = unit.active_button) # output active button              
+            #unit.active_button.rect[1] = message1_sf.get_height()*1 + 580 + offset*24
+            
             offset += 2
             
-    def output_active_btn(self, screen, btn_name, y_adjust):
+    def output_active_btn(self, screen, btn_name, y_adjust = 0):
         """ adjust rect of button for current location """
-        btn_name.rect = Rect(btn_name.rect[0], btn_name.rect[1] + y_adjust, btn_name.rect[2], btn_name.rect[3]) # update unit position to match unit text
+        #btn_name.rect = Rect(btn_name.rect[0], btn_name.rect[1] + y_adjust, btn_name.rect[2], btn_name.rect[3]) # update unit position to match unit text
         btn_name._update()
         btn_name.draw(screen)
-        btn_name.rect = Rect(player_info_area)
+        #btn_name.rect = Rect(player_info_area)
         
     def draw_rimmed_box(self, screen, box_rect, box_color, 
                         rim_width=0, 
