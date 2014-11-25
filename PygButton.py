@@ -106,7 +106,7 @@ class PygButton(object):
         self._visible = True # is the button visible
         self.customSurfaces = False # button starts as a text button instead of having custom images for each surface
         print("I'm a new button at:", self.rect)
-
+        
         if normal is None:
             # create the surfaces for a text button
             self.surfaceNormal = pygame.Surface(self._rect.size)
@@ -116,6 +116,12 @@ class PygButton(object):
         else:
             # create the surfaces for a custom image button
             self.setSurfaces(normal, down, highlight)
+            
+        if unit is None:
+            # this button has no unit assigned to it
+            self.unit = None
+        else:
+            self.unit = unit
         
         #print("I'm a brand new button. Rect:", self.rect, "caption:", self.caption, "bgcolor:", self.bgcolor, "fgcolor:", self.fgcolor)
 

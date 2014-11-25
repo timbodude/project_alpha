@@ -49,6 +49,7 @@ def button_events(event):
             for unit in group.group_list:
                 if "click" in unit.active_button.handleEvent(event):
                     print("This unit's active button has been pressed.", button.rect)
+                    print("This was the button for the unit in location:", unit.loc)
         
 def update_all():
     """ update everything & put on screen """
