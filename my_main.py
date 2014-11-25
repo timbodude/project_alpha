@@ -24,6 +24,13 @@ button_1 = buttons.new_btn(rect=(650,500,75,20), caption="btn_1", bgcolor=LIGHTG
 button_2 = buttons.new_btn(rect=(750,550,18,24), caption = "hi", normal = test_img)
 button_4 = buttons.new_btn(rect = (650,550,18,24), normal = test_img)
 
+B_rnd = {"green": "images/btn_green.png", "gray": "images/btn_gray.png", "red": "images/btn_red.png"}
+button_colored = buttons.new_btn(  rect = (690,550,10,10), 
+                                   caption = "B", 
+                                   normal = B_rnd["gray"], 
+                                   down = B_rnd["green"], 
+                                   highlight = B_rnd["red"] )
+
 ################################################################################
 
 def usr_events(pos):
@@ -44,6 +51,9 @@ def button_events(event):
     for button in buttons.btn_list:
         if "click" in button.handleEvent(event):
             print("Woa Nellie, I'm a button after all.", button.rect)
+            if button.caption == "B":
+                print("That was the round button")
+    
     for player in players.active_list:
         for group in player.units:
             for unit in group.group_list:
@@ -62,6 +72,7 @@ def update_all():
     #button_2._update()
     #button_2.draw(screen)
     buttons.btn_grp_update(screen)
+    button_colored
     
     
         
