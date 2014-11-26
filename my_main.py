@@ -43,7 +43,7 @@ def usr_events(pos):
         grid_map.grid_clicked(pos) # do whatever happens when something gets clicked on in battle area
         
 def button_events(event):
-    """ check for button events and process """
+    """ check for user-related button events """
     #if "click" in button_1.handleEvent(event):
         #print("Hey, I was clicked.")
     #if "click" in button_2.handleEvent(event):
@@ -53,13 +53,22 @@ def button_events(event):
             print("Woa Nellie, I'm a button after all.", button.rect)
             if button.caption == "B":
                 print("That was the round button")
-    
+                
+    """ check for unit-related button events """
     for player in players.active_list:
         for group in player.units:
             for unit in group.group_list:
-                if "click" in unit.active_button.handleEvent(event):
-                    print("This unit's active button has been pressed.", button.rect)
-                    print("This was the button for the unit in location:", unit.loc)
+                #if "click" in unit.active_button.handleEvent(event):
+                    #print("This unit's active button has been pressed.", button.rect)
+                    #print("This was the button for the unit in location:", unit.loc)
+                for button in unit.unit_btns:
+                    if "click" in button.handleEvent(event):
+                        if button.caption == "B":
+                            print("This unit's Move button has been pressed.", button.rect)                     
+                        elif button.caption == "A":
+                            print("This unit's Active button has been pressed.", button.rect)
+                        else:
+                            print("an unidentified button for this player has been pressed.")
         
 def update_all():
     """ update everything & put on screen """
@@ -72,9 +81,6 @@ def update_all():
     #button_2._update()
     #button_2.draw(screen)
     buttons.btn_grp_update(screen)
-    button_colored
-    
-    
         
 ################################################################################
 

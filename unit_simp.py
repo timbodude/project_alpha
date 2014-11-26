@@ -40,6 +40,8 @@ player_unit = {  "red" : "images/red_tank.png",
                  "brown" : "images/brown_tank.png",
                  "purple" : "images/purple_tank.png",
                  "white": "images/white_tank.png"  }
+B_rnd = {"green": "images/btn_green.png", "gray": "images/btn_gray.png", "red": "images/btn_red.png"}
+
 
 ################################################################################
 
@@ -67,13 +69,27 @@ class Simp_unit(Sprite):
         self.info_msg1 = "Unit: Warrior" # this string that will print out for the player containing unit type and name
         self.info_msg2 = "   3/3   " + str(self.loc) # this string that will print out for the player containing status info
         self.unit_no = unit_no
+        self.unit_btns = []
 
     def assign_unit_color_units(self, player_color):
         """ assign basic unit based upon player color and create activate button """
         self.image = player_unit[player_color]
-        self.active_button = pygbutton.PygButton(rect=(605,(170 + 48 * self.unit_no),15,20), normal = self.image, unit=self) # assign activate button for display  
+        #self.active_button = pygbutton.PygButton(rect=(605,(170 + 48 * self.unit_no),15,20), normal = self.image, unit=self) # assign activate button for display  # move to method
+        self.make_btn_row()
         print("unit no:", self.unit_no)
         #print("new button location:", self.active_button.rect)
+        
+    def make_btn_row(self):
+        """ create a row of buttons for each unit """
+        temp_btn = pygbutton.PygButton(rect=(605,(170 + 48 * self.unit_no),15,20), normal = self.image, unit=self, caption="A") # assign activate button for display
+        self.unit_btns.append(temp_btn)
+        temp_btn = pygbutton.PygButton(  rect=(700,(170 + 48 * self.unit_no),15,20),
+                                         caption = "B",
+                                         normal = B_rnd["gray"],
+                                         down = B_rnd["green"],
+                                         highlight = B_rnd["red"],
+                                         unit=self) # assign activate button for display  
+        self.unit_btns.append(temp_btn)
 
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 

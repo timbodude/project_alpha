@@ -67,12 +67,14 @@ class Player_command(object):
             screen.blit(message1_sf, self.unit_group_rect.move(0, message1_sf.get_height()*1 + offset*24))
             screen.blit(message2_sf, self.unit_group_rect.move(0, message2_sf.get_height()*2 + offset*24))
             
-            #self.output_active_btn(screen, unit.active_button, offset*24) # output active button
-            self.output_active_btn(screen, btn_name = unit.active_button) # output active button              
-            #unit.active_button.rect[1] = message1_sf.get_height()*1 + 580 + offset*24
+            #self.output_active_btn(screen, btn_name = unit.active_button) # output active button - WORKS with output_active button only
+            for button in unit.unit_btns:
+                #button.update()
+                button.draw(screen)
             
             offset += 2
-            
+
+    
     def output_active_btn(self, screen, btn_name, y_adjust = 0):
         """ adjust rect of button for current location """
         #btn_name.rect = Rect(btn_name.rect[0], btn_name.rect[1] + y_adjust, btn_name.rect[2], btn_name.rect[3]) # update unit position to match unit text
