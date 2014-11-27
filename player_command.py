@@ -38,7 +38,7 @@ class Player_command(object):
         self.back_color = "black"
         self.message_rect = Rect(600, 0, 800, 600)
         self.message_size = (int(self.message_rect[2])-self.message_rect[0], int(self.message_rect[3]))
-        self.unit_group_rect = Rect(630, 150, 18, 15)
+        self.unit_group_rect = Rect(630, 150, 15, 15)
         
     def draw_messageboard(self, screen):
         self.draw_rimmed_box(screen, self.message_rect, (self.x, self.width, self.offset), 4, Color(self.back_color))
@@ -67,20 +67,10 @@ class Player_command(object):
             screen.blit(message1_sf, self.unit_group_rect.move(0, message1_sf.get_height()*1 + offset*24))
             screen.blit(message2_sf, self.unit_group_rect.move(0, message2_sf.get_height()*2 + offset*24))
             
-            #self.output_active_btn(screen, btn_name = unit.active_button) # output active button - WORKS with output_active button only
             for button in unit.unit_btns:
-                #button.update()
                 button.draw(screen)
             
             offset += 2
-
-    
-    def output_active_btn(self, screen, btn_name, y_adjust = 0):
-        """ adjust rect of button for current location """
-        #btn_name.rect = Rect(btn_name.rect[0], btn_name.rect[1] + y_adjust, btn_name.rect[2], btn_name.rect[3]) # update unit position to match unit text
-        btn_name._update()
-        btn_name.draw(screen)
-        #btn_name.rect = Rect(player_info_area)
         
     def draw_rimmed_box(self, screen, box_rect, box_color, 
                         rim_width=0, 

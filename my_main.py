@@ -1,7 +1,7 @@
 import pygame, os
 from pygame.locals import *
 from grid import Tile_grid
-import params, player_command
+import params, player_command, move
 from images_lib import (  BLACK, WHITE,  DARKGRAY, GRAY, LIGHTGRAY )
 from unit_simp import P_u_group
 import pygbutton
@@ -20,16 +20,18 @@ test_img = "images/white_tank.png"
 
 # try a pygbutton - default listed below:
 #button_1 = pygbutton.PygButton(rect=(650,550,75,20), caption="btn_1", bgcolor=LIGHTGRAY, fgcolor=BLACK)
-button_1 = buttons.new_btn(rect=(650,500,75,20), caption="btn_1", bgcolor=LIGHTGRAY, fgcolor=BLACK)
-button_2 = buttons.new_btn(rect=(750,550,18,24), caption = "hi", normal = test_img)
-button_4 = buttons.new_btn(rect = (650,550,18,24), normal = test_img)
+button_2 = buttons.new_btn(rect=(750,500,18,24), caption = "hi", normal = test_img)
+button_4 = buttons.new_btn(rect = (650,500,18,24), normal = test_img)
+
 
 B_rnd = {"green": "images/btn_green.png", "gray": "images/btn_gray.png", "red": "images/btn_red.png"}
-button_colored = buttons.new_btn(  rect = (690,550,10,10), 
+button_colored = buttons.new_btn(  rect = (690,500,10,10), 
                                    caption = "B", 
                                    normal = B_rnd["gray"], 
                                    down = B_rnd["green"], 
                                    highlight = B_rnd["red"] )
+button_move = buttons.new_btn(  rect = (625,550,150,20), 
+                                caption = "MAKE IT SO!")
 
 ################################################################################
 
@@ -50,17 +52,20 @@ def button_events(event):
         #print("Nothing here but us buttons.")
     for button in buttons.btn_list:
         if "click" in button.handleEvent(event):
-            print("Woa Nellie, I'm a button after all.", button.rect)
+            dummy = False
+            #print("Woa Nellie, I'm a button after all.", button.rect) # do clicking sound or whatever is common to all buttons
             if button.caption == "B":
                 print("That was the round button")
+            if button.caption == "hi":
+                print("Nothing here but us buttons.")
+            if button.caption == "MAKE IT SO!":
+                print("Movement phase done, calculate moves & combat resolution - no combat yet, but getting close...")
+                move.movement(grid_map, players)
                 
     """ check for unit-related button events """
     for player in players.active_list:
         for group in player.units:
             for unit in group.group_list:
-                #if "click" in unit.active_button.handleEvent(event):
-                    #print("This unit's active button has been pressed.", button.rect)
-                    #print("This was the button for the unit in location:", unit.loc)
                 for button in unit.unit_btns:
                     if "click" in button.handleEvent(event):
                         if button.caption == "B":

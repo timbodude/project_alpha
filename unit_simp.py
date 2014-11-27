@@ -21,8 +21,8 @@ import pygbutton
     - how likely it is for a unit to have successful attack
     - how likely it is for a unit to have a successful defense
 """
-unit_start_qty = 5 # number of starting army units under player control
-players_start_qty = 2 # number of starting players 
+unit_start_qty = 6 # number of starting army units under player control
+players_start_qty = 2 # number of starting players (can go up to 8, but not beyond that as there are only 8 color choices
 player_colors = ("red", "green", "blue", "gray", "yellow", "brown", "purple", "white") # player colors
 used_player_colors = []
 player_unit_counter = 0
@@ -70,14 +70,14 @@ class Simp_unit(Sprite):
         self.info_msg2 = "   3/3   " + str(self.loc) # this string that will print out for the player containing status info
         self.unit_no = unit_no
         self.unit_btns = []
+        
+        self.targ_tile = (15,15) # temporarily default to middle of the screen for testing purposes
 
     def assign_unit_color_units(self, player_color):
         """ assign basic unit based upon player color and create activate button """
         self.image = player_unit[player_color]
-        #self.active_button = pygbutton.PygButton(rect=(605,(170 + 48 * self.unit_no),15,20), normal = self.image, unit=self) # assign activate button for display  # move to method
         self.make_btn_row()
         print("unit no:", self.unit_no)
-        #print("new button location:", self.active_button.rect)
         
     def make_btn_row(self):
         """ create a row of buttons for each unit """
