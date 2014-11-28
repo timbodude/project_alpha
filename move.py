@@ -21,14 +21,6 @@ def movement(grid, player_grp):
                     #grid.matrix[unit.loc[0]][unit.loc[1]].remove(unit)
                     unit.loc = next_loc
                     #grid.matrix[next_loc[0]][next_loc[1]].append(unit)
-    
-    
-    
-    #next_loc = move_to_target(unit)
-    #if is_grid_passable(grid, next_loc):
-        #grid.matrix[unit.loc[0]][unit.loc[1]].remove(unit)
-        #unit.loc = next_loc
-        #grid.matrix[next_loc[0]][next_loc[1]].append(unit)
         
 ################################################################################
 

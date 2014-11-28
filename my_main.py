@@ -23,7 +23,6 @@ test_img = "images/white_tank.png"
 button_2 = buttons.new_btn(rect=(750,500,18,24), caption = "hi", normal = test_img)
 button_4 = buttons.new_btn(rect = (650,500,18,24), normal = test_img)
 
-
 B_rnd = {"green": "images/btn_green.png", "gray": "images/btn_gray.png", "red": "images/btn_red.png"}
 button_colored = buttons.new_btn(  rect = (690,500,10,10), 
                                    caption = "B", 
@@ -43,13 +42,12 @@ def usr_events(pos):
         #print("you hit the battle grid area")
         #print("you're clicked on:", pos)
         grid_map.grid_clicked(pos) # do whatever happens when something gets clicked on in battle area
+        new_coord = grid_map.coord_to_grid(pos)
+        players.assign_player_grp_targ_tile(new_coord)
+        player_command.player_msg = ""
         
 def button_events(event):
     """ check for user-related button events """
-    #if "click" in button_1.handleEvent(event):
-        #print("Hey, I was clicked.")
-    #if "click" in button_2.handleEvent(event):
-        #print("Nothing here but us buttons.")
     for button in buttons.btn_list:
         if "click" in button.handleEvent(event):
             dummy = False
@@ -69,9 +67,12 @@ def button_events(event):
                 for button in unit.unit_btns:
                     if "click" in button.handleEvent(event):
                         if button.caption == "B":
-                            print("This unit's Move button has been pressed.", button.rect)                     
+                            unit.active = "True"
+                            print("This unit's Move button has been pressed.", button.rect)
+                            player_command.player_msg = "Click on target tile."
                         elif button.caption == "A":
                             print("This unit's Active button has been pressed.", button.rect)
+                            
                         else:
                             print("an unidentified button for this player has been pressed.")
         

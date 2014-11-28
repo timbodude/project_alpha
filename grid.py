@@ -103,7 +103,7 @@ class Tile_grid(object):
             else: #toggles selected to True
                 self.matrix[loc[0]][loc[1]].selected = False
                 print("toggled tile from true to false")
-                
+                                
     def print_grid(self):
         """ prints text version of grid to shell """
         self.matrix[1][1].selected = True

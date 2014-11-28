@@ -56,9 +56,9 @@ class Simp_unit(Sprite):
         self.alt_color = WHITE
         self.state = True # (bool) True: alive False: dead
         #print("I made me a man, and his name is Jim")
-        self.place_unit()
         self.active = False # True: unit has been clicked on by user
-        self.targ_tile = () # tile unit is moving into (in coordinates)
+        self.place_unit()
+        self.targ_tile = self.loc # tile unit is moving into (in coordinates) - default is current location
         self.selected = False # indicates a unit is clicked on by player
         self.screen = screen
         self.health = 3
@@ -71,8 +71,13 @@ class Simp_unit(Sprite):
         self.unit_no = unit_no
         self.unit_btns = []
         
-        self.targ_tile = (15,15) # temporarily default to middle of the screen for testing purposes
+        #self.targ_tile = (15,15) # temporarily default to middle of the screen for testing purposes
 
+    def assign_unit_targ_tile(self, new_targ):
+        """ update targ_tile to clicked location """
+        self.active = False
+        self.targ_tile = new_targ
+        
     def assign_unit_color_units(self, player_color):
         """ assign basic unit based upon player color and create activate button """
         self.image = player_unit[player_color]
@@ -200,6 +205,12 @@ class Simp_unit_group(object):
         self.group_list = [] # create container to hold individual units for player's group
         self.Simp_unit_group_fill(screen, total) # create units
         
+    def assign_unit_g_targ_tile(self, new_targ):
+        """ pass units to be adjusted for targ_tile """
+        for unit in self.group_list:
+            if unit.active:
+                unit.assign_unit_targ_tile(new_targ)
+    
     def Simp_unit_group_fill(self, screen, total = unit_start_qty):
         """ fill unit group with initial units 
             total: number of units in group to be created (default is variable)
@@ -247,6 +258,13 @@ class Player(object):
         self.assign_player_color_units()
         self.active = False # connects player's team with the player controlling the game computer (only 1 player is active to a computer station)
 
+    def assign_player_targ_tile(self, new_targ):  
+        """ pass player to be adjusted for targ_tile """
+        for unit_group_list in self.units:
+            unit_group_list.assign_unit_g_targ_tile(new_targ)
+            
+    
+    
     def assign_player_color_units(self):
         """ set unit icons to player color """
         for group in self.units:
@@ -287,6 +305,12 @@ class P_u_group(object):
         
         self.create_player_group(screen, ttl_players)
         
+    def assign_player_grp_targ_tile(self, new_targ): 
+        """ pass player to be adjusted for targ_tile """
+        for player in self.active_list:
+            player.assign_player_targ_tile(new_targ)
+    
+    
     def create_player_group(self, screen, ttl_players):
         """ method for creating all players """
         make_player_active = False

@@ -39,7 +39,14 @@ class Player_command(object):
         self.message_rect = Rect(600, 0, 800, 600)
         self.message_size = (int(self.message_rect[2])-self.message_rect[0], int(self.message_rect[3]))
         self.unit_group_rect = Rect(630, 150, 15, 15)
+        self.player_msg = "Player message here"
         
+    def msg_to_player(self, screen):
+        """ tracks and handles message to player """
+        my_font = pygame.font.SysFont('arial', 18)
+        message1_sf = my_font.render(self.player_msg, True, Color('white'))
+        screen.blit(message1_sf, (20, 550, 800, 600))
+    
     def draw_messageboard(self, screen):
         self.draw_rimmed_box(screen, self.message_rect, (self.x, self.width, self.offset), 4, Color(self.back_color))
         my_font = pygame.font.SysFont('arial', 18)
@@ -55,6 +62,7 @@ class Player_command(object):
         screen.blit(message3_sf, self.message_rect.move(0, message2_sf.get_height()*3))  
         screen.blit(message4_sf, self.message_rect.move(0, message4_sf.get_height()*4))  
         screen.blit(message5_sf, self.message_rect.move(0, message5_sf.get_height()*5))  
+        self.msg_to_player(screen)
         
     def draw_player_units(self, screen, unit_group):
         """ blits player unit text to output display window """
