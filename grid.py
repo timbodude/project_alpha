@@ -150,6 +150,4 @@ if __name__ == "__main__":
     
     tile_grid.print_test_grid() # TEST to see if units superscede terrain & grassland indicates selection
     
-    
-    
     print("--DONE--")  

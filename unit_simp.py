@@ -12,7 +12,7 @@ import random
 from random import randint, choice
 from images_lib import (  LT_GRAY , WHITE)
 from helper_apps import calc_move
-import pygbutton
+import pygbutton, ai
 
 ################################################################################
 """ Things to consider and set: 
@@ -262,8 +262,6 @@ class Player(object):
         """ pass player to be adjusted for targ_tile """
         for unit_group_list in self.units:
             unit_group_list.assign_unit_g_targ_tile(new_targ)
-            
-    
     
     def assign_player_color_units(self):
         """ set unit icons to player color """
@@ -295,21 +293,29 @@ class Player(object):
         #print("updating player")
         for group in self.units:
             for unit in group.group_list:
-                unit.update_unit()
+                unit.update_unit()                        
         
 class P_u_group(object):
     """ Container class to hold unit groups for each player """
     def __init__(self, screen, ttl_players = players_start_qty):
         self.players = [] # list of players
         self.active_list = []
-        
         self.create_player_group(screen, ttl_players)
+        self.acquire_targ_tile()
         
+    def acquire_targ_tile(self):
+        """get random targ_tile for units"""
+        for player in self.players:
+            if not player.active:
+                for group_list in player.units:
+                    for unit in group_list.group_list:
+                        unit.targ_tile = ai.rnd_targ_tile()
+                print("here's a player not in the active list", player)    
+    
     def assign_player_grp_targ_tile(self, new_targ): 
         """ pass player to be adjusted for targ_tile """
         for player in self.active_list:
             player.assign_player_targ_tile(new_targ)
-    
     
     def create_player_group(self, screen, ttl_players):
         """ method for creating all players """
@@ -322,8 +328,6 @@ class P_u_group(object):
         self.active_list.append(self.players[0]) # add player to active player list
         print("player active check. player 1:", self.players[0].active, "   player 2:", self.players[1].active)
 
-
-
     def print_all_player_units(self):
         """ test to print to shell all units of all teams """
         for player in self.players:
@@ -334,7 +338,6 @@ class P_u_group(object):
         #print("updating all players")
         for player in self.players:
             player.update_player()
-            
             if player.active == True:
                 """ print unit status to player_command window """
                 for unit_group in player.units:

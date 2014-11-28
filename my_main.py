@@ -72,7 +72,6 @@ def button_events(event):
                             player_command.player_msg = "Click on target tile."
                         elif button.caption == "A":
                             print("This unit's Active button has been pressed.", button.rect)
-                            
                         else:
                             print("an unidentified button for this player has been pressed.")
         
