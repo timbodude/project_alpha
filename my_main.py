@@ -53,12 +53,12 @@ def button_events(event):
             dummy = False
             #print("Woa Nellie, I'm a button after all.", button.rect) # do clicking sound or whatever is common to all buttons
             if button.caption == "B":
-                print("That was the round button")
+                player_command.player_msg = "That was the round button"
             if button.caption == "hi":
-                print("Nothing here but us buttons.")
+                player_command.player_msg = "Nothing here but us buttons."
             if button.caption == "MAKE IT SO!":
-                print("Movement phase done, calculate moves & combat resolution - no combat yet, but getting close...")
                 move.movement(grid_map, players)
+                player_command.player_msg = ""
                 
     """ check for unit-related button events """
     for player in players.active_list:

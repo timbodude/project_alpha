@@ -65,7 +65,8 @@ class Tile_grid(object):
                                     params.TILE_SIZE,
                                     params.TILE_SIZE] )
         
-    def update_unit_pos(self): # adjust unit positions                          - possibly best to shift to update in unit class
+    def update_unit_pos(self): 
+        # reconfigure grid with new unit locations
         dummy = False
         
     #### Grid Helper Utilities   

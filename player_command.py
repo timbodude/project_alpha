@@ -43,7 +43,7 @@ class Player_command(object):
         
     def msg_to_player(self, screen):
         """ tracks and handles message to player """
-        my_font = pygame.font.SysFont('arial', 18)
+        my_font = pygame.font.SysFont('arial', 24)
         message1_sf = my_font.render(self.player_msg, True, Color('white'))
         screen.blit(message1_sf, (20, 550, 800, 600))
     

@@ -309,7 +309,8 @@ class P_u_group(object):
             if not player.active:
                 for group_list in player.units:
                     for unit in group_list.group_list:
-                        unit.targ_tile = ai.rnd_targ_tile()
+                        if unit.targ_tile == unit.loc:
+                            unit.targ_tile = ai.rnd_targ_tile()
                 print("here's a player not in the active list", player)    
     
     def assign_player_grp_targ_tile(self, new_targ): 
