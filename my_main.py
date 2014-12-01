@@ -12,7 +12,7 @@ import pygbutton
 screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32) # create screen area for tiles
 grid_map = Tile_grid(screen) # Create a grid of tiles
 player_command = player_command.Player_command() # create player/unit interface area
-players = P_u_group(screen) # create group of players
+players = P_u_group(screen) # create group of players, each with one team of units placed on map
 buttons = pygbutton.Btn_grp()
 
 #dropping in a test image
@@ -68,6 +68,7 @@ def button_events(event):
                     if "click" in button.handleEvent(event):
                         if button.caption == "B":
                             unit.active = "True"
+                            unit.txt_status = "Targeting"
                             print("This unit's Move button has been pressed.", button.rect)
                             player_command.player_msg = "Click on target tile."
                         elif button.caption == "A":

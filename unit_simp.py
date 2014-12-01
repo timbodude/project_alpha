@@ -21,7 +21,7 @@ import pygbutton, ai
     - how likely it is for a unit to have successful attack
     - how likely it is for a unit to have a successful defense
 """
-unit_start_qty = 6 # number of starting army units under player control
+unit_start_qty = 2 # number of starting army units under player control
 players_start_qty = 2 # number of starting players (can go up to 8, but not beyond that as there are only 8 color choices
 player_colors = ("red", "green", "blue", "gray", "yellow", "brown", "purple", "white") # player colors
 used_player_colors = []
@@ -52,6 +52,7 @@ class Simp_unit(Sprite):
         """
         Sprite.__init__(self)
         self.loc = () # location in grid (in coordinates)
+        self.txt_status = "Standing By"
         self.color = LT_GRAY # can be replaced with image
         self.alt_color = WHITE
         self.state = True # (bool) True: alive False: dead
@@ -77,12 +78,13 @@ class Simp_unit(Sprite):
         """ update targ_tile to clicked location """
         self.active = False
         self.targ_tile = new_targ
+        self.txt_status = "Target Acquired"
         
     def assign_unit_color_units(self, player_color):
         """ assign basic unit based upon player color and create activate button """
         self.image = player_unit[player_color]
         self.make_btn_row()
-        print("unit no:", self.unit_no)
+        #print("unit no:", self.unit_no)
         
     def make_btn_row(self):
         """ create a row of buttons for each unit """
@@ -101,8 +103,8 @@ class Simp_unit(Sprite):
             Right now, I'm just picking a random tile with the hope of no duplication
             """
         #self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
-        pixel_loc = (randint(0, params.FIELD_RECT[2]), randint(0, params.FIELD_RECT[2])) # location in pixels based on field size
-        self.loc = self.coord_to_grid(pixel_loc) # convert to grid coordinates
+        pixel_loc = (randint(0, params.FIELD_RECT[2]), randint(0, params.FIELD_RECT[3])) # location in pixels based on field size
+        self.loc = self.coord_to_grid(pixel_loc) # convert to grid coordinates  
         
     def coord_to_grid(self, pos):
         """ returns grid location based on sprite pos(x,y) for test purposes of clicked location """
@@ -278,7 +280,8 @@ class Player(object):
         return(False)
         
     def create_player_units(self, screen):
-        new = Simp_unit_group(screen, self) # create a group of units
+        #new = Simp_unit_group(screen, self) # create a group of units #         NOTE: This line doesn't seem to need self in parameters.
+        new = Simp_unit_group(screen) # create a group of units
         self.units.append(new)
         
     def print_player_units(self):
@@ -311,7 +314,7 @@ class P_u_group(object):
                     for unit in group_list.group_list:
                         if unit.targ_tile == unit.loc:
                             unit.targ_tile = ai.rnd_targ_tile()
-                print("here's a player not in the active list", player)    
+                #print("here's a player not in the active list", player)    
     
     def assign_player_grp_targ_tile(self, new_targ): 
         """ pass player to be adjusted for targ_tile """
@@ -322,12 +325,12 @@ class P_u_group(object):
         """ method for creating all players """
         make_player_active = False
         for player in range(0,ttl_players):
-            print("here's a player")
+            #print("here's a player")
             new = Player(screen)
             self.players.append(new)
         self.players[0].active = True # mark which group units go to output window - TEMP ONLY - works for 1st player only
         self.active_list.append(self.players[0]) # add player to active player list
-        print("player active check. player 1:", self.players[0].active, "   player 2:", self.players[1].active)
+        #print("player active check. player 1:", self.players[0].active, "   player 2:", self.players[1].active)
 
     def print_all_player_units(self):
         """ test to print to shell all units of all teams """

@@ -24,7 +24,7 @@ class Tile(object):
         self.color = MDW_GREEN
         self.alt_color = GREEN
         self.selected = False
-        self.contents = ()
+        self.contents = []
         self.passable = True
         self.altitude = 3 # 0: lowest 3: sealevel 6: highest
         self.movement_cost = 2

@@ -71,13 +71,13 @@ class Player_command(object):
         offset = 0
         for unit in unit_group:
             message1_sf = my_font.render(unit.info_msg1, True, Color('white'))
+            message1_status = my_font.render(unit.txt_status, True, Color('white'))
             message2_sf = my_font.render(unit.info_msg2, True, Color('white'))
             screen.blit(message1_sf, self.unit_group_rect.move(0, message1_sf.get_height()*1 + offset*24))
+            screen.blit(message1_status, self.unit_group_rect.move(100, message1_status.get_height()*1 + offset*24))
             screen.blit(message2_sf, self.unit_group_rect.move(0, message2_sf.get_height()*2 + offset*24))
-            
             for button in unit.unit_btns:
                 button.draw(screen)
-            
             offset += 2
         
     def draw_rimmed_box(self, screen, box_rect, box_color, 

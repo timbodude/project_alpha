@@ -105,7 +105,7 @@ class PygButton(object):
         self.lastMouseDownOverButton = False # was the last mouse down event over the mouse button? (Used to track clicks.)
         self._visible = True # is the button visible
         self.customSurfaces = False # button starts as a text button instead of having custom images for each surface
-        print("I'm a new button at:", self.rect)
+        #print("I'm a new button at:", self.rect)
         
         if normal is None:
             # create the surfaces for a text button
