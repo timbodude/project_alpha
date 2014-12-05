@@ -1,7 +1,7 @@
 import pygame, os
 from pygame.locals import *
 from grid import Tile_grid
-import params, player_command, move
+import params, player_command, move, melee
 from images_lib import (  BLACK, WHITE,  DARKGRAY, GRAY, LIGHTGRAY )
 from unit_simp import P_u_group
 import pygbutton
@@ -81,12 +81,21 @@ def update_all():
     screen.fill(BLACK) # Set the screen background
     grid_map.update_grid() # Update the grid to screen
     player_command.draw_messageboard(screen) # update player_command area
-    players.update_players(player_command) # Update player groups & units to screen    
+    players.update_players(player_command, grid_map) # Update player groups, units to screen, melee groups
     #button_1._update()
     #button_1.draw(screen)
     #button_2._update()
     #button_2.draw(screen)
     buttons.btn_grp_update(screen)
+    
+def turn_check():
+    """ if enough ticks pass, update all """
+    params.TICK += 1
+    player_command.tick_counter = str(params.TICK // params.GAME_SPEED)
+    if params.TICK % params.GAME_SPEED == 0:
+        move.movement(grid_map, players)
+        player_command.player_msg = ""        
+        
         
 ################################################################################
 
@@ -107,16 +116,17 @@ def main():
     
     # Event loop
     while 1:
+        turn_check()
         for event in pygame.event.get():
             if event.type == QUIT:
-                #grid_map.print_test_grid()  # print test grid to shell              
+                grid_map.print_test_grid()  # print test grid to shell              
                 pygame.quit()
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
                 usr_events(pygame.mouse.get_pos())
             button_events(event) # check for clicks on a button (not in mousebuttondown to allow for mouseover highlight)
                     
-        update_all()            
+        update_all()
 
         clock.tick(20) # Limit to 20 frames per second
         pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn     

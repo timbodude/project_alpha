@@ -111,7 +111,7 @@ class Tile_grid(object):
         for row in range(0, self.nrows):
             col_output = ""
             for col in range(0, self.ncols):
-                if self.matrix[row][col].contents != ():
+                if self.matrix[row][col].contents != []:
                     col_output += " u"
                 elif not self.matrix[row][col].contents and self.matrix[row][col].terrain_type == "water":
                     col_output += " -"

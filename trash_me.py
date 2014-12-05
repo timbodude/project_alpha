@@ -5,3 +5,6 @@ my_list.remove(unit)
 print(my_list)
 if 2 in my_list: my_list.remove(2)
 print(my_list)
+
+print(26//5)
+print(26%5)

@@ -27,7 +27,9 @@ GRID_SIZE = (int(FIELD_RECT[2]/(TILE_SIZE + MARGIN)), int(FIELD_RECT[3]/(TILE_SI
 end_check = False
 paused = False
 won = False # flag for battle is over
-TURN_COUNT = 0
+TICK = 0
+GAME_ROUND = 1
+GAME_SPEED = 10 * GAME_ROUND
 
 ################################################################################
 ## Unit Testing                                                               ##

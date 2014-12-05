@@ -4,7 +4,7 @@
 """ This method takes handles movement-related methods and utilities for units
 """
 import pygame, os
-import unit_simp
+import unit_simp, melee
 
 ################################################################################
 
@@ -15,16 +15,15 @@ def movement(grid, player_grp):
         grid: grid_map name to update Tile_grid.matrix[x,y] contents
     """
     for player in player_grp.players:
+        print("**************total_number_of_players", len(player_grp.players))
         for unit_group in player.units:
             for unit in unit_group.group_list:
-                if unit.loc != unit.targ_tile:
+                if unit.loc != unit.targ_tile and not unit.in_melee:
                     unit.txt_status = "Moving"
                     print("unit", unit.unit_no, ": loc, targ_tile", unit.loc, unit.targ_tile)
                     next_loc = move_to_target(grid, unit)
                     if is_grid_passable(grid, next_loc):
-                        #grid.matrix[unit.loc[0]][unit.loc[1]].remove(unit)
                         unit.loc = next_loc
-                        #grid.matrix[next_loc[0]][next_loc[1]].append(unit)
                 else:
                     print("Unit Arrived", "unit", unit.unit_no, ": loc, targ_tile", unit.loc, unit.targ_tile)
                     unit.txt_status = "Arrived"
@@ -82,11 +81,7 @@ if __name__ == "__main__":
     
     screen = pygame.display.set_mode((100, 100), 0, 32) # create screen area for tiles
     
-    # TEST move_to_target                                                       - WORKS
-    unit_group = unit_simp.Simp_unit_group(screen, total = 3)
-    for unit in unit_group.group_list:
-        unit.targ_tile = [10,10]
-        print(unit.loc, unit.targ_tile, move_to_target(unit))
+
     
     
     

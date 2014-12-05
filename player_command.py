@@ -40,12 +40,17 @@ class Player_command(object):
         self.message_size = (int(self.message_rect[2])-self.message_rect[0], int(self.message_rect[3]))
         self.unit_group_rect = Rect(630, 150, 15, 15)
         self.player_msg = "Player message here"
+        self.tick_counter = "Ticks here"
         
     def msg_to_player(self, screen):
-        """ tracks and handles message to player """
+        """ tracks and handles messages to player """
         my_font = pygame.font.SysFont('arial', 24)
         message1_sf = my_font.render(self.player_msg, True, Color('white'))
         screen.blit(message1_sf, (20, 550, 800, 600))
+        """ tick counter """
+        my_font = pygame.font.SysFont('arial', 24)
+        message1_sf = my_font.render(self.tick_counter, True, Color('white'))
+        screen.blit(message1_sf, (20, 20, 800, 600))        
     
     def draw_messageboard(self, screen):
         self.draw_rimmed_box(screen, self.message_rect, (self.x, self.width, self.offset), 4, Color(self.back_color))

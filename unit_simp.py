@@ -13,6 +13,7 @@ from random import randint, choice
 from images_lib import (  LT_GRAY , WHITE)
 from helper_apps import calc_move
 import pygbutton, ai
+import melee
 
 ################################################################################
 """ Things to consider and set: 
@@ -60,7 +61,7 @@ class Simp_unit(Sprite):
         self.active = False # True: unit has been clicked on by user
         self.place_unit()
         self.targ_tile = self.loc # tile unit is moving into (in coordinates) - default is current location
-        self.selected = False # indicates a unit is clicked on by player
+        self.selected = False # indicates a unit is clicked on by player         # NOTE: same variable as self.active!!!
         self.screen = screen
         self.health = 3
         self.max_health = 3
@@ -71,6 +72,9 @@ class Simp_unit(Sprite):
         self.info_msg2 = "   3/3   " + str(self.loc) # this string that will print out for the player containing status info
         self.unit_no = unit_no
         self.unit_btns = []
+        self.max_swings = 2 # standard training = 1 offensive & 1 defense swing (interchangeable)
+        self.swings_used = 0
+        self.in_melee = False
         
         #self.targ_tile = (15,15) # temporarily default to middle of the screen for testing purposes
 
@@ -259,6 +263,7 @@ class Player(object):
             self.color = random.choice(player_colors)
         self.assign_player_color_units()
         self.active = False # connects player's team with the player controlling the game computer (only 1 player is active to a computer station)
+        self.side = False # False: non-player, True: player's team
 
     def assign_player_targ_tile(self, new_targ):  
         """ pass player to be adjusted for targ_tile """
@@ -305,6 +310,7 @@ class P_u_group(object):
         self.active_list = []
         self.create_player_group(screen, ttl_players)
         self.acquire_targ_tile()
+        self.ttl_players = ttl_players
         
     def acquire_targ_tile(self):
         """get random targ_tile for units"""
@@ -329,6 +335,7 @@ class P_u_group(object):
             new = Player(screen)
             self.players.append(new)
         self.players[0].active = True # mark which group units go to output window - TEMP ONLY - works for 1st player only
+        self.players[0].side = True # mark 1st player as side_a (all else default to side_b)
         self.active_list.append(self.players[0]) # add player to active player list
         #print("player active check. player 1:", self.players[0].active, "   player 2:", self.players[1].active)
 
@@ -337,9 +344,10 @@ class P_u_group(object):
         for player in self.players:
             player.print_player_units()
             
-    def update_players(self, player_command_window):
+    def update_players(self, player_command_window, grid):
         """ update players and print to screen """
         #print("updating all players")
+        melee.create_melee_groups(grid, self, self.ttl_players)
         for player in self.players:
             player.update_player()
             if player.active == True:
