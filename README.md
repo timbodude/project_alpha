@@ -14,7 +14,7 @@ Do we want a couple of readme's:
 Nameless person from some town 
 your sheep have been killed by killer rabits that appered out of nowere.
 you have to go find the monster resposible for unleashing these rabbits.
-Make sure not to forget proper colen care while on your quest.
+Make sure not to forget proper colon care while on your quest.
 
 ###---Working Priorities---
 
