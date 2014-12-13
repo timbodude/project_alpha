@@ -335,7 +335,7 @@ class P_u_group(object):
             new = Player(screen)
             self.players.append(new)
         self.players[0].active = True # mark which group units go to output window - TEMP ONLY - works for 1st player only
-        self.players[0].side = True # mark 1st player as side_a (all else default to side_b)
+        self.players[0].side = True # mark 1st player as True = side_a (all else default to side_b)
         self.active_list.append(self.players[0]) # add player to active player list
         #print("player active check. player 1:", self.players[0].active, "   player 2:", self.players[1].active)
 
@@ -344,10 +344,10 @@ class P_u_group(object):
         for player in self.players:
             player.print_player_units()
             
-    def update_players(self, player_command_window, grid):
+    def update_players(self, player_command_window, grid, melee_engine):
         """ update players and print to screen """
         #print("updating all players")
-        melee.create_melee_groups(grid, self, self.ttl_players)
+        melee_engine.update_melee()
         for player in self.players:
             player.update_player()
             if player.active == True:

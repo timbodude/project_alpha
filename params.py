@@ -29,7 +29,7 @@ paused = False
 won = False # flag for battle is over
 TICK = 0
 GAME_ROUND = 1
-GAME_SPEED = 10 * GAME_ROUND
+GAME_SPEED = 50 * GAME_ROUND
 
 ################################################################################
 ## Unit Testing                                                               ##

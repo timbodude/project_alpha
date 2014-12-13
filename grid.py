@@ -100,10 +100,10 @@ class Tile_grid(object):
                 dummy = False #                                                  - ADD things when a unit gets clicked on
             elif self.matrix[loc[0]][loc[1]].selected == False: #toggles selected to True
                 self.matrix[loc[0]][loc[1]].selected = True
-                print("toggled tile from false to true at this loc", loc)
+                #print("toggled tile from false to true at this loc", loc)
             else: #toggles selected to True
                 self.matrix[loc[0]][loc[1]].selected = False
-                print("toggled tile from true to false")
+                #print("toggled tile from true to false")
                                 
     def print_grid(self):
         """ prints text version of grid to shell """
@@ -124,10 +124,7 @@ class Tile_grid(object):
             print()      
     
     def print_test_grid(self):
-        self.matrix[2][2].contents = "unit"
-        self.matrix[2][3].selected = True
         self.print_grid() 
-        print("there should be a unit at 2,2 and a selected grassland at 2,3")
         
     #def is_adjacent(self,new_coord): #                                         NOTE: not currently using - old parameters
         #if new_coord[0] < self.coord[0] - 1 or new_coord[0] > self.coord[0] + 1 or new_coord[1] < self.coord[1] - 1 or new_coord[1] > self.coord[1] + 1:

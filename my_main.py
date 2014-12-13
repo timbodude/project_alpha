@@ -14,6 +14,7 @@ grid_map = Tile_grid(screen) # Create a grid of tiles
 player_command = player_command.Player_command() # create player/unit interface area
 players = P_u_group(screen) # create group of players, each with one team of units placed on map
 buttons = pygbutton.Btn_grp()
+melee_engine = melee.Melee_engine(grid = grid_map, player_grp = players, ttl_players = players.ttl_players)
 
 #dropping in a test image
 test_img = "images/white_tank.png"
@@ -69,19 +70,21 @@ def button_events(event):
                         if button.caption == "B":
                             unit.active = "True"
                             unit.txt_status = "Targeting"
-                            print("This unit's Move button has been pressed.", button.rect)
+                            #print("This unit's Move button has been pressed.", button.rect)
                             player_command.player_msg = "Click on target tile."
                         elif button.caption == "A":
-                            print("This unit's Active button has been pressed.", button.rect)
+                            #print("This unit's Active button has been pressed.", button.rect)
+                            unit.txt_status = "A Button"
                         else:
-                            print("an unidentified button for this player has been pressed.")
+                            #print("an unidentified button for this player has been pressed.")
+                            unit.txt_status = "Unidentified Button"
         
 def update_all():
     """ update everything & put on screen """
     screen.fill(BLACK) # Set the screen background
     grid_map.update_grid() # Update the grid to screen
     player_command.draw_messageboard(screen) # update player_command area
-    players.update_players(player_command, grid_map) # Update player groups, units to screen, melee groups
+    players.update_players(player_command, grid_map, melee_engine) # Update player groups, units to screen, melee groups
     #button_1._update()
     #button_1.draw(screen)
     #button_2._update()
@@ -119,7 +122,7 @@ def main():
         turn_check()
         for event in pygame.event.get():
             if event.type == QUIT:
-                grid_map.print_test_grid()  # print test grid to shell              
+                #grid_map.print_test_grid()  # print test grid to shell              
                 pygame.quit()
                 return
             elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
@@ -129,6 +132,6 @@ def main():
         update_all()
 
         clock.tick(20) # Limit to 20 frames per second
-        pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn     
+        pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn
 
 if __name__ == '__main__': main()
