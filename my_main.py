@@ -4,7 +4,7 @@ from grid import Tile_grid
 import params, player_command, move, melee
 from images_lib import (  BLACK, WHITE,  DARKGRAY, GRAY, LIGHTGRAY )
 from unit_simp import P_u_group
-import pygbutton
+import PygButton
 
 ################################################################################
 
@@ -13,13 +13,13 @@ screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0,
 grid_map = Tile_grid(screen) # Create a grid of tiles
 player_command = player_command.Player_command() # create player/unit interface area
 players = P_u_group(screen) # create group of players, each with one team of units placed on map
-buttons = pygbutton.Btn_grp()
+buttons = PygButton.Btn_grp()
 
 #dropping in a test image
 test_img = "images/white_tank.png"
 
-# try a pygbutton - default listed below:
-#button_1 = pygbutton.PygButton(rect=(650,550,75,20), caption="btn_1", bgcolor=LIGHTGRAY, fgcolor=BLACK)
+# try a PygButton - default listed below:
+#button_1 = PygButton.PygButton(rect=(650,550,75,20), caption="btn_1", bgcolor=LIGHTGRAY, fgcolor=BLACK)
 button_2 = buttons.new_btn(rect=(750,500,18,24), caption = "hi", normal = test_img)
 button_4 = buttons.new_btn(rect = (650,500,18,24), normal = test_img)
 

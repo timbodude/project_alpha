@@ -12,7 +12,7 @@ import random
 from random import randint, choice
 from images_lib import (  LT_GRAY , WHITE)
 from helper_apps import calc_move
-import pygbutton, ai
+import PygButton, ai
 import melee
 
 ################################################################################
@@ -92,9 +92,9 @@ class Simp_unit(Sprite):
         
     def make_btn_row(self):
         """ create a row of buttons for each unit """
-        temp_btn = pygbutton.PygButton(rect=(605,(170 + 48 * self.unit_no),15,20), normal = self.image, unit=self, caption="A") # assign activate button for display
+        temp_btn = PygButton.PygButton(rect=(605,(170 + 48 * self.unit_no),15,20), normal = self.image, unit=self, caption="A") # assign activate button for display
         self.unit_btns.append(temp_btn)
-        temp_btn = pygbutton.PygButton(  rect=(700,(170 + 48 * self.unit_no),15,20),
+        temp_btn = PygButton.PygButton(  rect=(700,(170 + 48 * self.unit_no),15,20),
                                          caption = "B",
                                          normal = B_rnd["gray"],
                                          down = B_rnd["green"],
