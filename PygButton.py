@@ -1,10 +1,10 @@
 ################################################################################
-## pygbutton
+## PygButton
 ################################################################################
 """ 
   descriptions: 
   http://inventwithpython.com/blog/2012/10/30/creating-a-button-ui-module-for-pygame/
-  https://pypi.python.org/pypi/Pygbutton/0.9.0
+  https://pypi.python.org/pypi/PygButton/0.9.0
 """
 ################################################################################
 """
@@ -13,7 +13,7 @@ PygButton v0.1.0
 PygButton (pronounced "pig button") is a module that implements UI buttons for Pygame.
 PygButton requires Pygame to be installed. Pygame can be downloaded from http://pygame.org
 PygButton was developed by Al Sweigart (al@inventwithpython.com)
-https://github.com/asweigart/pygbutton
+https://github.com/asweigart/PygButton
 
 
 Simplified BSD License:
@@ -48,7 +48,7 @@ import pygame
 from pygame.locals import *
 
 pygame.font.init()
-PYGBUTTON_FONT = pygame.font.Font('freesansbold.ttf', 14)
+PygButton_FONT = pygame.font.Font('freesansbold.ttf', 14)
 
 BLACK     = (  0,   0,   0)
 WHITE     = (255, 255, 255)
@@ -95,7 +95,7 @@ class PygButton(object):
         self._fgcolor = fgcolor
 
         if font is None:
-            self._font = PYGBUTTON_FONT
+            self._font = PygButton_FONT
         else:
             self._font = font
 
