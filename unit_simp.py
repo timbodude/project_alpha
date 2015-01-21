@@ -75,6 +75,16 @@ class Simp_unit(Sprite):
         self.max_swings = 2 # standard training = 1 offensive & 1 defense swing (interchangeable)
         self.swings_used = 0
         self.in_melee = False
+        self.initiative = 1
+        self.gov_initiative = 1
+        self.speed = 1
+        self.gov_speet = 1
+        self.attack = 1
+        self.gov_attack = 1
+        self.defense = 1
+        self.gov_defense = 1
+        self.stats = {  "swings":    2, 
+                        "melee_won": 0 }
         
         #self.targ_tile = (15,15) # temporarily default to middle of the screen for testing purposes
 
@@ -264,6 +274,7 @@ class Player(object):
         self.assign_player_color_units()
         self.active = False # connects player's team with the player controlling the game computer (only 1 player is active to a computer station)
         self.side = False # False: non-player, True: player's team
+        self.score = 0
 
     def assign_player_targ_tile(self, new_targ):  
         """ pass player to be adjusted for targ_tile """

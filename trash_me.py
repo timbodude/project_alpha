@@ -13,3 +13,6 @@ print(26%5)
 data = (0,1,2,3,4,5,6,7,8,9)
 for x in range(1, len(data)):
     print("data:", data[x])
+    
+data2 = {"one": 1, "two": 2}
+print(data2["one"] + 2, data2["two"])

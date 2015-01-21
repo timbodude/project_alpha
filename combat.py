@@ -57,7 +57,7 @@ def attack_round_pair(melee_pair, attacker, attacker_group, defender, defender_g
         print("attacker is victorious")
         attacker_group.wins += 1
         attacker.stats["melee_won"] += 1
-        attacker.in_combat = False
+        attacker.in_melee = False
         units.MELEE_LIST.remove(melee_pair) 
         if defender in defender_group.group_list: # verify that defender has not already been removed
             defender_group.group_list.remove(defender)
@@ -72,6 +72,10 @@ def attack_round_pair(melee_pair, attacker, attacker_group, defender, defender_g
         attacker_roll_a = attacker_roll(defender)
         defender_roll_b = defender_roll(attacker)
         defender.stats["swings"] +=1
+        
+        
+        
+        ######################################################################## LEFT OFF HERE #########################################################################3
         units.MELEE_LIST.remove(melee_pair)
         if attacker_roll_a > defender_roll_b: # counterattack wins
             print("defender's counterattack overcomes attacker")
@@ -81,7 +85,7 @@ def attack_round_pair(melee_pair, attacker, attacker_group, defender, defender_g
             if attacker in attacker_group.group_list: # verify that attacker has not already been removed
                 attacker_group.group_list.remove(attacker)            
             defender.stats["melee_won"] += 1
-            defender.in_combat = False
+            defender.in_melee = False
             if not hero_is_attacker:
                 messages.ENEMY_WINS += 1
             else:
@@ -89,8 +93,8 @@ def attack_round_pair(melee_pair, attacker, attacker_group, defender, defender_g
                 
         else: # defender vs counterattack wins - including tie
             print("counterattack failed - they live to fight again")
-            attacker.in_combat = False
-            defender.in_combat = False
+            attacker.in_melee = False
+            defender.in_melee = False
             
     #print() 
     print("attacker_wins:", attacker_group.wins, "   defender wins:", defender_group.wins)
