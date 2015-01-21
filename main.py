@@ -14,7 +14,7 @@ grid_map = Tile_grid(screen) # Create a grid of tiles
 player_command = player_command.Player_command() # create player/unit interface area
 players = P_u_group(screen) # create group of players, each with one team of units placed on map
 
-buttons = pygbutton.Btn_grp()
+buttons = PygButton.Btn_grp()
 melee_engine = melee.Melee_engine(grid = grid_map, player_grp = players, ttl_players = players.ttl_players)
 
 #dropping in a test image
