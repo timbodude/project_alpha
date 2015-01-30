@@ -9,11 +9,10 @@ from pygame.sprite import Sprite
 import sys, os
 import params #                                                                  NOTE: this will come from the parent loop instead of params
 import random
-from random import randint, choice
+from random import randint
 from images_lib import (  LT_GRAY , WHITE)
-from helper_apps import calc_move
+from move import calc_move
 import PygButton, ai
-import melee
 
 ################################################################################
 """ Things to consider and set: 

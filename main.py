@@ -1,6 +1,5 @@
-import pygame, os
-from pygame.locals import *
-from grid import Tile_grid
+import pygame
+import tile_grid
 import params, player_command, move, melee
 from images_lib import (  BLACK, WHITE,  DARKGRAY, GRAY, LIGHTGRAY )
 from unit_simp import P_u_group
@@ -10,16 +9,13 @@ import PygButton
 
 # Get things started
 screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32) # create screen area for tiles
-grid_map = Tile_grid(screen) # Create a grid of tiles
+grid_map = tile_grid.TileGrid(screen) # Create a grid of tiles
 player_command = player_command.Player_command() # create player/unit interface area
 players = P_u_group(screen) # create group of players, each with one team of units placed on map
-
 buttons = PygButton.Btn_grp()
 melee_engine = melee.Melee_engine(grid = grid_map, player_grp = players, ttl_players = players.ttl_players)
-
 #dropping in a test image
 test_img = "images/white_tank.png"
-
 # try a PygButton - default listed below:
 #button_1 = PygButton.PygButton(rect=(650,550,75,20), caption="btn_1", bgcolor=LIGHTGRAY, fgcolor=BLACK)
 button_2 = buttons.new_btn(rect=(750,500,18,24), caption = "hi", normal = test_img)
@@ -122,7 +118,7 @@ def main():
     while 1:
         turn_check()
         for event in pygame.event.get():
-            if event.type == QUIT:
+            if event.type == pygame.QUIT:
                 #grid_map.print_test_grid()  # print test grid to shell              
                 pygame.quit()
                 return
