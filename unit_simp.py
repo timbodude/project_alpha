@@ -45,7 +45,7 @@ B_rnd = {"green": "images/btn_green.png", "gray": "images/btn_gray.png", "red": 
 
 ################################################################################
 
-class Simp_unit(Sprite):
+class SimpleUnit(Sprite):
     """ generic class for basic player unit types """ 
     def __init__(self, screen, unit_no):
         """ Notes:
@@ -231,7 +231,7 @@ class Simp_unit_group(object):
             total: number of units in group to be created (default is variable)
         """
         for i in range(0, unit_start_qty):
-            new = Simp_unit(screen, unit_no = i)
+            new = SimpleUnit(screen, unit_no = i)
             self.group_list.append(new)
         #print("group:", self.group_list)
         
@@ -373,7 +373,7 @@ if __name__ == "__main__":
     
     screen = pygame.display.set_mode((params.SCREEN_WIDTH, params.SCREEN_HEIGHT), 0, 32) # create screen area for tiles
 
-    #pawn = Simp_unit() 
+    #pawn = SimpleUnit() 
     pawn_group = Simp_unit_group(screen)
     for unit in pawn_group.group_list:
         print("unit loc:", unit.loc)
