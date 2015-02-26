@@ -6,6 +6,8 @@
     NOTE:
     This information will be moved to the my_main.py page and should be 
     drawn from there if needed.
+    
+    NOTE #2: I'm (Tim) still using this file occasionally for globals in test runs
 
 """
 
