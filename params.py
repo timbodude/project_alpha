@@ -1,6 +1,3 @@
-################################################################################
-## params
-################################################################################
 """ set global params for tests before parent window (Battle_grid) was built
 
     NOTE:
@@ -10,11 +7,9 @@
     NOTE #2: I'm (Tim) still using this file occasionally for globals in test runs
 
 """
-
-################################################################################
 from pygame import Rect
+from PygButton import Btn_grp
 
-################################################################################
 
 SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
 FIELD_RECT = Rect(0, 0, 600, 600)
@@ -32,12 +27,13 @@ won = False # flag for battle is over
 TICK = 0
 GAME_ROUND = 1
 GAME_SPEED = 50 * GAME_ROUND
+buttons = Btn_grp()
 
 ################################################################################
 ## Unit Testing                                                               ##
 ################################################################################
-if __name__ == "__main__":  
-    print("field rect:", FIELD_RECT, "  grid size:", GRID_SIZE)
-    print("message rect:", MESSAGE_RECT, "  area size:", MESSAGE_SIZE)
-    print("grid size:", int(FIELD_RECT[2]/(TILE_SIZE + MARGIN)), int(FIELD_RECT[3]/(TILE_SIZE + MARGIN)))
-    print("grid size:",GRID_SIZE)
+# if __name__ == "__main__":  
+#     print("field rect:", FIELD_RECT, "  grid size:", GRID_SIZE)
+#     print("message rect:", MESSAGE_RECT, "  area size:", MESSAGE_SIZE)
+#     print("grid size:", int(FIELD_RECT[2]/(TILE_SIZE + MARGIN)), int(FIELD_RECT[3]/(TILE_SIZE + MARGIN)))
+#     print("grid size:",GRID_SIZE)
