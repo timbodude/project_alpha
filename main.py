@@ -1,5 +1,5 @@
 import pygame
-from screens import GameScreen
+from screens import GameScreen, StartScreen
 
 # def turn_check():
 #     """ if enough ticks pass, update all """
@@ -17,10 +17,13 @@ def main():
     #pygame.display.set_icon(icon)  
     
     currentScreen = GameScreen()
+    #currentScreen = StartScreen()
+    
     while 1:
 #         turn_check()
         if not currentScreen.handle_events():
             return
+        
         currentScreen.update_all()
         clock.tick(20) # Limit to 20 frames per second
         currentScreen.render()
