@@ -5,6 +5,7 @@ from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
 from PygButton import Btn_grp
 
+<<<<<<< HEAD
 class Screen:        
     def __init__(self):
         # create screen area for tiles
@@ -14,7 +15,7 @@ class Screen:
         return
     
     def handle_events(self): 
-        return   
+        print("abstract method: handle_events")
         
     def render(self):
         # Go ahead and update the screen 
@@ -24,7 +25,6 @@ class Screen:
 class TitleScreen(Screen):
     def __init__(self):
         return
-        
     def render(self):
         self.screen.fill(BLACK) 
         super.render()
@@ -143,3 +143,34 @@ class GameScreen(Screen):
             """ check for user-related button events """
             GameScreen.button_events(self,event)     
         return True
+    
+class StartScreen(Screen):
+    def __init__(self):
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32) # create screen area
+        # Fill background
+        background = pygame.Surface(self.screen.get_size())
+        background = background.convert()
+        background.fill((0, 0, 0))
+        self.buttons = Btn_grp()
+        #print("screen button group made")  #TEST: works
+        #print("screen made")  #TEST: works
+        
+    def update_all(self):
+        """ update & put on screen """
+        self.screen.fill(BLACK) # Set the screen background
+        #print("update done") #TEST: works
+        
+    def render(self):
+        pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn    
+        #print("flip done") #TEST: works
+        
+    def handle_events(self):
+        """ returns true if program should continue execution
+            returns false if program should halt
+        """
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:           
+                pygame.quit()
+                return False 
+        return True    
