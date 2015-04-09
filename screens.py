@@ -5,7 +5,6 @@ from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
 from PygButton import Btn_grp
 
-<<<<<<< HEAD
 class Screen:        
     def __init__(self):
         # create screen area for tiles
