@@ -1,8 +1,9 @@
+#Max Line Length(79)##########################################################
 import pygame
 from pygame import Color, Rect
 from pygame.sprite import Sprite
 import os
-import params #NOTE: this will come from the parent loop instead of params
+import params 
 from random import randint, choice
 from images_lib import (  LT_GRAY , WHITE, GREEN, MDW_GREEN)
 import PygButton
@@ -351,7 +352,8 @@ class TileGrid:
 #         return(True)
     
         
-    def update_grid(self): # primary grid update method
+    def update_grid(self): 
+        ''' primary grid update method '''
         self.update_unit_pos()
         for row in range(self.nrows):
             for col in range(self.ncols):    
