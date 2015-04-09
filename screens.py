@@ -9,8 +9,7 @@ class Screen:
     def __init__(self):
         # create screen area for tiles
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
-                                              0, 
-                                              32) 
+                                              0, 32) 
         return
     
     def handle_events(self): 
@@ -27,7 +26,6 @@ class TitleScreen(Screen):
     def render(self):
         self.screen.fill(BLACK) 
         super.render()
-    
 class GameScreen(Screen):
     def __init__(self):
         Screen.__init__(self)
@@ -69,7 +67,6 @@ class GameScreen(Screen):
     
     def update_all(self):
         """ update everything & put on screen """
-        
         # Set the screen background
         self.screen.fill(BLACK) 
         # Update the grid to screen
@@ -126,7 +123,7 @@ class GameScreen(Screen):
                                 unit.txt_status = "A Button"
                             else:
                                 unit.txt_status = "Unidentified Button"
-        
+    
     def handle_events(self):
         """ returns true if program should continue execution
             returns false if program should halt
@@ -145,14 +142,14 @@ class GameScreen(Screen):
     
 class StartScreen(Screen):
     def __init__(self):
-        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32) # create screen area
+        # create screen area
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
+                                              0, 32) 
         # Fill background
         background = pygame.Surface(self.screen.get_size())
         background = background.convert()
         background.fill((0, 0, 0))
         self.buttons = Btn_grp()
-        #print("screen button group made")  #TEST: works
-        #print("screen made")  #TEST: works
         
     def update_all(self):
         """ update & put on screen """
@@ -160,16 +157,15 @@ class StartScreen(Screen):
         #print("update done") #TEST: works
         
     def render(self):
-        pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn    
-        #print("flip done") #TEST: works
+        # Go ahead and update the screen with what we've set to be drawn
+        pygame.display.flip() 
         
     def handle_events(self):
-        """ returns true if program should continue execution
-            returns false if program should halt
+        """ returns true if the program should continue execution
+            returns false if the program should halt
         """
-        
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:           
+            if event.type == pygame.QUIT:
                 pygame.quit()
                 return False 
         return True    

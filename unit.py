@@ -3,7 +3,7 @@ import pygame
 from pygame import Color, Rect
 from pygame.sprite import Sprite
 import os
-import params 
+from params import my_font, FIELD_RECT, TILE_SIZE, MARGIN, GRID_SIZE
 from random import randint, choice
 from images_lib import (  LT_GRAY , WHITE, GREEN, MDW_GREEN)
 import PygButton
@@ -188,22 +188,21 @@ class Unit(Sprite):
             Right now, I'm just picking a random tile with the hope of no duplication
             """
         #self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
-        pixel_loc = (randint(0, params.FIELD_RECT[2]), randint(0, params.FIELD_RECT[3])) # location in pixels based on field size
+        pixel_loc = (randint(0, FIELD_RECT[2]), randint(0, FIELD_RECT[3])) # location in pixels based on field size
         self.loc = self.coord_to_grid(pixel_loc) # convert to grid coordinates  
         
     def coord_to_grid(self, pos):
         """ returns grid location based on sprite pos(x,y) for test purposes of clicked location """
-        coord = (  int((pos[0] - params.FIELD_RECT[0]) / (params.TILE_SIZE + params.MARGIN)),
-                           int((pos[1] - params.FIELD_RECT[1]) / (params.TILE_SIZE + params.MARGIN)))
+        coord = (  int((pos[0] - FIELD_RECT[0]) / (TILE_SIZE + MARGIN)),
+                           int((pos[1] - FIELD_RECT[1]) / (TILE_SIZE + MARGIN)))
         #print(  "click pos:", pos, " grid pos:", self.selected)        
         return(coord)        
     
-    def is_unit_selected(self, coord): #                                         NOT WORKING PROPERLY - unit location not lining up with grid coordinates
+    def is_unit_selected(self, coord): 
         """ see if unit has been checked on 
             coord: grid tile position
+            NOT WORKING PROPERLY - unit location not lining up with grid coordinates
         """
-        #print("I'm checking to see if unit was clicked on")
-        #print("coord:", coord, "   loc:", self.loc)
         if coord == self.loc:
             #print("bingo, in tile #:", coord)
             self.active = True
@@ -305,8 +304,8 @@ class TileGrid:
     def __init__(self, screen):
         """ screen: screen window for display
         """
-        self.nrows = int(params.FIELD_RECT[2]/params.TILE_SIZE) # number of horizontal grid spaces in grid map
-        self.ncols = int(params.FIELD_RECT[3]/params.TILE_SIZE) # number of vertical grid spaces in grid map
+        self.nrows = int(FIELD_RECT[2]/TILE_SIZE) # number of horizontal grid spaces in grid map
+        self.ncols = int(FIELD_RECT[3]/TILE_SIZE) # number of vertical grid spaces in grid map
         self.matrix = [[0 for i in range(self.ncols)] for i in range(self.nrows)] # 2-d array of tiles
         self.screen = screen
         self.last_clicked =(-1,-1)# coord for last tile clicked 
@@ -316,8 +315,8 @@ class TileGrid:
     @staticmethod
     def rnd_targ_tile():
         """ select a random target tile for movement for a single unit """
-        x = randint(1, int(params.FIELD_RECT[2]/(params.TILE_SIZE + params.MARGIN))-1)
-        y = randint(1, int(params.FIELD_RECT[3]/(params.TILE_SIZE + params.MARGIN))-1)
+        x = randint(1, int(FIELD_RECT[2]/(TILE_SIZE + MARGIN))-1)
+        y = randint(1, int(FIELD_RECT[3]/(TILE_SIZE + MARGIN))-1)
         print(x,y)
         return(x,y)
         
@@ -356,18 +355,19 @@ class TileGrid:
         ''' primary grid update method '''
         self.update_unit_pos()
         for row in range(self.nrows):
-            for col in range(self.ncols):    
-                if self.matrix[row][col].selected == False: #check to see if tile is active or not to determine color and assign to curser_color
+            for col in range(self.ncols):
+                #check to see if tile is active or not to determine color and assign
+                # to curser_color
+                if self.matrix[row][col].selected == False: 
                     curser_color = self.matrix[row][col].color
                 else: 
                     curser_color = self.matrix[row][col].alt_color
-                #print("selected, curser color:", self.matrix[row][col].selected, curser_color)
                 pygame.draw.rect(  self.screen,
                                    curser_color,
-                                   [(params.FIELD_RECT[0] + row * (params.TILE_SIZE + params.MARGIN)),
-                                    (params.FIELD_RECT[1] + col * (params.TILE_SIZE + params.MARGIN)),
-                                    params.TILE_SIZE,
-                                    params.TILE_SIZE] )
+                                   [(FIELD_RECT[0] + row * (TILE_SIZE + MARGIN)),
+                                    (FIELD_RECT[1] + col * (TILE_SIZE + MARGIN)),
+                                    TILE_SIZE,
+                                    TILE_SIZE] )
         
     def update_unit_pos(self): 
         # reconfigure grid with new unit locations
@@ -376,16 +376,19 @@ class TileGrid:
     #### Grid Helper Utilities   
     
     def coord_to_grid(self, pos):
-        """ returns grid location based on sprite pos(x,y) for test purposes of clicked location """
-        coord = (  int((pos[0] - params.FIELD_RECT[0]) / (params.TILE_SIZE + params.MARGIN)),
-                           int((pos[1] - params.FIELD_RECT[1]) / (params.TILE_SIZE + params.MARGIN)))
+        """ returns grid location based on sprite pos(x,y) for test purposes of 
+            clicked location 
+        """
+        coord = (  int((pos[0] - FIELD_RECT[0]) / (TILE_SIZE + MARGIN)),
+                           int((pos[1] - FIELD_RECT[1]) / (TILE_SIZE + MARGIN)))
         #print(  "click pos:", pos, " grid pos:", self.selected)        
         return(coord)
     
     def in_field(self, pos):
         """ verify if clicked pos is in playable grid area  - returns True/False """
         loc = self.coord_to_grid(pos)
-        if loc[0] < 0 or loc[0] >= params.GRID_SIZE[0] or loc[1] < 0 or loc[1] >= params.GRID_SIZE[1]:
+        if loc[0] < 0 or loc[0] >= GRID_SIZE[0] or \
+           loc[1] < 0 or loc[1] >= GRID_SIZE[1]:
             #print("you missed the grid")
             return(False)
         else:
@@ -417,7 +420,8 @@ class TileGrid:
             for col in range(0, self.ncols):
                 if self.matrix[row][col].contents != []:
                     col_output += " u"
-                elif not self.matrix[row][col].contents and self.matrix[row][col].terrain_type == "water":
+                elif not self.matrix[row][col].contents and \
+                         self.matrix[row][col].terrain_type == "water":
                     col_output += " -"
                 else: #default is grass
                     if self.matrix[row][col].selected == True:
@@ -861,11 +865,9 @@ class PlayerCommand:
         
     def msg_to_player(self, screen):
         """ tracks and handles messages to player """
-        my_font = pygame.font.SysFont('arial', 24)
         message1_sf = my_font.render(self.player_msg, True, Color('white'))
         screen.blit(message1_sf, (20, 550, 800, 600))
         """ tick counter """
-        my_font = pygame.font.SysFont('arial', 24)
         message1_sf = my_font.render(self.tick_counter, True, Color('white'))
         screen.blit(message1_sf, (20, 20, 800, 600))        
     
@@ -905,7 +907,9 @@ class PlayerCommand:
     def draw_rimmed_box(self, screen, box_rect, box_color, 
                         rim_width=0, 
                         rim_color=Color('black')):
-        """ Draw a rimmed box on the given surface. The rim is drawn outside the box rect. """
+        """ Draw a rimmed box on the given surface. 
+            The rim is drawn outside the box rect. 
+        """
         if rim_width:
             rim_rect = Rect(box_rect.left - rim_width,
                             box_rect.top - rim_width,
@@ -917,7 +921,8 @@ class PlayerCommand:
     def in_field(self, pos):
         """ verify if clicked pos is in playable grid area  - returns True/False """
         loc = self.coord_to_grid(pos)
-        if loc[0] < 0 or loc[0] >= self.x or loc[1] < 0 or loc[1] >= params.GRID_SIZE[1]:
+        if loc[0] < 0 or loc[0] >= self.x or loc[1] < 0 or \
+           loc[1] >= GRID_SIZE[1]:
             #print("you missed the player_command grid")
             return(False)
         else:
