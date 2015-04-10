@@ -3,7 +3,8 @@ import pygame
 from pygame import Color, Rect
 from pygame.sprite import Sprite
 import os
-from params import my_font, FIELD_RECT, TILE_SIZE, MARGIN, GRID_SIZE
+from params import DEFAULT_GAME_FONT, FIELD_RECT, \
+                   TILE_SIZE, MARGIN, GRID_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT
 from random import randint, choice
 from images_lib import (  LT_GRAY , WHITE, GREEN, MDW_GREEN)
 import PygButton
@@ -17,9 +18,11 @@ from messages import HERO_WINS, ENEMY_WINS
     - how likely it is for a unit to have a successful defense
 """
 
-# number of starting players (can go up to 8, but not beyond that as there are only 8 color choices
+# number of starting players (can go up to 8, but not beyond that as there 
+# are only 8 color choices
 players_start_qty = 2 
-player_colors = ("red", "green", "blue", "gray", "yellow", "brown", "purple", "white") 
+player_colors = ("red", "green", "blue", "gray", 
+                 "yellow", "brown", "purple", "white") 
 used_player_colors = []
 player_unit_counter = 0
 _image_library = {}
@@ -32,7 +35,9 @@ player_unit = {  "red" : "images/red_tank.png",
                  "brown" : "images/brown_tank.png",
                  "purple" : "images/purple_tank.png",
                  "white": "images/white_tank.png"  }
-B_rnd = {"green": "images/btn_green.png", "gray": "images/btn_gray.png", "red": "images/btn_red.png"}
+B_rnd = {"green": "images/btn_green.png", 
+         "gray": "images/btn_gray.png", 
+         "red": "images/btn_red.png"}
 dice = dice.Dice()
 player_info_area = (605, 165, 20, 20)
 
@@ -54,27 +59,37 @@ class Unit(Sprite):
         """ Notes:
         """
         Sprite.__init__(self)
-        self.loc = () # location in grid (in coordinates)
+         # location in grid (in coordinates)
+        self.loc = ()
         self.txt_status = "Standing By"
-        self.color = LT_GRAY # can be replaced with image
+        # can be replaced with image
+        self.color = LT_GRAY 
         self.alt_color = WHITE
-        self.state = True # (bool) True: alive False: dead
-        #print("I made me a man, and his name is Jim")
-        self.active = False # True: unit has been clicked on by user
+        # (bool) True: alive False: dead
+        self.state = True 
+        # True: unit has been clicked on by user
+        self.active = False 
         self.place_unit()
-        self.targ_tile = self.loc # tile unit is moving into (in coordinates) - default is current location
-        self.selected = False # indicates a unit is clicked on by player         # NOTE: same variable as self.active!!!
+        # tile unit is moving into (in coordinates) - default is current location
+        self.targ_tile = self.loc
+        # indicates a unit is clicked on by player   
+        # NOTE: same variable as self.active!!!
+        self.selected = False
         self.screen = screen
         self.health = 3
         self.max_health = 3
         self.image = PAWN_IMG
         self.image_h = 18
         self.image_w = 18
-        self.info_msg1 = "Unit: Warrior" # this string that will print out for the player containing unit type and name
-        self.info_msg2 = "   3/3   " + str(self.loc) # this string that will print out for the player containing status info
+        # this string that will print out for the player containing unit type and name
+        self.info_msg1 = "Unit: Warrior" 
+        # this string that will print out for the player containing status 
+        # info
+        self.info_msg2 = "   3/3   " + str(self.loc) 
         self.unit_no = unit_no
         self.unit_btns = []
-        self.max_swings = 2 # standard training = 1 offensive & 1 defense swing (interchangeable)
+        # standard training = 1 offensive & 1 defense swing (interchangeable)
+        self.max_swings = 2 
         self.swings_used = 0
         self.in_melee = False
         self.initiative = 1
@@ -90,10 +105,14 @@ class Unit(Sprite):
     
     @staticmethod
     def move_to_target(grid, unit):
-        """  Generates new position based upon target location and current position.
-             unit: unit to be moved, can get current location and target location
-             NOTE: don't forget to update grid contents at some point & verify new position is legal
-             CONSIDER: if pass grid_map variable name, can update Tile_grid.matrix[x,y] contents
+        """  Generates new position based upon target location and current 
+             position. 
+             unit: unit to be moved, can get current location and target 
+                   location
+             NOTE: don't forget to update grid contents at some point & 
+                   verify new position is legal
+             CONSIDER: if pass grid_map variable name, can update 
+                    Tile_grid.matrix[x,y] contents
         """
         old_x = unit.loc[0]
         old_y = unit.loc[1]
@@ -112,7 +131,8 @@ class Unit(Sprite):
     def movement(grid, player_grp):
         """ overall calculations for unit movement phase
             - currently activated by button event
-            unit: unit to be moved, can get current location and target location
+            unit: unit to be moved, can get current location and target 
+                  location
             grid: grid_map name to update Tile_grid.matrix[x,y] contents
         """
         
@@ -152,7 +172,10 @@ class Unit(Sprite):
     
     @staticmethod
     def update_grid_pos(grid, unit, next_loc, old_x, old_y):
-        """ place unit position into matrix and remove from previous matrix record """ # NOTE: check to see if spot taken first
+        """ place unit position into matrix and remove from previous matrix 
+            record 
+            NOTE: check to see if spot taken first
+        """ 
         tile = grid.matrix[unit.loc[0]][unit.loc[1]]
         if unit in grid.matrix[old_x][old_y].contents: 
             grid.matrix[old_x][old_y].contents.remove(unit)
@@ -166,33 +189,45 @@ class Unit(Sprite):
         self.txt_status = "Target Acquired"
         
     def assign_unit_color_units(self, player_color):
-        """ assign basic unit based upon player color and create activate button """
+        """ assign basic unit based upon player color and create activate 
+            button 
+        """
         self.image = player_unit[player_color]
         self.make_btn_row()
         #print("unit no:", self.unit_no)
         
     def make_btn_row(self):
         """ create a row of buttons for each unit """
-        temp_btn = PygButton.PygButton(rect=(605,(170 + 48 * self.unit_no),15,20), normal = self.image, unit=self, caption="A") # assign activate button for display
+        # assign activate button for display
+        temp_btn = PygButton.PygButton(rect=(605,
+                                             (170 + 48 * self.unit_no),
+                                             15,
+                                             20), 
+                                       normal = self.image, 
+                                       unit=self, caption="A") 
         self.unit_btns.append(temp_btn)
+        # assign activate button for display  
         temp_btn = PygButton.PygButton(  rect=(700,(170 + 48 * self.unit_no),15,20),
                                          caption = "B",
                                          normal = B_rnd["gray"],
                                          down = B_rnd["green"],
                                          highlight = B_rnd["red"],
-                                         unit=self) # assign activate button for display  
+                                         unit=self) 
         self.unit_btns.append(temp_btn)
 
     def place_unit(self):
         """ set initial coordinates in tile_map during unit creation 
-            Right now, I'm just picking a random tile with the hope of no duplication
-            """
+            Right now, I'm just picking a random tile with the hope of no 
+            duplication
+        """
         #self.loc = (randint(0, params.GRID_SIZE[0]), randint(0, params.GRID_SIZE[1])) # location in grid
         pixel_loc = (randint(0, FIELD_RECT[2]), randint(0, FIELD_RECT[3])) # location in pixels based on field size
         self.loc = self.coord_to_grid(pixel_loc) # convert to grid coordinates  
         
     def coord_to_grid(self, pos):
-        """ returns grid location based on sprite pos(x,y) for test purposes of clicked location """
+        """ returns grid location based on sprite pos(x,y) for test purposes 
+            of clicked location 
+        """
         coord = (  int((pos[0] - FIELD_RECT[0]) / (TILE_SIZE + MARGIN)),
                            int((pos[1] - FIELD_RECT[1]) / (TILE_SIZE + MARGIN)))
         #print(  "click pos:", pos, " grid pos:", self.selected)        
@@ -201,7 +236,8 @@ class Unit(Sprite):
     def is_unit_selected(self, coord): 
         """ see if unit has been checked on 
             coord: grid tile position
-            NOT WORKING PROPERLY - unit location not lining up with grid coordinates
+            NOT WORKING PROPERLY - unit location not lining up with grid 
+            coordinates
         """
         if coord == self.loc:
             #print("bingo, in tile #:", coord)
@@ -857,7 +893,7 @@ class PlayerCommand:
         self.width = 20
         self.offset = 0
         self.back_color = "black"
-        self.message_rect = Rect(600, 0, 800, 600)
+        self.message_rect = Rect(600, 0, SCREEN_WIDTH, SCREEN_HEIGHT)
         self.message_size = (int(self.message_rect[2])-self.message_rect[0], int(self.message_rect[3]))
         self.unit_group_rect = Rect(630, 150, 15, 15)
         self.player_msg = "Player message here"
@@ -865,22 +901,22 @@ class PlayerCommand:
         
     def msg_to_player(self, screen):
         """ tracks and handles messages to player """
-        message1_sf = my_font.render(self.player_msg, True, Color('white'))
-        screen.blit(message1_sf, (20, 550, 800, 600))
+        message1_sf = DEFAULT_GAME_FONT.render(self.player_msg, True, Color('white'))
+        screen.blit(message1_sf, (20, 550, SCREEN_WIDTH, SCREEN_HEIGHT))
         """ tick counter """
-        message1_sf = my_font.render(self.tick_counter, True, Color('white'))
-        screen.blit(message1_sf, (20, 20, 800, 600))        
-    
+        message2_sf = DEFAULT_GAME_FONT.render(self.tick_counter, True, Color('white'))
+        screen.blit(message2_sf, (20, 20, SCREEN_WIDTH, SCREEN_HEIGHT))        
+        
     def draw_messageboard(self, screen):
         self.draw_rimmed_box(screen, self.message_rect, (self.x, self.width, self.offset), 4, Color(self.back_color))
-        my_font = pygame.font.SysFont('arial', 18)
-        message1_sf = my_font.render(self.msg1, True, Color('white'))
-        message2_sf = my_font.render(self.msg2, True, Color('white'))
-        message3_sf = my_font.render(self.msg3, True, Color('white'))
+        DEFAULT_GAME_FONT = pygame.font.SysFont('arial', 18)
+        message1_sf = DEFAULT_GAME_FONT.render(self.msg1, True, Color('white'))
+        message2_sf = DEFAULT_GAME_FONT.render(self.msg2, True, Color('white'))
+        message3_sf = DEFAULT_GAME_FONT.render(self.msg3, True, Color('white'))
         message4 = "Heroes: " + str(HERO_WINS)
-        message4_sf = my_font.render(message4, True, Color('white'))
+        message4_sf = DEFAULT_GAME_FONT.render(message4, True, Color('white'))
         message5 = "Enemies: " + str(ENEMY_WINS)  
-        message5_sf = my_font.render(message5, True, Color('white'))
+        message5_sf = DEFAULT_GAME_FONT.render(message5, True, Color('white'))
         screen.blit(message1_sf, self.message_rect.move(0, message1_sf.get_height()))
         screen.blit(message2_sf, self.message_rect.move(0, message2_sf.get_height()*2))  
         screen.blit(message3_sf, self.message_rect.move(0, message2_sf.get_height()*3))  
@@ -890,13 +926,17 @@ class PlayerCommand:
         
     def draw_player_units(self, screen, unit_group):
         """ blits player unit text to output display window """
-        self.draw_rimmed_box(screen, Rect(600, 150, 800, 600), (self.x, self.width, self.offset), 4, Color(self.back_color))
-        my_font = pygame.font.SysFont('arial', 12)
+        self.draw_rimmed_box(screen, Rect(600, 150, 
+                            SCREEN_WIDTH, SCREEN_HEIGHT), 
+                             (self.x, self.width, self.offset), 
+                             4, 
+                             Color(self.back_color))
+        DEFAULT_GAME_FONT = pygame.font.SysFont('arial', 12)
         offset = 0
         for unit in unit_group:
-            message1_sf = my_font.render(unit.info_msg1, True, Color('white'))
-            message1_status = my_font.render(unit.txt_status, True, Color('white'))
-            message2_sf = my_font.render(unit.info_msg2, True, Color('white'))
+            message1_sf = DEFAULT_GAME_FONT.render(unit.info_msg1, True, Color('white'))
+            message1_status = DEFAULT_GAME_FONT.render(unit.txt_status, True, Color('white'))
+            message2_sf = DEFAULT_GAME_FONT.render(unit.info_msg2, True, Color('white'))
             screen.blit(message1_sf, self.unit_group_rect.move(0, message1_sf.get_height()*1 + offset*24))
             screen.blit(message1_status, self.unit_group_rect.move(100, message1_status.get_height()*1 + offset*24))
             screen.blit(message2_sf, self.unit_group_rect.move(0, message2_sf.get_height()*2 + offset*24))

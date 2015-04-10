@@ -1,10 +1,13 @@
 #Max Line Length(79)##########################################################
 import pygame
-from params import SCREEN_HEIGHT, SCREEN_WIDTH
+from params import SCREEN_HEIGHT, SCREEN_WIDTH, DEFAULT_GAME_FONT
 from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
 from PygButton import Btn_grp
 
+class GameFrame:
+    def __init__(self):
+        self.currentScreen = 0
 class Screen:        
     def __init__(self):
         # create screen area for tiles
@@ -20,12 +23,6 @@ class Screen:
         # with what we've set to be drawn
         pygame.display.flip() 
         
-class TitleScreen(Screen):
-    def __init__(self):
-        return
-    def render(self):
-        self.screen.fill(BLACK) 
-        super.render()
 class GameScreen(Screen):
     def __init__(self):
         Screen.__init__(self)
@@ -128,7 +125,6 @@ class GameScreen(Screen):
         """ returns true if program should continue execution
             returns false if program should halt
         """
-        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:           
                 pygame.quit()
@@ -140,7 +136,7 @@ class GameScreen(Screen):
             GameScreen.button_events(self,event)     
         return True
     
-class StartScreen(Screen):
+class TitleScreen(Screen):
     def __init__(self):
         # create screen area
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
@@ -151,12 +147,17 @@ class StartScreen(Screen):
         background.fill((0, 0, 0))
         self.buttons = Btn_grp()
         
+        
     def update_all(self):
         """ update & put on screen """
         self.screen.fill(BLACK) # Set the screen background
         #print("update done") #TEST: works
         
     def render(self):
+        message1_sf = DEFAULT_GAME_FONT.render("TITLE SCREEN", 
+                                               True, 
+                                               pygame.Color('white'))
+        self.screen.blit(message1_sf, (300, 250, SCREEN_WIDTH, SCREEN_HEIGHT))
         # Go ahead and update the screen with what we've set to be drawn
         pygame.display.flip() 
         
@@ -168,4 +169,37 @@ class StartScreen(Screen):
             if event.type == pygame.QUIT:
                 pygame.quit()
                 return False 
-        return True    
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    global currentScreen
+                    currentScreen = GameScreen()
+                    return True
+        return True
+
+currentScreen = TitleScreen()
+
+# def turn_check():
+#     """ if enough ticks pass, update all """
+#     params.TICK += 1
+#     player_command.tick_counter = str(params.TICK // params.GAME_SPEED)
+#     if params.TICK % params.GAME_SPEED == 0:
+#         Unit.movement(grid_map, players)
+#         player_command.player_msg = ""    
+
+def main():
+    pygame.init()
+    clock = pygame.time.Clock()
+    pygame.display.set_caption('Project Alpha')
+    #icon = pygame.image.load("test_icon.jpg").convert_alpha()        
+    #pygame.display.set_icon(icon)  
+    
+    while 1:
+#         turn_check()
+        if not currentScreen.handle_events():
+            return
+        currentScreen.update_all()
+         # Limit to 20 frames per second
+        clock.tick(20)
+        currentScreen.render()
+
+if __name__ == '__main__': main()
