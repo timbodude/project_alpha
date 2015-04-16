@@ -34,6 +34,9 @@ class Image_lib(object):
         #main screen background tile
         #self.BG_TILE_IMG = "images/brick_tile.png"
         
+        self.WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
+        self.welcome_screen_background = pygame.image.load(self.WELCOME_SCREEN_BACKGROUND).convert_alpha() 
+        
         self.BATTLE_GRID_IMG = "images/Background-Image.png"
         self.battle_grid_img = pygame.image.load(self.BATTLE_GRID_IMG).convert_alpha() 
         

@@ -16,8 +16,8 @@ def main():
     #icon = pygame.image.load("test_icon.jpg").convert_alpha()        
     #pygame.display.set_icon(icon)  
     
-    currentScreen = GameScreen()
-    #currentScreen = StartScreen()
+    #currentScreen = GameScreen()
+    currentScreen = StartScreen()
     
     while 1:
 #         turn_check()

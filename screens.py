@@ -1,8 +1,10 @@
 import pygame
 from params import buttons, SCREEN_HEIGHT, SCREEN_WIDTH
 from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
-from images_lib import BLACK
+from images_lib import BLACK, Image_lib
 from PygButton import Btn_grp
+
+WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
 
 class Screen:
     def render(self): 
@@ -112,25 +114,44 @@ class StartScreen(Screen):
         background = background.convert()
         background.fill((0, 0, 0))
         self.buttons = Btn_grp()
-        #print("screen button group made")  #TEST: works
-        #print("screen made")  #TEST: works
+        self.background_image = pygame.image.load(WELCOME_SCREEN_BACKGROUND).convert_alpha() 
+
+        self.buttons = Btn_grp()
+        self.buttons.new_btn(rect = (560,480,175,20),  caption = "Start the Strategery!")
         
     def update_all(self):
         """ update & put on screen """
-        self.screen.fill(BLACK) # Set the screen background
-        #print("update done") #TEST: works
+        self.screen.blit(self.background_image, [0,0]) # Set the screen background
+        self.buttons.btn_grp_update(self.screen)
         
     def render(self):
-        pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn    
+        pygame.display.flip() # Go ahead and update the screen with what we've set to be drawn
         #print("flip done") #TEST: works
         
+        
+    def usr_events(self, pos):
+        """ determine action based upon mouse & keyboard input 
+            pos: mouse position coordinates
+        """
+        print("no user events at this point")   
+        
+    def button_events(self, event):
+        for button in self.buttons.btn_list:
+            if "click" in button.handleEvent(event):
+                if button.caption == "MAKE IT SO!":
+                    #do something 
+                    print("I made it so")
+
     def handle_events(self):
         """ returns true if program should continue execution
             returns false if program should halt
         """
-        
         for event in pygame.event.get():
             if event.type == pygame.QUIT:           
                 pygame.quit()
                 return False 
+            elif event.type == pygame.MOUSEBUTTONDOWN: # User clicks the mouse. Get the position
+                StartScreen.usr_events(self,pygame.mouse.get_pos())
+            """ check for user-related button events """
+            StartScreen.button_events(self,event)     
         return True    
