@@ -138,6 +138,48 @@ class GameScreen(Screen):
             """ check for user-related button events """
             GameScreen.button_events(self,event)     
         return True
+
+class OptionsScreen(Screen):
+    def __init__(self):
+        # create screen area
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
+                                              0, 32) 
+        # Fill background
+        background = pygame.Surface(self.screen.get_size())
+        background = background.convert()
+        background.fill((0, 0, 0))
+        self.buttons = Btn_grp()
+        
+        
+    def update_all(self):
+        """ update & put on screen """
+        self.screen.fill(BLACK) # Set the screen background
+        #print("update done") #TEST: works
+        
+    def render(self):
+        message1_sf = DEFAULT_GAME_FONT.render("OPTIONS SCREEN", 
+                                               True, 
+                                               pygame.Color('white'))
+        self.screen.blit(message1_sf, (300, 250, SCREEN_WIDTH, SCREEN_HEIGHT))
+        # Go ahead and update the screen with what we've set to be drawn
+        pygame.display.flip() 
+        
+    def handle_events(self):
+        """ returns true if the program should continue execution
+            returns false if the program should halt
+        """
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return False 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    global currentScreen
+                    currentScreen = GameScreen()
+                    return True
+        return True
+    
+    
     
 class TitleScreen(Screen):
     def __init__(self):
@@ -174,7 +216,7 @@ class TitleScreen(Screen):
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     global currentScreen
-                    currentScreen = GameScreen()
+                    currentScreen = OptionsScreen()
                     return True
         return True
     
