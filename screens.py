@@ -5,6 +5,9 @@ from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
 from PygButton import Btn_grp
 
+WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
+TITLE_SCREEN_BUTTON_TEXT = "Start the Strategery!"
+
 class GameFrame:
     def __init__(self):
         self.currentScreen = 0
@@ -145,20 +148,19 @@ class TitleScreen(Screen):
         background = pygame.Surface(self.screen.get_size())
         background = background.convert()
         background.fill((0, 0, 0))
-        self.buttons = Btn_grp()
+        self.background_image = pygame.image.load(WELCOME_SCREEN_BACKGROUND).convert_alpha()
         
+        self.buttons = Btn_grp()
+        self.buttons.new_btn(rect = (560,480,175,20),  caption = TITLE_SCREEN_BUTTON_TEXT)
         
     def update_all(self):
         """ update & put on screen """
-        self.screen.fill(BLACK) # Set the screen background
+        self.buttons.btn_grp_update(self.screen)
         #print("update done") #TEST: works
         
     def render(self):
-        message1_sf = DEFAULT_GAME_FONT.render("TITLE SCREEN", 
-                                               True, 
-                                               pygame.Color('white'))
-        self.screen.blit(message1_sf, (300, 250, SCREEN_WIDTH, SCREEN_HEIGHT))
         # Go ahead and update the screen with what we've set to be drawn
+        self.screen.blit(self.background_image, [0,0]) # Set the screen backgroundd
         pygame.display.flip() 
         
     def handle_events(self):
@@ -175,6 +177,13 @@ class TitleScreen(Screen):
                     currentScreen = GameScreen()
                     return True
         return True
+    
+    def button_events(self, event):
+        for button in self.buttons.btn_list:
+            if "click" in button.handleEvent(event):
+                if button.caption == TITLE_SCREEN_BUTTON_TEXT:
+                    #do something 
+                    print("I made it so")
 
 currentScreen = TitleScreen()
 
