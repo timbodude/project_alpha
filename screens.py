@@ -1,8 +1,14 @@
+#Max Line Length(79)##########################################################
 import pygame
 from params import SCREEN_HEIGHT, SCREEN_WIDTH, DEFAULT_GAME_FONT
 from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
 from PygButton import Btn_grp
+
+
+#WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
+#TITLE_SCREEN_BUTTON_TEXT = "Start the Strategery!"
+
 
 class GameFrame:
     def __init__(self):
@@ -134,8 +140,8 @@ class GameScreen(Screen):
             """ check for user-related button events """
             GameScreen.button_events(self,event)     
         return True
-    
-class TitleScreen(Screen):
+
+class OptionsScreen(Screen):
     def __init__(self):
         # create screen area
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
@@ -153,7 +159,8 @@ class TitleScreen(Screen):
         #print("update done") #TEST: works
         
     def render(self):
-        message1_sf = DEFAULT_GAME_FONT.render("TITLE SCREEN", 
+        #message1_sf = DEFAULT_GAME_FONT.render("TITLE SCREEN", 
+        message1_sf = DEFAULT_GAME_FONT.render("OPTIONS SCREEN", 
                                                True, 
                                                pygame.Color('white'))
         self.screen.blit(message1_sf, (300, 250, SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -174,6 +181,57 @@ class TitleScreen(Screen):
                     currentScreen = GameScreen()
                     return True
         return True
+    
+    
+    
+class TitleScreen(Screen):
+    def __init__(self):
+        # create screen area
+        self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
+                                              0, 32) 
+        # Fill background
+        background = pygame.Surface(self.screen.get_size())
+        background = background.convert()
+        background.fill((0, 0, 0))
+        self.background_image = pygame.image.load(WELCOME_SCREEN_BACKGROUND).convert_alpha()
+        
+        self.buttons = Btn_grp()
+        self.buttons.new_btn(rect = (560,480,175,20),  caption = TITLE_SCREEN_BUTTON_TEXT)
+        
+    def update_all(self):
+        """ update & put on screen """
+        self.buttons.btn_grp_update(self.screen)
+        #print("update done") #TEST: works
+        
+    def render(self):
+        # Go ahead and update the screen with what we've set to be drawn
+        self.screen.blit(self.background_image, [0,0]) # Set the screen backgroundd
+        pygame.display.flip() 
+        
+    def handle_events(self):
+        """ returns true if the program should continue execution
+            returns false if the program should halt
+        """
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                return False 
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    global currentScreen
+                    currentScreen = GameScreen()
+                    return True
+        #return True
+                    #currentScreen = OptionsScreen()
+                    #return True
+        #return True
+    
+    def button_events(self, event):
+        for button in self.buttons.btn_list:
+            if "click" in button.handleEvent(event):
+                if button.caption == TITLE_SCREEN_BUTTON_TEXT:
+                    #do something 
+                    print("I made it so")
 
 currentScreen = TitleScreen()
 
@@ -202,3 +260,4 @@ def main():
         currentScreen.render()
 
 if __name__ == '__main__': main()
+
