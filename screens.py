@@ -4,6 +4,7 @@ from params import SCREEN_HEIGHT, SCREEN_WIDTH, DEFAULT_GAME_FONT
 from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
 from PygButton import Btn_grp
+#import inputbox
 
 
 #WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
@@ -164,6 +165,8 @@ class OptionsScreen(Screen):
                                                True, 
                                                pygame.Color('white'))
         self.screen.blit(message1_sf, (300, 250, SCREEN_WIDTH, SCREEN_HEIGHT))
+        answer = ask(self.screen, "IP Address")
+        print(answer)
         # Go ahead and update the screen with what we've set to be drawn
         pygame.display.flip() 
         
@@ -181,8 +184,6 @@ class OptionsScreen(Screen):
                     currentScreen = GameScreen()
                     return True
         return True
-    
-    
     
 class TitleScreen(Screen):
     def __init__(self):
@@ -232,6 +233,53 @@ class TitleScreen(Screen):
                 if button.caption == TITLE_SCREEN_BUTTON_TEXT:
                     #do something 
                     print("I made it so")
+                    
+def get_key():
+    while 1:
+        event = pygame.event.poll()
+        if event.type == pygame.QUIT:
+            pygame.quit()
+            return False 
+        elif event.type == pygame.KEYDOWN:
+            return event.key
+        else:
+            pass
+
+def display_box(screen, message):
+    "Print a message in a box in the middle of the screen"
+    fontobject = pygame.font.Font(None,18)
+    pygame.draw.rect(screen, (0,0,0),
+                       ((screen.get_width() / 2) - 100,
+                        (screen.get_height() / 2) - 10,
+                        200,20), 0)
+    pygame.draw.rect(screen, (255,255,255),
+                       ((screen.get_width() / 2) - 102,
+                        (screen.get_height() / 2) - 12,
+                        204,24), 1)
+    if len(message) != 0:
+        screen.blit(fontobject.render(message, 1, (255,255,255)),
+                    ((screen.get_width() / 2) - 100, (screen.get_height() / 2) - 10))
+    pygame.display.flip()
+
+def ask(screen, question):
+    "ask(screen, question) -> answer"
+    pygame.font.init()
+    current_string = []
+    display_box(screen, question + ": " + pygame.string.join(current_string,""))
+    while 1:
+        inkey = get_key()
+        if inkey == pygame.K_BACKSPACE:
+            current_string = current_string[0:-1]
+        elif inkey == pygame.K_RETURN:
+            global currentScreen
+            currentScreen = GameScreen()
+            break
+        elif inkey == pygame.K_MINUS:
+            current_string.append("_")
+        elif inkey <= 127:
+            current_string.append(chr(inkey))
+        display_box(screen, question + ": " + pygame.string.join(current_string,""))
+    return pygame.string.join(current_string,"")
 
 currentScreen = TitleScreen()
 
