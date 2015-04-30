@@ -6,10 +6,6 @@ from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
 from PygButton import Btn_grp
 
-
-WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
-TITLE_SCREEN_BUTTON_TEXT = "Start the Strategery!"
-
 class GameFrame:
     def __init__(self):
         self.currentScreen = 0
@@ -29,6 +25,11 @@ class Screen:
         pygame.display.flip() 
         
 class GameScreen(Screen):
+    SMALL_BUTTON_GREEN = "images/btn_green.png"
+    SMALL_BUTTON_GRAY = "images/btn_gray.png"
+    SMALL_BUTTON_RED = "images/btn_red.png"
+    TEST_IMAGE = "images/white_tank.png"
+    
     def __init__(self):
         Screen.__init__(self)
         
@@ -50,20 +51,15 @@ class GameScreen(Screen):
         
         self.buttons = Btn_grp()
         
-        test_img = "images/white_tank.png"
-        B_rnd = {"green": "images/btn_green.png", 
-                 "gray": "images/btn_gray.png", 
-                 "red": "images/btn_red.png"}
-        
         self.buttons.new_btn(rect = (750,500,18,24), 
                              caption = "hi", 
-                             normal = test_img)
-        self.buttons.new_btn(rect =(650,500,18,24), normal = test_img)
+                             normal = GameScreen.TEST_IMAGE)
+        self.buttons.new_btn(rect =(650,500,18,24), normal = GameScreen.TEST_IMAGE)
         self.buttons.new_btn( rect = (690,500,10,10), 
                               caption = "B", 
-                              normal = B_rnd["gray"], 
-                              down = B_rnd["green"], 
-                              highlight = B_rnd["red"] )
+                              normal = GameScreen.SMALL_BUTTON_GRAY, 
+                              down = GameScreen.SMALL_BUTTON_GREEN, 
+                              highlight = GameScreen.SMALL_BUTTON_RED)
         self.buttons.new_btn(rect = (625,550,150,20),  
                              caption = "MAKE IT SO!")
     
@@ -142,6 +138,9 @@ class GameScreen(Screen):
         return True
 
 class OptionsScreen(Screen):
+    CREATE_SERVER_BUTTON_TEXT = "Create Server"
+    JOIN_SERVER_BUTTON_TEXT = "Connect to Server"
+    
     def __init__(self):
         # create screen area
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
@@ -152,9 +151,9 @@ class OptionsScreen(Screen):
         background.fill((0, 0, 0))
         self.buttons = Btn_grp()
         self.buttons.new_btn( rect = (250,350,120,20), 
-                              caption = "Create Server" )
+                              caption = OptionsScreen.CREATE_SERVER_BUTTON_TEXT)
         self.buttons.new_btn( rect = (400,350,160,20), 
-                              caption = "Connect to Server" )
+                              caption = OptionsScreen.JOIN_SERVER_BUTTON_TEXT)
         
     def update_all(self):
         """ update & put on screen """
@@ -204,8 +203,20 @@ class OptionsScreen(Screen):
                     currentScreen = GameScreen()
                     return True
         return True
-    
+    def button_events(self, event):
+        # check for clicks on a button 
+        # (not in mousebuttondown to allow for mouseover highlight)         
+        for button in self.buttons.btn_list:
+            if "click" in button.handleEvent(event):
+                if button.caption == OptionsScreen.CREATE_SERVER_BUTTON_TEXT:
+                    print("create server placeholder")
+                if button.caption == OptionsScreen.JOIN_SERVER_BUTTON_TEXT:
+                    print("join server placeholder")
+
 class TitleScreen(Screen):
+    WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
+    TITLE_SCREEN_BUTTON_TEXT = "Start the Strategery!"
+    
     def __init__(self):
         # create screen area
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 
@@ -214,10 +225,10 @@ class TitleScreen(Screen):
         background = pygame.Surface(self.screen.get_size())
         background = background.convert()
         background.fill((0, 0, 0))
-        self.background_image = pygame.image.load(WELCOME_SCREEN_BACKGROUND).convert_alpha()
+        self.background_image = pygame.image.load(TitleScreen.WELCOME_SCREEN_BACKGROUND).convert_alpha()
         
         self.buttons = Btn_grp()
-        self.buttons.new_btn(rect = (560,480,175,20),  caption = TITLE_SCREEN_BUTTON_TEXT)
+        self.buttons.new_btn(rect = (560,480,175,20),  caption = TitleScreen.TITLE_SCREEN_BUTTON_TEXT)
         
     def update_all(self):
         """ update & put on screen """
@@ -226,7 +237,7 @@ class TitleScreen(Screen):
         
     def render(self):
         # Go ahead and update the screen with what we've set to be drawn
-        self.screen.blit(self.background_image, [0,0]) # Set the screen backgroundd
+        self.screen.blit(self.background_image, [0,0]) # Set the screen background
         pygame.display.flip() 
         
     def handle_events(self):
@@ -248,7 +259,7 @@ class TitleScreen(Screen):
     def button_events(self, event):
         for button in self.buttons.btn_list:
             if "click" in button.handleEvent(event):
-                if button.caption == TITLE_SCREEN_BUTTON_TEXT:
+                if button.caption == TitleScreen.TITLE_SCREEN_BUTTON_TEXT:
                     #do something 
                     print("I made it so")
                     
