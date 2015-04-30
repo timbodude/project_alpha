@@ -131,7 +131,7 @@ class GameScreen(Screen):
             returns false if program should halt
         """
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:           
+            if event.type == pygame.QUIT:
                 pygame.quit()
                 return False
             # User clicks the mouse. Get the position
@@ -151,11 +151,15 @@ class OptionsScreen(Screen):
         background = background.convert()
         background.fill((0, 0, 0))
         self.buttons = Btn_grp()
-        
+        self.buttons.new_btn( rect = (250,350,120,20), 
+                              caption = "Create Server" )
+        self.buttons.new_btn( rect = (400,350,160,20), 
+                              caption = "Connect to Server" )
         
     def update_all(self):
         """ update & put on screen """
         self.screen.fill(BLACK) # Set the screen background
+        self.buttons.btn_grp_update(self.screen)
         
     def render(self): 
         message1_sf = DEFAULT_GAME_FONT.render("OPTIONS SCREEN", 
