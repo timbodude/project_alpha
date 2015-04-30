@@ -7,9 +7,8 @@ from PygButton import Btn_grp
 #import inputbox
 
 
-#WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
-#TITLE_SCREEN_BUTTON_TEXT = "Start the Strategery!"
-
+WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
+TITLE_SCREEN_BUTTON_TEXT = "Start the Strategery!"
 
 class GameFrame:
     def __init__(self):
@@ -215,17 +214,15 @@ class TitleScreen(Screen):
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                print("quitting...")
                 pygame.quit()
                 return False 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_RETURN:
                     global currentScreen
-                    currentScreen = GameScreen()
+                    currentScreen = OptionsScreen()
                     return True
-        #return True
-                    #currentScreen = OptionsScreen()
-                    #return True
-        #return True
+        return True
     
     def button_events(self, event):
         for button in self.buttons.btn_list:
@@ -299,11 +296,11 @@ def main():
     #pygame.display.set_icon(icon)  
     
     while 1:
-#         turn_check()
+#        turn_check()
         if not currentScreen.handle_events():
             return
         currentScreen.update_all()
-         # Limit to 20 frames per second
+        # Limit to 20 frames per second
         clock.tick(20)
         currentScreen.render()
 
