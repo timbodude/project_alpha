@@ -1,10 +1,10 @@
 #Max Line Length(79)##########################################################
 import pygame
+import socket
 from params import SCREEN_HEIGHT, SCREEN_WIDTH, DEFAULT_GAME_FONT
 from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
 from PygButton import Btn_grp
-#import inputbox
 
 
 WELCOME_SCREEN_BACKGROUND = "images/WelcomeScreen_color.jpg"
@@ -156,16 +156,33 @@ class OptionsScreen(Screen):
     def update_all(self):
         """ update & put on screen """
         self.screen.fill(BLACK) # Set the screen background
-        #print("update done") #TEST: works
         
-    def render(self):
-        #message1_sf = DEFAULT_GAME_FONT.render("TITLE SCREEN", 
+    def render(self): 
         message1_sf = DEFAULT_GAME_FONT.render("OPTIONS SCREEN", 
                                                True, 
                                                pygame.Color('white'))
         self.screen.blit(message1_sf, (300, 250, SCREEN_WIDTH, SCREEN_HEIGHT))
-        answer = ask(self.screen, "IP Address")
-        print(answer)
+        IPaddr = ask(self.screen, "IP Address")
+        
+        ################################################ Server Code####################################
+        serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        serversocket.bind(('localhost', 8089))
+        serversocket.listen(5) # become a server socket, maximum 5 connections
+          
+        while True:
+            connection, address = serversocket.accept()
+            buf = connection.recv(64)
+            if len(buf) > 0:
+                print buf
+                break
+        ###############################################################################################
+        
+#         ################################### Client Code#################################################
+#         clientsocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         clientsocket.connect((IPaddr, 8089))
+#         clientsocket.send('If this is printed, the socket works!')
+        ################################################################################################
+        
         # Go ahead and update the screen with what we've set to be drawn
         pygame.display.flip() 
         
