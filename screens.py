@@ -1,6 +1,7 @@
 #Max Line Length(79)##########################################################
 import pygame
 import socket
+import string
 from params import SCREEN_HEIGHT, SCREEN_WIDTH, DEFAULT_GAME_FONT
 from unit import TileGrid, PlayerUnitGroup, MeleeEngine, PlayerCommand, Unit
 from images_lib import BLACK
@@ -294,7 +295,7 @@ def ask(screen, question):
     "ask(screen, question) -> answer"
     pygame.font.init()
     current_string = []
-    display_box(screen, question + ": " + pygame.string.join(current_string,""))
+    display_box(screen, question + ": " + string.join(current_string,""))
     while 1:
         inkey = get_key()
         if inkey == pygame.K_BACKSPACE:
