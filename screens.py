@@ -309,7 +309,7 @@ def ask(screen, question):
         elif inkey <= 127:
             current_string.append(chr(inkey))
         display_box(screen, question + ": " + "".join(current_string))
-    return pygame.string.join(current_string,"")
+    return "".join(current_string)
 
 currentScreen = TitleScreen()
 
